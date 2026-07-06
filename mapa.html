@@ -1,0 +1,4164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mapa Interactivo - Geografía de los Servicios </title>
+
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 40%, #2e7d32 70%, #43a047 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.45);
+      border-radius: 50%;
+      filter: blur(1px);
+      animation: floatUp 14s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) scale(.6);
+        opacity: .7;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-30vh) scale(1.3);
+        opacity: 0;
+      }
+    }
+
+    #particle-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+
+    .menu-btn {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: block;
+      }
+
+      #menu {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        background: #006847;
+        margin-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      #menu a {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      #menu.active {
+        display: flex;
+      }
+    }
+  </style>
+
+
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Firebase se inicializará en el script principal
+    window.firebaseLoaded = true;
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+  <style>
+    #map {
+      width: 100%;
+      height: 100%;
+      animation: fadeIn .7s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(.995)
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1)
+      }
+    }
+
+    .map-container {
+      height: 88vh !important;
+      min-height: 420px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: transparent !important;
+    }
+
+
+    #map-controls button {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      transition: 0.2s;
+      border-radius: 10px;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 6px 12px;
+      margin: 2px;
+    }
+
+    #map-controls button:hover {
+      transform: scale(1.03);
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    #map-controls button.active {
+      background: #F6C453;
+      color: #1e3c72;
+      border-color: #F6C453;
+    }
+
+
+    .legend-color-box {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      margin-right: 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+
+
+    #info-panel {
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+      border-radius: 12px;
+    }
+
+
+    .leaflet-interactive {
+      cursor: pointer;
+      transition: all .12s ease;
+    }
+
+    .leaflet-interactive:hover {
+      stroke-width: 4px !important;
+      filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.15));
+    }
+
+
+    .glow {
+      filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.85)) drop-shadow(0 0 18px rgba(255, 0, 0, 0.5));
+    }
+
+
+    @keyframes pulseGlow {
+      0% {
+        filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 12px rgba(255, 0, 0, 0.6));
+      }
+
+      50% {
+        filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.95)) drop-shadow(0 0 24px rgba(255, 0, 0, 0.7));
+      }
+
+      100% {
+        filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 12px rgba(255, 0, 0, 0.6));
+      }
+    }
+
+    .pulse {
+      animation: pulseGlow 1.6s infinite ease-in-out;
+    }
+
+
+    .etiquetaGlow {
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+    }
+
+    .etiquetaGlow .labelBox {
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 12px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.65);
+    }
+
+
+    .etiquetaGlow .labelBox.pulseLabel {
+      animation: pulseGlow 1.6s infinite ease-in-out;
+    }
+
+
+    #search-results li:hover {
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+    }
+
+
+    .glass-panel {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 16px;
+      border-radius: 18px;
+      color: white;
+      width: 220px;
+    }
+
+    .glass-panel h2 {
+      color: #F6C453;
+
+    }
+
+    .glass-panel input {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+
+    .glass-panel input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    #search-results {
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+
+
+    .map-control-btn {
+      width: 100%;
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .map-control-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateX(4px);
+    }
+
+    .map-control-btn.active {
+      background: #F6C453;
+      color: #1e3c72;
+      border-color: #F6C453;
+      box-shadow: 0 0 10px rgba(246, 196, 83, 0.4);
+    }
+
+    .map-control-btn::after {
+      content: '→';
+      opacity: 0;
+      transition: 0.2s;
+    }
+
+    .map-control-btn:hover::after,
+    .map-control-btn.active::after {
+      opacity: 1;
+    }
+
+
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+      background: rgba(30, 60, 114, 0.9);
+      backdrop-filter: blur(8px);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .leaflet-popup-content {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      margin: 12px;
+    }
+
+    .leaflet-container a.leaflet-popup-close-button {
+      color: #F6C453;
+    }
+
+
+    .service-btn {
+      width: 100%;
+      text-align: left;
+      font-size: 11px;
+      padding: 6px 10px;
+      margin-bottom: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      color: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .service-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+
+    .service-btn.active {
+      background: rgba(246, 196, 83, 0.2);
+      border-color: #F6C453;
+      color: #F6C453;
+      font-weight: bold;
+    }
+
+    .service-icon {
+      width: 16px;
+      text-align: center;
+    }
+
+    /* Barra de servicios - Mismo estilo que la tarjeta Leyenda */
+    .services-bar {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 0 20px;
+      margin-top: 24px;
+    }
+
+    .services-bar-content {
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 18px 28px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: nowrap;
+      min-width: fit-content;
+    }
+
+    .services-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #F6C453;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
+      margin-right: 12px;
+    }
+
+    /* Botones horizontales de servicios */
+    .service-btn-horizontal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .service-btn-horizontal:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .service-btn-horizontal.active {
+      background: rgba(246, 196, 83, 0.3);
+      border-color: #F6C453;
+      color: #F6C453;
+      font-weight: bold;
+      box-shadow: 0 0 20px rgba(246, 196, 83, 0.4);
+    }
+
+    .service-dot {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Responsive: en móviles, hacer los botones más pequeños */
+    @media (max-width: 768px) {
+      .services-bar {
+        padding: 12px 0;
+      }
+
+      .services-bar-content {
+        gap: 8px;
+        padding: 0 12px;
+      }
+
+      .services-label {
+        font-size: 11px;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 4px;
+      }
+
+      .service-btn-horizontal {
+        padding: 8px 12px;
+        font-size: 11px;
+        gap: 6px;
+      }
+
+      .service-dot {
+        width: 11px;
+        height: 11px;
+      }
+    }
+
+    /* Estilos para el panel de marcado de puntos */
+    #point-marker-panel {
+      position: fixed;
+      top: 0;
+      right: -450px;
+      width: 420px;
+      height: 100vh;
+      background: rgba(30, 60, 114, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-left: 2px solid rgba(246, 196, 83, 0.3);
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+      padding: 24px;
+      color: white;
+      font-family: 'Inter', sans-serif;
+    }
+
+    #point-marker-panel.active {
+      right: 0;
+    }
+
+    #point-marker-panel h2 {
+      color: #F6C453;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #point-marker-panel .form-group {
+      margin-bottom: 18px;
+    }
+
+    #point-marker-panel label {
+      display: block;
+      color: #F6C453;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    #point-marker-panel input,
+    #point-marker-panel textarea,
+    #point-marker-panel select {
+      width: 100%;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: white;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    #point-marker-panel input:focus,
+    #point-marker-panel textarea:focus,
+    #point-marker-panel select:focus {
+      outline: none;
+      border-color: #F6C453;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 15px rgba(246, 196, 83, 0.3);
+    }
+
+    #point-marker-panel input::placeholder,
+    #point-marker-panel textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    #point-marker-panel textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    #point-marker-panel select {
+      cursor: pointer;
+    }
+
+    #point-marker-panel select option {
+      background: #1e3c72;
+      color: white;
+    }
+
+    .panel-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .panel-btn {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .panel-btn-save {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    }
+
+    .panel-btn-save:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+    }
+
+    .panel-btn-cancel {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .panel-btn-cancel:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .panel-btn-delete {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    }
+
+    .panel-btn-delete:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
+    }
+
+    .close-panel-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 20px;
+    }
+
+    .close-panel-btn:hover {
+      background: rgba(239, 68, 68, 0.8);
+      transform: rotate(90deg);
+    }
+
+    /* Botón de control para activar modo de marcado */
+    .marker-mode-btn {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .marker-mode-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .marker-mode-btn.active {
+      background: linear-gradient(135deg, #F6C453, #f59e0b);
+      color: #1e3c72;
+      border-color: #F6C453;
+      box-shadow: 0 0 20px rgba(246, 196, 83, 0.5);
+      animation: pulse-glow 2s infinite;
+    }
+
+    @keyframes pulse-glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(246, 196, 83, 0.5);
+      }
+
+      50% {
+        box-shadow: 0 0 30px rgba(246, 196, 83, 0.8);
+      }
+    }
+
+    /* Marcador temporal mientras se arrastra */
+    .temp-marker {
+      animation: bounce-marker 0.6s ease-in-out infinite;
+    }
+
+    @keyframes bounce-marker {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Lista de puntos guardados */
+    .saved-points-list {
+      margin-top: 20px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .saved-point-item {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .saved-point-item:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(5px);
+      border-color: #F6C453;
+    }
+
+    .saved-point-item h4 {
+      color: #F6C453;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .saved-point-item p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.8);
+      margin: 2px 0;
+    }
+
+    /* Scrollbar personalizado para el panel */
+    #point-marker-panel::-webkit-scrollbar,
+    .saved-points-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #point-marker-panel::-webkit-scrollbar-track,
+    .saved-points-list::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+    }
+
+    #point-marker-panel::-webkit-scrollbar-thumb,
+    .saved-points-list::-webkit-scrollbar-thumb {
+      background: rgba(246, 196, 83, 0.5);
+      border-radius: 10px;
+    }
+
+    #point-marker-panel::-webkit-scrollbar-thumb:hover,
+    .saved-points-list::-webkit-scrollbar-thumb:hover {
+      background: rgba(246, 196, 83, 0.8);
+    }
+
+    /* Responsive para el panel */
+    @media (max-width: 768px) {
+      #point-marker-panel {
+        width: 100%;
+        right: -100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="particle-container"></div>
+  <script>
+    function spawnParticles() {
+      const box = document.getElementById("particle-container");
+      for (let i = 0; i < 70; i++) {
+        const p = document.createElement("div");
+        p.classList.add("particle");
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.top = Math.random() * 100 + "vh";
+        const size = Math.random() * 8 + 6;
+        p.style.width = size + "px";
+        p.style.height = size + "px";
+        p.style.animationDelay = Math.random() * 12 + "s";
+        box.appendChild(p);
+      }
+    }
+    spawnParticles();
+
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      menu.classList.toggle("active");
+    }
+  </script>
+
+
+  <nav class="bg-[#006847] text-white p-4 shadow-lg">
+    <div class="max-w-6xl mx-auto flex justify-between items-center flex-wrap">
+      <div class="flex items-center gap-3">
+        <img src="zLogosimbolo_color.jpg" class="h-12" alt="Logo" />
+        <div>
+          <h1 class="font-bold text-lg">Universidad Veracruzana</h1>
+          <p class="text-sm opacity-90">Licenciatura en Geografía</p>
+        </div>
+      </div>
+
+      <div class="menu-btn md:hidden" onclick="toggleMenu()">☰</div>
+
+      <div id="menu" class="hidden md:flex gap-6 text-white/90 w-full md:w-auto">
+        <a href="index.html" class="hover:text-white">Inicio</a>
+        <a href="regiones.html" class="hover:text-white">Regiones</a>
+        <a href="estadisticas.html" class="hover:text-white">Estadísticas</a>
+        <a href="mapa.html" class="hover:text-white font-bold">Mapa</a>
+        <a href="resultados.html" class="hover:text-white">Resultados</a>
+        <a href="nosotros.html" class="hover:text-white">Nosotros</a>
+        <a href="bibliografia.html" class="hover:text-white">Bibliografía</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <header class="text-center my-6 px-4">
+    <h1 class="text-2xl md:text-3xl font-bold text-[#F6C453] drop-shadow-md">Mapa Interactivo por Escala Geográfica</h1>
+    <p class="text-white/90 text-sm md:text-base">Nacional · Estatal · Regional · Municipal</p>
+
+    <!-- Botón para activar modo de marcado de puntos -->
+    <div class="mt-4">
+      <button id="marker-mode-toggle" class="marker-mode-btn" onclick="toggleMarkerMode()">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Marcar Puntos Personalizados</span>
+      </button>
+    </div>
+  </header>
+
+
+
+  <main class="max-w-7xl mx-auto px-4 mb-12 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-6 gap-4">
+
+
+      <aside class="col-span-2 flex flex-col gap-4 items-center lg:items-start order-2 lg:order-1">
+
+
+        <div class="glass-panel w-full max-w-sm lg:w-[220px]">
+          <h2 class="font-semibold mb-2">Buscar municipio</h2>
+          <div style="position: relative;">
+            <input id="search-input" type="text" placeholder="Escribe un municipio..."
+              class="w-full p-2 rounded-lg text-sm focus:ring-2 focus:ring-[#F6C453] outline-none" />
+            <button id="clear-search" onclick="clearMunicipioFilter()"
+              style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: rgba(239,68,68,0.8); color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 11px; cursor: pointer; display: none;"
+              title="Limpiar búsqueda y mostrar todos los servicios">
+              ✕
+            </button>
+          </div>
+          <ul id="search-results" class="rounded-lg text-xs max-h-40 overflow-y-auto hidden mt-2"></ul>
+        </div>
+
+
+        <div class="glass-panel w-full max-w-sm lg:w-[220px]">
+          <h2 class="font-semibold mb-2">Escalas</h2>
+          <div id="map-controls"></div>
+        </div>
+
+
+        <div id="info-panel" class="glass-panel w-full max-w-sm lg:w-[220px] hidden">
+          <h2 id="info-title" class="font-semibold mb-2"></h2>
+          <div id="info-content" class="text-xs text-white/90"></div>
+        </div>
+
+
+        <div class="glass-panel w-full max-w-sm lg:w-[220px]">
+          <h2 class="font-semibold mb-2">Leyenda</h2>
+
+
+
+
+          <div id="map-legend" class="text-xs"></div>
+        </div>
+
+
+      </aside>
+
+
+      <section class="col-span-4 w-full order-1 lg:order-2">
+        <div class="map-container h-[50vh] lg:h-[88vh]">
+          <div id="map"></div>
+        </div>
+
+
+        <!-- Barra de botones de servicios (solo visible en escala Municipal) -->
+        <div id="services-bar" class="services-bar hidden">
+          <div class="services-bar-content">
+            <span class="services-label">ACTIVAR SERVICIOS:</span>
+
+            <button class="service-btn-horizontal" id="btn-serv-1" onclick="toggleServiceLayer(1)">
+              <span class="service-dot" style="background:#3b82f6;"></span>
+              Transportes
+            </button>
+
+            <button class="service-btn-horizontal" id="btn-serv-2" onclick="toggleServiceLayer(2)">
+              <span class="service-dot" style="background:#8b5cf6;"></span>
+              Alojamiento
+            </button>
+
+            <button class="service-btn-horizontal" id="btn-serv-3" onclick="toggleServiceLayer(3)">
+              <span class="service-dot" style="background:#f59e0b;"></span>
+              Educación
+            </button>
+
+            <button class="service-btn-horizontal" id="btn-serv-4" onclick="toggleServiceLayer(4)">
+              <span class="service-dot" style="background:#ef4444;"></span>
+              Salud
+            </button>
+
+            <button class="service-btn-horizontal" id="btn-serv-5" onclick="toggleServiceLayer(5)">
+              <span class="service-dot" style="background:#10b981;"></span>
+              Esparcimiento
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+
+  <div class="flex justify-between items-center mb-8 max-w-7xl mx-auto px-4">
+    <a href="estadisticas.html"
+      class="px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition flex items-center gap-2">
+      <i class="fa-solid fa-arrow-left"></i> Anterior
+    </a>
+    <a href="resultados.html"
+      class="px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition flex items-center gap-2">
+      Siguiente <i class="fa-solid fa-arrow-right"></i>
+    </a>
+  </div>
+
+
+  <!-- Panel lateral para marcar puntos personalizados -->
+  <div id="point-marker-panel">
+    <button class="close-panel-btn" onclick="closeMarkerPanel()">✕</button>
+
+    <h2>
+      <i class="fas fa-map-pin"></i>
+      Punto Personalizado
+    </h2>
+
+    <form id="point-form" onsubmit="saveCustomPoint(event)">
+      <div class="form-group">
+        <label for="point-name">
+          <i class="fas fa-tag"></i> Nombre del Punto *
+        </label>
+        <input type="text" id="point-name" placeholder="Ej: Oficina Central, Punto de Interés..." required />
+      </div>
+
+      <div class="form-group">
+        <label for="point-category">
+          <i class="fas fa-folder"></i> Categoría *
+        </label>
+        <select id="point-category" required>
+          <option value="">Selecciona una categoría</option>
+          <option value="comercio">🏪 Comercio</option>
+          <option value="oficina">🏢 Oficina</option>
+          <option value="educacion">🎓 Educación</option>
+          <option value="salud">🏥 Salud</option>
+          <option value="recreacion">🎯 Recreación</option>
+          <option value="transporte">🚌 Transporte</option>
+          <option value="gobierno">🏛️ Gobierno</option>
+          <option value="otro">📍 Otro</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="point-description">
+          <i class="fas fa-align-left"></i> Descripción
+        </label>
+        <textarea id="point-description" placeholder="Agrega detalles sobre este punto..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="point-address">
+          <i class="fas fa-map-marker-alt"></i> Dirección
+        </label>
+        <input type="text" id="point-address" placeholder="Calle, número, colonia..." />
+      </div>
+
+      <div class="form-group">
+        <label>
+          <i class="fas fa-crosshairs"></i> Coordenadas
+        </label>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <input type="number" id="point-lat" placeholder="Latitud" step="any" readonly
+            style="background: rgba(255, 255, 255, 0.05);" />
+          <input type="number" id="point-lng" placeholder="Longitud" step="any" readonly
+            style="background: rgba(255, 255, 255, 0.05);" />
+        </div>
+      </div>
+
+      <div class="panel-buttons">
+        <button type="submit" class="panel-btn panel-btn-save">
+          <i class="fas fa-save"></i>
+          Guardar
+        </button>
+        <button type="button" class="panel-btn panel-btn-cancel" onclick="closeMarkerPanel()">
+          <i class="fas fa-times"></i>
+          Cancelar
+        </button>
+      </div>
+
+      <div id="delete-button-container" style="display: none;">
+        <button type="button" class="panel-btn panel-btn-delete" onclick="deleteCurrentPoint()"
+          style="width: 100%; margin-top: 10px;">
+          <i class="fas fa-trash"></i>
+          Eliminar Punto
+        </button>
+      </div>
+    </form>
+
+    <!-- Lista de puntos guardados -->
+    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+      <h3 style="color: #F6C453; font-size: 16px; font-weight: 600; margin-bottom: 12px;">
+        <i class="fas fa-list"></i> Puntos Guardados (<span id="saved-points-count">0</span>)
+      </h3>
+      <div id="saved-points-list" class="saved-points-list">
+        <p style="text-align: center; color: rgba(255, 255, 255, 0.5); font-size: 13px;">
+          No hay puntos guardados aún
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+
+
+    var map = L.map('map', { zoomControl: false }).setView([19.17, -96.13], 7);
+    let currentScale = 'nacional'; // Track current scale
+
+
+    const baseLayers = {
+      'CartoDB Light': L.tileLayer('https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap · CartoDB',
+        maxZoom: 19
+      }),
+
+      'CartoDB Dark': L.tileLayer('https://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap · CartoDB',
+        maxZoom: 19
+      }),
+
+      'OpenStreetMap': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors',
+        maxZoom: 19
+      }),
+
+      'Topográfico': L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap · OpenTopoMap',
+        maxZoom: 17
+      }),
+
+      'Satélite': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '&copy; Esri',
+        maxZoom: 19
+      })
+    };
+
+
+    let currentBaseLayer = baseLayers['CartoDB Light'];
+    currentBaseLayer.addTo(map);
+
+
+    const BaseLayerControl = L.Control.extend({
+      options: { position: 'topright' },
+      onAdd: function (map) {
+        const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+        container.style.cssText = `
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          border-radius: 12px;
+          padding: 8px;
+          margin-top: 60px;
+        `;
+
+        container.innerHTML = `
+          <div style="color: white; font-size: 11px; font-weight: bold; margin-bottom: 6px; text-align: center;">
+            CAPAS BASE
+          </div>
+          <select id="base-layer-selector" style="
+            width: 100%;
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 11px;
+            cursor: pointer;
+            outline: none;
+          ">
+            <option value="CartoDB Light">🗺️ Light</option>
+            <option value="CartoDB Dark">🌙 Dark</option>
+            <option value="OpenStreetMap">📍 OSM</option>
+            <option value="Topográfico">⛰️ Topo</option>
+            <option value="Satélite">🛰️ Satélite</option>
+          </select>
+        `;
+
+        // Prevenir que el click en el control afecte el mapa
+        L.DomEvent.disableClickPropagation(container);
+
+        return container;
+      }
+    });
+
+    map.addControl(new BaseLayerControl());
+
+
+    function changeBaseLayer(layerName) {
+      if (currentBaseLayer) {
+        map.removeLayer(currentBaseLayer);
+      }
+      currentBaseLayer = baseLayers[layerName];
+      currentBaseLayer.addTo(map);
+
+
+      currentBaseLayer.bringToBack();
+
+      console.log(`Capa base cambiada a: ${layerName}`);
+
+
+      if (currentScale === 'nacional' && map.hasLayer(layers.nacional)) {
+
+        layers.nacional.clearLayers();
+
+
+        fetch('Nacional.geojson').then(r => r.json()).then(data => {
+          const isDarkLayer = (layerName === 'CartoDB Dark' || layerName === 'Satélite');
+
+          const nationalStyle = isDarkLayer ?
+            { color: '#F6C453', weight: 2, fillOpacity: 0.25, fillColor: '#F6C453' } :
+            { color: '#000', weight: 2, fillOpacity: 0.35, fillColor: '#555' };
+
+          L.geoJSON(data, { style: nationalStyle }).addTo(layers.nacional);
+          console.log(`Polígono nacional actualizado para capa ${layerName}`);
+        }).catch(e => console.warn("Error actualizando polígono nacional", e));
+      }
+    }
+
+
+    setTimeout(() => {
+      const selector = document.getElementById('base-layer-selector');
+      if (selector) {
+        selector.addEventListener('change', (e) => {
+          changeBaseLayer(e.target.value);
+        });
+      }
+    }, 100);
+
+
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
+    L.control.scale({ position: 'bottomleft', imperial: false }).addTo(map);
+
+
+
+    L.easyButton('<span title="Centro">⤒</span>', function (btn, m) {
+      map.setView([19.17, -96.13], 7);
+    }).addTo(map);
+
+
+    var compassControl = L.Control.extend({
+      options: { position: 'topright' },
+      onAdd: function (map) {
+        var div = L.DomUtil.create('div', 'compass-control');
+        div.innerHTML = `
+          <svg width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">
+            <path d="M50 0 L65 40 L100 50 L65 60 L50 100 L35 60 L0 50 L35 40 Z" fill="rgba(30, 60, 114, 0.8)" stroke="#F6C453" stroke-width="2"/>
+            <path d="M50 0 L50 100 M0 50 L100 50" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+            <text x="50" y="24" font-family="Inter, sans-serif" font-size="16" font-weight="900" fill="#F6C453" text-anchor="middle">N</text>
+          </svg>
+        `;
+        div.style.marginTop = '10px';
+        div.style.marginRight = '10px';
+        return div;
+      }
+    });
+    map.addControl(new compassControl());
+
+
+    var layers = {
+      nacional: L.layerGroup(),
+      estatal: L.layerGroup(),
+      regiones: L.layerGroup(),
+      municipios: L.layerGroup(),
+
+      servicios: {
+        1: L.layerGroup(), // Transportes
+        2: L.layerGroup(), // Alojamiento
+        3: L.layerGroup(), // Educacion
+        4: L.layerGroup(), // Salud
+        5: L.layerGroup()  // Esparcimiento
+      }
+    };
+
+
+    let allServicePoints = [];
+    let servicePointsLoaded = false;
+
+
+    const serviceTipoMap = {
+      'transporte': 1,
+      'alojamiento': 2,
+      'educacion': 3,
+      'educativo': 3,
+      'salud': 4,
+      'esparcimiento': 5
+    };
+
+
+    const serviceColors = {
+      1: '#3b82f6',  // Transporte - Azul
+      2: '#8b5cf6',  // Alojamiento - Morado
+      3: '#f59e0b',  // Educación - Naranja
+      4: '#ef4444',  // Salud - Rojo
+      5: '#10b981'   // Esparcimiento - Verde
+    };
+
+
+    function loadServicePoints(jsonFile) {
+      return fetch(jsonFile)
+        .then(r => {
+          if (!r.ok) throw new Error(`No se pudo cargar ${jsonFile}`);
+          return r.json();
+        })
+        .then(data => {
+          console.log(`✓ Cargados ${data.length} puntos desde ${jsonFile}`);
+          return data;
+        })
+        .catch(e => {
+          console.warn(`Error cargando ${jsonFile}:`, e);
+          return [];
+        });
+    }
+
+
+    function addServicePointsToMap(points, filters = {}) {
+
+      Object.values(layers.servicios).forEach(layer => layer.clearLayers());
+
+      if (!points || points.length === 0) {
+        console.log('No hay puntos para mostrar');
+        return;
+      }
+
+      let filteredPoints = points;
+
+
+      if (filters.region) {
+        filteredPoints = filteredPoints.filter(p => {
+
+          return true; // Mostrar todos por defecto
+        });
+      }
+
+
+      if (filters.municipio) {
+        filteredPoints = filteredPoints.filter(p =>
+          normalizar(p.municipio) === normalizar(filters.municipio)
+        );
+      }
+
+      console.log(`Renderizando ${filteredPoints.length} puntos...`);
+      const startTime = performance.now();
+
+
+      filteredPoints.forEach(point => {
+        const tipoStr = normalizar(point.tipo || '');
+        let layerId = null;
+
+
+        if (tipoStr.includes('transport') || tipoStr.includes('taxi') || tipoStr.includes('autobus') || tipoStr.includes('mudanza')) layerId = 1;
+        else if (tipoStr.includes('alojamiento') || tipoStr.includes('hotel') || tipoStr.includes('motel') || tipoStr.includes('huespedes') || tipoStr.includes('alimentos') || tipoStr.includes('restaurante') || tipoStr.includes('cafeteria') || tipoStr.includes('bar')) layerId = 2;
+        else if (tipoStr.includes('educacion') || tipoStr.includes('escuela') || tipoStr.includes('colegio') || tipoStr.includes('universidad') || tipoStr.includes('instituto') || tipoStr.includes('capacitacion')) layerId = 3;
+        else if (tipoStr.includes('salud') || tipoStr.includes('medico') || tipoStr.includes('hospital') || tipoStr.includes('consultorio') || tipoStr.includes('clinica') || tipoStr.includes('farmacia') || tipoStr.includes('dental')) layerId = 4;
+        else if (tipoStr.includes('esparcimiento') || tipoStr.includes('deport') || tipoStr.includes('recreati') || tipoStr.includes('cultural') || tipoStr.includes('cine') || tipoStr.includes('teatro') || tipoStr.includes('museo') || tipoStr.includes('parque') || tipoStr.includes('gimnasio')) layerId = 5;
+
+
+        if (!layerId) layerId = serviceTipoMap[tipoStr];
+
+        if (!layerId || !point.coords || point.coords.length < 2) {
+          return; // Saltar si no hay tipo válido o coordenadas
+        }
+
+        const [lat, lng] = point.coords;
+
+
+        const circle = L.circleMarker([lat, lng], {
+          radius: 6,
+          fillColor: serviceColors[layerId],
+          color: '#ffffff',
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.8
+        });
+
+
+        const popupContent = `
+          <div style="font-family: 'Inter', sans-serif; min-width: 200px;">
+            <h3 style="color: ${serviceColors[layerId]}; font-weight: bold; margin-bottom: 8px; font-size: 14px;">
+              ${point.nombre || 'Sin nombre'}
+            </h3>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.9);">
+              <p style="margin: 4px 0;"><strong>Tipo:</strong> ${point.tipo || 'N/A'}</p>
+              <p style="margin: 4px 0;"><strong>Municipio:</strong> ${point.municipio || 'N/A'}</p>
+              ${point.estado ? `<p style="margin: 4px 0;"><strong>Estado:</strong> ${point.estado}</p>` : ''}
+              ${point.clave_municipio ? `<p style="margin: 4px 0; font-size: 10px; opacity: 0.7;">Clave: ${point.clave_municipio}</p>` : ''}
+            </div>
+          </div>
+        `;
+
+        circle.bindPopup(popupContent);
+
+
+        layers.servicios[layerId].addLayer(circle);
+      });
+
+      const endTime = performance.now();
+      console.log(`✓ Puntos renderizados en ${(endTime - startTime).toFixed(0)}ms`);
+
+
+      Object.keys(layers.servicios).forEach(id => {
+        const count = layers.servicios[id].getLayers().length;
+        if (count > 0) {
+          console.log(`Capa ${id}: ${count} puntos`);
+        }
+      });
+    }
+
+
+    async function initializeServicePoints() {
+      if (servicePointsLoaded) return;
+
+      try {
+        console.log("Iniciando carga de servicios desde archivos unificados (2 partes)...");
+
+        // Cargar ambos archivos en paralelo
+        const [response1, response2] = await Promise.all([
+          fetch('UNIFICADO_PARTE1.json'),
+          fetch('UNIFICADO_PARTE2.json')
+        ]);
+
+        // Verificar que ambos archivos se cargaron correctamente
+        if (!response1.ok) {
+          console.warn(`No se pudo cargar UNIFICADO_PARTE1.json (status ${response1.status})`);
+          return;
+        }
+
+        if (!response2.ok) {
+          console.warn(`No se pudo cargar UNIFICADO_PARTE2.json (status ${response2.status})`);
+          return;
+        }
+
+        // Parsear ambos archivos JSON en paralelo
+        const [data1, data2] = await Promise.all([
+          response1.json(),
+          response2.json()
+        ]);
+
+        // Combinar ambos arrays
+        allServicePoints = [...data1, ...data2];
+
+        console.log(`✓ Parte 1 cargada: ${data1.length.toLocaleString()} registros`);
+        console.log(`✓ Parte 2 cargada: ${data2.length.toLocaleString()} registros`);
+
+        if (allServicePoints.length > 0) {
+          servicePointsLoaded = true;
+          console.log(`✓ Sistema de puntos inicializado con ${allServicePoints.length.toLocaleString()} servicios totales`);
+          console.log(`ℹ️ Los puntos se mostrarán al seleccionar un municipio`);
+        } else {
+          console.warn("No se cargaron puntos de los archivos.");
+        }
+      } catch (e) {
+        console.warn('Error crítico cargando puntos:', e);
+      }
+    }
+
+
+    function updateServicePointsForScale() {
+      if (!servicePointsLoaded || allServicePoints.length === 0) return;
+
+      // Solo limpiar puntos si NO estamos en escala municipal
+      if (currentScale !== 'municipios') {
+        // Limpiar todos los puntos de servicios
+        console.log(`Escala ${currentScale}: puntos de servicios ocultos`);
+        Object.values(layers.servicios).forEach(layer => {
+          layer.clearLayers();
+          map.removeLayer(layer);
+        });
+
+        // Desactivar botones de servicios
+        for (let i = 1; i <= 5; i++) {
+          const btn = document.getElementById(`btn-serv-${i}`);
+          if (btn) btn.classList.remove('active');
+        }
+      } else {
+        // En escala municipal, solo limpiar los puntos
+        // Los puntos se cargarán cuando el usuario haga clic en un municipio
+        console.log('Escala municipal: esperando selección de municipio');
+        Object.values(layers.servicios).forEach(layer => {
+          layer.clearLayers();
+        });
+      }
+    }
+
+
+    function toggleServiceLayer(id) {
+      const btn = document.getElementById(`btn-serv-${id}`);
+      const layer = layers.servicios[id];
+
+      if (map.hasLayer(layer)) {
+        map.removeLayer(layer);
+        btn.classList.remove("active");
+      } else {
+
+        if (!servicePointsLoaded) {
+          initializeServicePoints().then(() => {
+            layer.addTo(map);
+            btn.classList.add("active");
+          });
+        } else {
+          layer.addTo(map);
+          btn.classList.add("active");
+        }
+      }
+    }
+
+
+    function updateServicePanelVisibility() {
+      const servicesBar = document.getElementById('services-bar');
+
+      if (currentScale === 'municipios') {
+        // Mostrar la barra de servicios
+        servicesBar.classList.remove('hidden');
+      } else {
+        // Ocultar la barra de servicios
+        servicesBar.classList.add('hidden');
+      }
+    }
+
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        initializeServicePoints();
+      }, 1000);
+    });
+
+
+    let serviciosData = {};
+    fetch("servicios_veracruz.json").then(r => {
+      if (!r.ok) throw new Error("servicios_veracruz.json no encontrado");
+      return r.json();
+    }).then(d => serviciosData = d).catch(e => console.warn(e));
+
+    let totales = {};
+    fetch("totales_nacional_estatal_regiones.json").then(r => {
+      if (!r.ok) throw new Error("totales json no encontrado");
+      return r.json();
+    }).then(d => totales = d).catch(e => console.warn(e));
+
+
+    var highlightLayer = L.geoJSON(null, {
+      style: {
+        color: "#ff0033",
+        weight: 5,
+        fillOpacity: 0.22,
+        opacity: 1
+      }
+    }).addTo(map);
+
+
+    var highlightLabel = null;
+
+
+    function applyGlowToLayer(geoLayer) {
+      try {
+        geoLayer.eachLayer(l => {
+          const el = l.getElement ? l.getElement() : null;
+          if (el) {
+            el.classList.add('glow', 'pulse');
+          } else {
+
+            setTimeout(() => { try { l.getElement().classList.add('glow', 'pulse'); } catch (e) { } }, 50);
+          }
+        });
+      } catch (e) {
+        console.warn("applyGlowToLayer error", e);
+      }
+    }
+
+
+    function updateLabelPosition() {
+      if (highlightLabel && highlightLayer && highlightLayer.getLayers().length > 0) {
+        try {
+          const bounds = highlightLayer.getBounds();
+          if (bounds.isValid()) {
+            const c = bounds.getCenter();
+            highlightLabel.setLatLng(c);
+          }
+        } catch (e) { }
+      }
+    }
+    map.on('zoomend', updateLabelPosition);
+    map.on('moveend', updateLabelPosition);
+
+
+    function abrirPanel(titulo, contenido) {
+      document.getElementById('info-title').innerHTML = titulo;
+      document.getElementById('info-content').innerHTML = contenido;
+      document.getElementById('info-panel').classList.remove('hidden');
+    }
+
+
+    const regionColors = {
+      huasteca_alta: "#1d4ed8", huasteca_baja: "#16a34a", totonaca: "#ca8a04",
+      nautla: "#0ea5e9", capital: "#7c3aed", sotavento: "#059669",
+      altas_montanas: "#dc2626", papaloapan: "#d946ef", tuxtlas: "#ea580c", olmeca: "#10b981"
+    };
+
+    function actualizarLeyenda(tipo) {
+      const node = document.getElementById('map-legend');
+      if (tipo === 'nacional') {
+        node.innerHTML = `<b>Nacional</b><br><span class="legend-color-box" style="background:black"></span> Polígono Nacional`;
+        return;
+      }
+      if (tipo === 'estatal') {
+        node.innerHTML = `<b>Estatal</b><br><span class="legend-color-box" style="background:#006847"></span> Veracruz`;
+        return;
+      }
+      if (tipo === 'municipios') {
+        node.innerHTML = `<b>Municipios</b><br><span class="legend-color-box" style="background:#006847"></span> Límite municipal`;
+        return;
+      }
+      if (tipo === 'regiones') {
+        node.innerHTML = `<b>Regiones</b><br>`;
+        Object.keys(regionColors).forEach(k => {
+          node.innerHTML += `<div style="margin-top:6px"><span class="legend-color-box" style="background:${regionColors[k]}"></span> ${k.replace(/_/g, ' ').toUpperCase()}</div>`;
+        });
+      }
+    }
+
+
+    function clearAll() {
+      // limpiar resaltado
+      try {
+        highlightLayer.clearLayers();
+      } catch (e) { }
+
+      if (highlightLabel) {
+        try { map.removeLayer(highlightLabel); } catch (e) { }
+        highlightLabel = null;
+      }
+
+
+      try { map.removeLayer(layers.nacional); } catch (e) { }
+      try { map.removeLayer(layers.estatal); } catch (e) { }
+      try { map.removeLayer(layers.regiones); } catch (e) { }
+      try { map.removeLayer(layers.municipios); } catch (e) { }
+
+
+    }
+
+
+    function mostrarInfoMunicipio(cve, nombre) {
+      const d = serviciosData[cve];
+      if (!d) {
+        abrirPanel("Municipio: " + nombre, `<p class="text-red-600">Sin datos</p>`);
+        return;
+      }
+      abrirPanel("Municipio: " + nombre, `
+    <ul class="list-disc ml-4">
+      <li>Transportes: <b>${d.servicios.transportes.toLocaleString()}</b></li>
+      <li>Alojamiento: <b>${d.servicios.alojamiento.toLocaleString()}</b></li>
+      <li>Educativos: <b>${d.servicios.educativos.toLocaleString()}</b></li>
+      <li>Salud: <b>${d.servicios.salud.toLocaleString()}</b></li>
+      <li>Esparcimiento: <b>${d.servicios.esparcimiento.toLocaleString()}</b></li>
+    </ul>
+  `);
+
+      // Filtrar y mostrar solo los puntos de este municipio
+      if (servicePointsLoaded && allServicePoints.length > 0) {
+        console.log(`Filtrando puntos para municipio: ${nombre}`);
+        addServicePointsToMap(allServicePoints, { municipio: nombre });
+      }
+    }
+
+    function showMunicipalities() {
+      currentScale = 'municipios';
+      updateServicePanelVisibility();
+      setActiveBtn('btn-municipios');
+      clearAll();
+      actualizarLeyenda('municipios');
+      updateServicePointsForScale();
+
+
+      try {
+        if (layers.municipios && layers.municipios.getLayers && layers.municipios.getLayers().length > 0) {
+          layers.municipios.addTo(map);
+
+          try {
+            map.fitBounds(layers.municipios.getBounds(), { padding: [30, 30] });
+          } catch (e) { }
+          return;
+        }
+      } catch (e) {
+
+      }
+
+
+      fetch('Municipal.geojson').then(r => r.json()).then(data => {
+        const layer = L.geoJSON(data, {
+          style: { color: '#006847', weight: 1, fillOpacity: 0.18 },
+          onEachFeature: (f, l) => { l.on('click', () => mostrarInfoMunicipio(f.properties.CVEGEO, f.properties.NOMGEO)); }
+        }).addTo(layers.municipios);
+
+        layers.municipios.addTo(map);
+        try { map.fitBounds(layer.getBounds(), { padding: [30, 30] }); } catch (e) { }
+      }).catch(e => console.warn("Municipal.geojson error", e));
+    }
+
+
+    const regionFiles = {
+      "HuastecaAlta.geojson": "huasteca_alta",
+      "HuastecaBaja.geojson": "huasteca_baja",
+      "Totonaca.geojson": "totonaca",
+      "Nautla1.geojson": "nautla",
+      "Capital.geojson": "capital",
+      "Sotavento.geojson": "sotavento",
+      "AltasMontañas.geojson": "altas_montanas",
+      "Papaloapan.geojson": "papaloapan",
+      "LosTuxtlas.geojson": "tuxtlas",
+      "Olmeca.geojson": "olmeca"
+    };
+
+    function mostrarInfoRegion(key) {
+      const s = totales[key];
+      if (!s) return abrirPanel("Región: " + key, `<p class="text-red-600">Sin datos</p>`);
+      abrirPanel("Región: " + key.replace(/_/g, ' ').toUpperCase(), `
+    <ul class="list-disc ml-4">
+      <li>Transportes: <b>${s.transportes.toLocaleString()}</b></li>
+      <li>Alojamiento: <b>${s.alojamiento.toLocaleString()}</b></li>
+      <li>Educativos: <b>${s.educativos.toLocaleString()}</b></li>
+      <li>Salud: <b>${s.salud.toLocaleString()}</b></li>
+      <li>Esparcimiento: <b>${s.esparcimiento.toLocaleString()}</b></li>
+    </ul>
+  `);
+    }
+
+    function showRegions() {
+      currentScale = 'regiones';
+      updateServicePanelVisibility();
+      setActiveBtn('btn-regiones');
+      clearAll();
+      actualizarLeyenda('regiones');
+      updateServicePointsForScale();
+
+      let group = L.featureGroup();
+
+      Object.keys(regionFiles).forEach(file => {
+        const key = regionFiles[file];
+        fetch(file).then(r => r.json()).then(data => {
+          const layer = L.geoJSON(data, {
+            style: { color: regionColors[key], weight: 2, fillOpacity: 0.22 },
+            onEachFeature: (f, l) => { l.on('click', () => mostrarInfoRegion(key)); }
+          }).addTo(layers.regiones);
+          group.addLayer(layer);
+        }).catch(e => console.warn("region file err", file, e));
+      });
+
+      // esperar y centrar al grupo de regiones
+      setTimeout(() => {
+        try { map.fitBounds(group.getBounds(), { padding: [30, 30] }); } catch (e) { }
+      }, 600);
+
+      layers.regiones.addTo(map);
+    }
+  </script>
+
+  <script>
+
+    function showState() {
+      currentScale = 'estatal';
+      updateServicePanelVisibility();
+      setActiveBtn('btn-estatal');
+      clearAll();
+      actualizarLeyenda('estatal');
+      updateServicePointsForScale();
+
+      fetch('Veracruz.geojson').then(r => r.json()).then(data => {
+        const layer = L.geoJSON(data, { style: { color: '#006847', weight: 2, fillOpacity: 0.2 } }).addTo(layers.estatal);
+        try { map.fitBounds(layer.getBounds(), { padding: [30, 30] }); } catch (e) { }
+      }).catch(e => console.warn("Veracruz.geojson error", e));
+
+      layers.estatal.addTo(map);
+
+
+      if (totales.estatal) {
+        abrirPanel("Información Estatal (Veracruz)", `
+      <ul class="list-disc ml-4">
+        <li>Transportes: <b>${totales.estatal.transportes.toLocaleString()}</b></li>
+        <li>Alojamiento: <b>${totales.estatal.alojamiento.toLocaleString()}</b></li>
+        <li>Educativos: <b>${totales.estatal.educativos.toLocaleString()}</b></li>
+        <li>Salud: <b>${totales.estatal.salud.toLocaleString()}</b></li>
+        <li>Esparcimiento: <b>${totales.estatal.esparcimiento.toLocaleString()}</b></li>
+      </ul>
+    `);
+      }
+    }
+
+
+    function showNational() {
+      currentScale = 'nacional';
+      updateServicePanelVisibility();
+      setActiveBtn('btn-nacional');
+      clearAll();
+      actualizarLeyenda('nacional');
+      updateServicePointsForScale();
+
+      fetch('Nacional.geojson').then(r => r.json()).then(data => {
+
+        const isDarkLayer = (currentBaseLayer === baseLayers['CartoDB Dark'] ||
+          currentBaseLayer === baseLayers['Satélite']);
+
+        const nationalStyle = isDarkLayer ?
+          { color: '#F6C453', weight: 2, fillOpacity: 0.25, fillColor: '#F6C453' } :
+          { color: '#000', weight: 2, fillOpacity: 0.35, fillColor: '#555' };
+
+        const layer = L.geoJSON(data, { style: nationalStyle }).addTo(layers.nacional);
+        try { map.fitBounds(layer.getBounds(), { padding: [30, 30] }); } catch (e) { }
+      }).catch(e => console.warn("Nacional.geojson error", e));
+
+      layers.nacional.addTo(map);
+
+      if (totales.nacional) {
+        abrirPanel("Información Nacional", `
+      <ul class="list-disc ml-4">
+        <li>Transportes: <b>${totales.nacional.transportes.toLocaleString()}</b></li>
+        <li>Alojamiento: <b>${totales.nacional.alojamiento.toLocaleString()}</b></li>
+        <li>Educativos: <b>${totales.nacional.educativos.toLocaleString()}</b></li>
+        <li>Salud: <b>${totales.nacional.salud.toLocaleString()}</b></li>
+        <li>Esparcimiento: <b>${totales.nacional.esparcimiento.toLocaleString()}</b></li>
+      </ul>
+    `);
+      }
+    }
+
+
+    document.getElementById('map-controls').innerHTML = `
+      <button id="btn-nacional" onclick="showNational()" class="map-control-btn">Nacional</button>
+      <button id="btn-estatal" onclick="showState()" class="map-control-btn">Estatal</button>
+      <button id="btn-regiones" onclick="showRegions()" class="map-control-btn">Regiones</button>
+      <button id="btn-municipios" onclick="showMunicipalities()" class="map-control-btn">Municipios</button>
+    `;
+
+    function setActiveBtn(id) {
+      document.querySelectorAll('.map-control-btn').forEach(b => b.classList.remove('active'));
+      const btn = document.getElementById(id);
+      if (btn) btn.classList.add('active');
+    }
+
+
+    let municipiosIndex = [];
+    let municipalGeoJSON = null;
+
+
+    fetch('Municipal.geojson')
+      .then(r => r.json())
+      .then(data => {
+        municipalGeoJSON = data;
+
+
+        municipiosIndex = data.features.map(f => ({
+          cve: f.properties.CVEGEO,
+          nombre: f.properties.NOMGEO,
+          bounds: L.geoJSON(f).getBounds()
+        }));
+
+
+        const geoLayer = L.geoJSON(data, {
+          style: { color: '#006847', weight: 1, fillOpacity: 0.18 },
+          onEachFeature: (f, l) => {
+            const cve = f.properties.CVEGEO;
+            const nombre = f.properties.NOMGEO;
+
+            l.on('click', () => {
+              // limpiar resaltado previo
+              try { highlightLayer.clearLayers(); } catch (e) { }
+              if (highlightLabel) { try { map.removeLayer(highlightLabel); } catch (e) { }; highlightLabel = null; }
+
+
+              highlightLayer.addData(f);
+              applyGlowToLayer(highlightLayer);
+
+              const center = l.getBounds().getCenter();
+              highlightLabel = L.marker(center, {
+                icon: L.divIcon({
+                  className: 'etiquetaGlow',
+                  html: `<div class="labelBox pulseLabel">${nombre}</div>`
+                }),
+                interactive: false
+              }).addTo(map);
+
+
+              mostrarInfoMunicipio(cve, nombre);
+            });
+
+            l.bindPopup(nombre);
+          }
+        });
+
+
+        layers.municipios.addLayer(geoLayer);
+      })
+      .catch(e => console.warn("Error cargando Municipal.geojson (precarga):", e));
+
+    function normalizar(txt) {
+      if (!txt) return '';
+      return txt.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    }
+
+    const input = document.getElementById('search-input');
+    const results = document.getElementById('search-results');
+
+    input.addEventListener('input', () => {
+      const q = normalizar(input.value.trim());
+      if (q.length < 2) { results.classList.add('hidden'); results.innerHTML = ''; return; }
+
+      const matches = municipiosIndex.filter(m => normalizar(m.nombre).includes(q)).slice(0, 30);
+      if (matches.length === 0) {
+        results.innerHTML = `<li class="p-2 text-gray-500">Sin resultados</li>`;
+        results.classList.remove('hidden');
+        return;
+      }
+
+      results.innerHTML = matches.map(m => `<li class="p-2" data-cve="${m.cve}">${m.nombre}</li>`).join('');
+      results.classList.remove('hidden');
+    });
+
+
+    results.addEventListener('click', e => {
+      const cve = e.target.dataset.cve;
+      if (!cve) return;
+
+      const item = municipiosIndex.find(x => x.cve === cve);
+      if (!item) return;
+
+
+      try { highlightLayer.clearLayers(); } catch (e) { }
+      if (highlightLabel) { try { map.removeLayer(highlightLabel); } catch (e) { }; highlightLabel = null; }
+
+
+      let feature = null;
+      if (municipalGeoJSON && municipalGeoJSON.features) {
+        feature = municipalGeoJSON.features.find(f => f.properties.CVEGEO === cve);
+      }
+
+
+      if (feature) {
+        highlightLayer.addData(feature);
+        applyGlowToLayer(highlightLayer);
+
+
+        const tmp = L.geoJSON(feature);
+        const bounds = tmp.getBounds();
+
+
+        try {
+          map.flyToBounds(bounds, { padding: [40, 40], duration: 1.0 });
+        } catch (e) {
+          try { map.fitBounds(bounds, { padding: [40, 40] }); } catch (e) { }
+        }
+
+
+        const center = bounds.getCenter();
+        highlightLabel = L.marker(center, {
+          icon: L.divIcon({
+            className: 'etiquetaGlow',
+            html: `<div class="labelBox pulseLabel">${item.nombre}</div>`
+          }),
+          interactive: false
+        }).addTo(map);
+
+
+        mostrarInfoMunicipio(item.cve, item.nombre);
+
+
+        if (currentScale === 'municipios' && servicePointsLoaded) {
+          console.log(`Filtrando servicios para municipio: ${item.nombre}`);
+          addServicePointsToMap(allServicePoints, {
+            municipio: item.nombre
+          });
+
+
+          for (let i = 1; i <= 5; i++) {
+            const btn = document.getElementById(`btn-serv-${i}`);
+            if (btn && btn.classList.contains('active')) {
+              layers.servicios[i].addTo(map);
+            }
+          }
+        }
+      } else {
+
+        fetch('Municipal.geojson').then(r => r.json()).then(data => {
+          const f = data.features.find(ff => ff.properties.CVEGEO === cve);
+          if (!f) return;
+          highlightLayer.addData(f);
+          applyGlowToLayer(highlightLayer);
+          const tmp = L.geoJSON(f);
+          try { map.flyToBounds(tmp.getBounds(), { padding: [40, 40], duration: 1.0 }); } catch (e) { }
+          highlightLabel = L.marker(tmp.getBounds().getCenter(), { icon: L.divIcon({ className: 'etiquetaGlow', html: `<div class="labelBox pulseLabel">${item.nombre}</div>` }), interactive: false }).addTo(map);
+          mostrarInfoMunicipio(item.cve, item.nombre);
+
+
+          if (currentScale === 'municipios' && servicePointsLoaded) {
+            addServicePointsToMap(allServicePoints, { municipio: item.nombre });
+            for (let i = 1; i <= 5; i++) {
+              const btn = document.getElementById(`btn-serv-${i}`);
+              if (btn && btn.classList.contains('active')) {
+                layers.servicios[i].addTo(map);
+              }
+            }
+          }
+        }).catch(err => console.warn("fallback fetch error", err));
+      }
+
+
+      input.value = item.nombre;
+      results.classList.add('hidden');
+
+
+      const clearBtn = document.getElementById('clear-search');
+      if (clearBtn) clearBtn.style.display = 'block';
+
+
+      try { if (!map.hasLayer(layers.municipios)) layers.municipios.addTo(map); } catch (e) { }
+    });
+
+
+    function clearMunicipioFilter() {
+      const input = document.getElementById('search-input');
+      const clearBtn = document.getElementById('clear-search');
+
+
+      if (input) input.value = '';
+
+
+      if (clearBtn) clearBtn.style.display = 'none';
+
+
+      try { highlightLayer.clearLayers(); } catch (e) { }
+      if (highlightLabel) {
+        try { map.removeLayer(highlightLabel); } catch (e) { }
+        highlightLabel = null;
+      }
+
+
+      if (currentScale === 'municipios' && servicePointsLoaded) {
+        console.log('Mostrando todos los servicios (filtro removido)');
+        addServicePointsToMap(allServicePoints);
+
+
+        for (let i = 1; i <= 5; i++) {
+          const btn = document.getElementById(`btn-serv-${i}`);
+          if (btn && btn.classList.contains('active')) {
+            layers.servicios[i].addTo(map);
+          }
+        }
+      }
+
+
+      try {
+        map.setView([19.17, -96.13], 7);
+      } catch (e) { }
+
+      console.log('Filtro de municipio limpiado');
+    }
+
+
+    fetch('Nacional.geojson').then(r => r.json()).then(data => {
+      const l = L.geoJSON(data);
+      map.fitBounds(l.getBounds(), { padding: [30, 30] });
+    }).catch(e => console.warn("Error loading initial bounds", e));
+
+    setTimeout(() => map.invalidateSize(), 800);
+  </script>
+
+
+  <script>
+
+    const poblacion = {
+      "nacional": {
+        "POB1": 126014024,
+        "POB84": 61473390,
+        "POB42": 64540634
+      },
+      "veracruz": {
+        "POB1": 8062579,
+        "POB84": 3871774,
+        "POB42": 4190805
+      },
+      "regiones": {
+        "AltasMontañas": {
+          "POB1": 1520065,
+          "POB84": 728364,
+          "POB42": 791701
+        },
+        "Capital": {
+          "POB1": 1254238,
+          "POB84": 599477,
+          "POB42": 654761
+        },
+        "HuastecaAlta": {
+          "POB1": 469020,
+          "POB84": 229983,
+          "POB42": 239037
+        },
+        "HuastecaBaja": {
+          "POB1": 563486,
+          "POB84": 273057,
+          "POB42": 290429
+        },
+        "LosTuxtlas": {
+          "POB1": 310634,
+          "POB84": 147890,
+          "POB42": 162744
+        },
+        "Nautla1": {
+          "POB1": 382892,
+          "POB84": 186249,
+          "POB42": 196643
+        },
+        "Olmeca": {
+          "POB1": 1218319,
+          "POB84": 585316,
+          "POB42": 633003
+        },
+        "Papaloapan": {
+          "POB1": 563063,
+          "POB84": 271573,
+          "POB42": 291490
+        },
+        "Sotavento": {
+          "POB1": 1085751,
+          "POB84": 517840,
+          "POB42": 567911
+        },
+        "Totonaca": {
+          "POB1": 695111,
+          "POB84": 332025,
+          "POB42": 363086
+        }
+      },
+      "municipios": [
+        {
+          "NOMGEO": "Acajete",
+          "POB1": 9701,
+          "POB84": 4920,
+          "POB42": 4781
+        },
+        {
+          "NOMGEO": "Acatlán",
+          "POB1": 3441,
+          "POB84": 1666,
+          "POB42": 1775
+        },
+        {
+          "NOMGEO": "Acayucan",
+          "POB1": 80815,
+          "POB84": 38517,
+          "POB42": 42298
+        },
+        {
+          "NOMGEO": "Actopan",
+          "POB1": 41742,
+          "POB84": 20610,
+          "POB42": 21132
+        },
+        {
+          "NOMGEO": "Acula",
+          "POB1": 5253,
+          "POB84": 2670,
+          "POB42": 2583
+        },
+        {
+          "NOMGEO": "Acultzingo",
+          "POB1": 23100,
+          "POB84": 11178,
+          "POB42": 11922
+        },
+        {
+          "NOMGEO": "Camarón de Tejeda",
+          "POB1": 6538,
+          "POB84": 3195,
+          "POB42": 3343
+        },
+        {
+          "NOMGEO": "Alpatláhuac",
+          "POB1": 10338,
+          "POB84": 5034,
+          "POB42": 5304
+        },
+        {
+          "NOMGEO": "Alto Lucero de Gutiérrez Barrios",
+          "POB1": 28184,
+          "POB84": 14006,
+          "POB42": 14178
+        },
+        {
+          "NOMGEO": "Altotonga",
+          "POB1": 64234,
+          "POB84": 30527,
+          "POB42": 33707
+        },
+        {
+          "NOMGEO": "Alvarado",
+          "POB1": 57035,
+          "POB84": 27938,
+          "POB42": 29097
+        },
+        {
+          "NOMGEO": "Amatitlán",
+          "POB1": 7866,
+          "POB84": 3848,
+          "POB42": 4018
+        },
+        {
+          "NOMGEO": "Naranjos Amatlán",
+          "POB1": 26843,
+          "POB84": 12669,
+          "POB42": 14174
+        },
+        {
+          "NOMGEO": "Amatlán de los Reyes",
+          "POB1": 46955,
+          "POB84": 22774,
+          "POB42": 24181
+        },
+        {
+          "NOMGEO": "Angel R. Cabada",
+          "POB1": 33839,
+          "POB84": 16514,
+          "POB42": 17325
+        },
+        {
+          "NOMGEO": "La Antigua",
+          "POB1": 28682,
+          "POB84": 13737,
+          "POB42": 14945
+        },
+        {
+          "NOMGEO": "Apazapan",
+          "POB1": 4709,
+          "POB84": 2363,
+          "POB42": 2346
+        },
+        {
+          "NOMGEO": "Aquila",
+          "POB1": 1978,
+          "POB84": 929,
+          "POB42": 1049
+        },
+        {
+          "NOMGEO": "Astacinga",
+          "POB1": 6909,
+          "POB84": 3201,
+          "POB42": 3708
+        },
+        {
+          "NOMGEO": "Atlahuilco",
+          "POB1": 11577,
+          "POB84": 5594,
+          "POB42": 5983
+        },
+        {
+          "NOMGEO": "Atoyac",
+          "POB1": 23461,
+          "POB84": 11351,
+          "POB42": 12110
+        },
+        {
+          "NOMGEO": "Atzacan",
+          "POB1": 22651,
+          "POB84": 11125,
+          "POB42": 11526
+        },
+        {
+          "NOMGEO": "Atzalan",
+          "POB1": 49180,
+          "POB84": 24379,
+          "POB42": 24801
+        },
+        {
+          "NOMGEO": "Tlaltetela",
+          "POB1": 16485,
+          "POB84": 8318,
+          "POB42": 8167
+        },
+        {
+          "NOMGEO": "Ayahualulco",
+          "POB1": 27217,
+          "POB84": 13238,
+          "POB42": 13979
+        },
+        {
+          "NOMGEO": "Banderilla",
+          "POB1": 25993,
+          "POB84": 12221,
+          "POB42": 13772
+        },
+        {
+          "NOMGEO": "Benito Juárez",
+          "POB1": 16120,
+          "POB84": 7788,
+          "POB42": 8332
+        },
+        {
+          "NOMGEO": "Boca del Río",
+          "POB1": 144550,
+          "POB84": 67985,
+          "POB42": 76565
+        },
+        {
+          "NOMGEO": "Calcahualco",
+          "POB1": 13701,
+          "POB84": 6762,
+          "POB42": 6939
+        },
+        {
+          "NOMGEO": "Camerino Z. Mendoza",
+          "POB1": 41835,
+          "POB84": 19687,
+          "POB42": 22148
+        },
+        {
+          "NOMGEO": "Carrillo Puerto",
+          "POB1": 18888,
+          "POB84": 9337,
+          "POB42": 9551
+        },
+        {
+          "NOMGEO": "Catemaco",
+          "POB1": 49451,
+          "POB84": 23599,
+          "POB42": 25852
+        },
+        {
+          "NOMGEO": "Cazones de Herrera",
+          "POB1": 24421,
+          "POB84": 11846,
+          "POB42": 12575
+        },
+        {
+          "NOMGEO": "Cerro Azul",
+          "POB1": 25011,
+          "POB84": 11598,
+          "POB42": 13413
+        },
+        {
+          "NOMGEO": "Citlaltépetl",
+          "POB1": 11165,
+          "POB84": 5478,
+          "POB42": 5687
+        },
+        {
+          "NOMGEO": "Coacoatzintla",
+          "POB1": 11018,
+          "POB84": 5329,
+          "POB42": 5689
+        },
+        {
+          "NOMGEO": "Coahuitlán",
+          "POB1": 8176,
+          "POB84": 3990,
+          "POB42": 4186
+        },
+        {
+          "NOMGEO": "Coatepec",
+          "POB1": 93911,
+          "POB84": 45096,
+          "POB42": 48815
+        },
+        {
+          "NOMGEO": "Coatzacoalcos",
+          "POB1": 310698,
+          "POB84": 149139,
+          "POB42": 161559
+        },
+        {
+          "NOMGEO": "Coatzintla",
+          "POB1": 55016,
+          "POB84": 26292,
+          "POB42": 28724
+        },
+        {
+          "NOMGEO": "Coetzala",
+          "POB1": 2355,
+          "POB84": 1156,
+          "POB42": 1199
+        },
+        {
+          "NOMGEO": "Colipa",
+          "POB1": 5743,
+          "POB84": 2844,
+          "POB42": 2899
+        },
+        {
+          "NOMGEO": "Comapa",
+          "POB1": 19876,
+          "POB84": 9975,
+          "POB42": 9901
+        },
+        {
+          "NOMGEO": "Córdoba",
+          "POB1": 204721,
+          "POB84": 95960,
+          "POB42": 108761
+        },
+        {
+          "NOMGEO": "Cosamaloapan de Carpio",
+          "POB1": 54737,
+          "POB84": 25879,
+          "POB42": 28858
+        },
+        {
+          "NOMGEO": "Cosautlán de Carvajal",
+          "POB1": 16167,
+          "POB84": 7980,
+          "POB42": 8187
+        },
+        {
+          "NOMGEO": "Coscomatepec",
+          "POB1": 59471,
+          "POB84": 28715,
+          "POB42": 30756
+        },
+        {
+          "NOMGEO": "Cosoleacaque",
+          "POB1": 130903,
+          "POB84": 62157,
+          "POB42": 68746
+        },
+        {
+          "NOMGEO": "Cotaxtla",
+          "POB1": 22050,
+          "POB84": 10868,
+          "POB42": 11182
+        },
+        {
+          "NOMGEO": "Coxquihui",
+          "POB1": 16333,
+          "POB84": 7902,
+          "POB42": 8431
+        },
+        {
+          "NOMGEO": "Coyutla",
+          "POB1": 23096,
+          "POB84": 11141,
+          "POB42": 11955
+        },
+        {
+          "NOMGEO": "Cuichapa",
+          "POB1": 11869,
+          "POB84": 5645,
+          "POB42": 6224
+        },
+        {
+          "NOMGEO": "Cuitláhuac",
+          "POB1": 28075,
+          "POB84": 13510,
+          "POB42": 14565
+        },
+        {
+          "NOMGEO": "Chacaltianguis",
+          "POB1": 11461,
+          "POB84": 5574,
+          "POB42": 5887
+        },
+        {
+          "NOMGEO": "Chalma",
+          "POB1": 13527,
+          "POB84": 6521,
+          "POB42": 7006
+        },
+        {
+          "NOMGEO": "Chiconamel",
+          "POB1": 6610,
+          "POB84": 3143,
+          "POB42": 3467
+        },
+        {
+          "NOMGEO": "Chiconquiaco",
+          "POB1": 13881,
+          "POB84": 6930,
+          "POB42": 6951
+        },
+        {
+          "NOMGEO": "Chicontepec",
+          "POB1": 53858,
+          "POB84": 26214,
+          "POB42": 27644
+        },
+        {
+          "NOMGEO": "Chinameca",
+          "POB1": 22638,
+          "POB84": 10930,
+          "POB42": 11708
+        },
+        {
+          "NOMGEO": "Chinampa de Gorostiza",
+          "POB1": 16283,
+          "POB84": 7927,
+          "POB42": 8356
+        },
+        {
+          "NOMGEO": "Las Choapas",
+          "POB1": 81080,
+          "POB84": 39349,
+          "POB42": 41731
+        },
+        {
+          "NOMGEO": "Chocamán",
+          "POB1": 20839,
+          "POB84": 10278,
+          "POB42": 10561
+        },
+        {
+          "NOMGEO": "Chontla",
+          "POB1": 13359,
+          "POB84": 6526,
+          "POB42": 6833
+        },
+        {
+          "NOMGEO": "Isla",
+          "POB1": 42807,
+          "POB84": 20715,
+          "POB42": 22092
+        },
+        {
+          "NOMGEO": "Ixcatepec",
+          "POB1": 12379,
+          "POB84": 6080,
+          "POB42": 6299
+        },
+        {
+          "NOMGEO": "Ixhuacán de los Reyes",
+          "POB1": 11387,
+          "POB84": 5617,
+          "POB42": 5770
+        },
+        {
+          "NOMGEO": "Ixhuatlán del Café",
+          "POB1": 23132,
+          "POB84": 11460,
+          "POB42": 11672
+        },
+        {
+          "NOMGEO": "Ixhuatlancillo",
+          "POB1": 27295,
+          "POB84": 12909,
+          "POB42": 14386
+        },
+        {
+          "NOMGEO": "Ixhuatlán del Sureste",
+          "POB1": 15831,
+          "POB84": 7768,
+          "POB42": 8063
+        },
+        {
+          "NOMGEO": "Ixhuatlán de Madero",
+          "POB1": 50836,
+          "POB84": 24723,
+          "POB42": 26113
+        },
+        {
+          "NOMGEO": "Ixmatlahuacan",
+          "POB1": 5574,
+          "POB84": 2712,
+          "POB42": 2862
+        },
+        {
+          "NOMGEO": "Ixtaczoquitlán",
+          "POB1": 74004,
+          "POB84": 35363,
+          "POB42": 38641
+        },
+        {
+          "NOMGEO": "Jalacingo",
+          "POB1": 46794,
+          "POB84": 22644,
+          "POB42": 24150
+        },
+        {
+          "NOMGEO": "Xalapa",
+          "POB1": 488531,
+          "POB84": 226821,
+          "POB42": 261710
+        },
+        {
+          "NOMGEO": "Jalcomulco",
+          "POB1": 5054,
+          "POB84": 2537,
+          "POB42": 2517
+        },
+        {
+          "NOMGEO": "Chumatlán",
+          "POB1": 4008,
+          "POB84": 1894,
+          "POB42": 2114
+        },
+        {
+          "NOMGEO": "Emiliano Zapata",
+          "POB1": 85489,
+          "POB84": 41162,
+          "POB42": 44327
+        },
+        {
+          "NOMGEO": "Espinal",
+          "POB1": 26830,
+          "POB84": 13021,
+          "POB42": 13809
+        },
+        {
+          "NOMGEO": "Filomeno Mata",
+          "POB1": 19179,
+          "POB84": 9294,
+          "POB42": 9885
+        },
+        {
+          "NOMGEO": "Fortín",
+          "POB1": 66372,
+          "POB84": 31242,
+          "POB42": 35130
+        },
+        {
+          "NOMGEO": "Gutiérrez Zamora",
+          "POB1": 24085,
+          "POB84": 11188,
+          "POB42": 12897
+        },
+        {
+          "NOMGEO": "Hidalgotitlán",
+          "POB1": 18275,
+          "POB84": 9148,
+          "POB42": 9127
+        },
+        {
+          "NOMGEO": "Huatusco",
+          "POB1": 59920,
+          "POB84": 28610,
+          "POB42": 31310
+        },
+        {
+          "NOMGEO": "Huayacocotla",
+          "POB1": 21796,
+          "POB84": 10467,
+          "POB42": 11329
+        },
+        {
+          "NOMGEO": "Hueyapan de Ocampo",
+          "POB1": 41670,
+          "POB84": 20201,
+          "POB42": 21469
+        },
+        {
+          "NOMGEO": "Jáltipan",
+          "POB1": 38669,
+          "POB84": 18192,
+          "POB42": 20477
+        },
+        {
+          "NOMGEO": "Jamapa",
+          "POB1": 11132,
+          "POB84": 5420,
+          "POB42": 5712
+        },
+        {
+          "NOMGEO": "Jesús Carranza",
+          "POB1": 28524,
+          "POB84": 14079,
+          "POB42": 14445
+        },
+        {
+          "NOMGEO": "Xico",
+          "POB1": 39623,
+          "POB84": 19253,
+          "POB42": 20370
+        },
+        {
+          "NOMGEO": "Jilotepec",
+          "POB1": 16585,
+          "POB84": 8015,
+          "POB42": 8570
+        },
+        {
+          "NOMGEO": "Juan Rodríguez Clara",
+          "POB1": 38367,
+          "POB84": 18690,
+          "POB42": 19677
+        },
+        {
+          "NOMGEO": "Juchique de Ferrer",
+          "POB1": 15059,
+          "POB84": 7478,
+          "POB42": 7581
+        },
+        {
+          "NOMGEO": "Landero y Coss",
+          "POB1": 1543,
+          "POB84": 756,
+          "POB42": 787
+        },
+        {
+          "NOMGEO": "Lerdo de Tejada",
+          "POB1": 19123,
+          "POB84": 8984,
+          "POB42": 10139
+        },
+        {
+          "NOMGEO": "Omealca",
+          "POB1": 23773,
+          "POB84": 11420,
+          "POB42": 12353
+        },
+        {
+          "NOMGEO": "Orizaba",
+          "POB1": 123182,
+          "POB84": 56740,
+          "POB42": 66442
+        },
+        {
+          "NOMGEO": "Huiloapan de Cuauhtémoc",
+          "POB1": 7293,
+          "POB84": 3457,
+          "POB42": 3836
+        },
+        {
+          "NOMGEO": "Ignacio de la Llave",
+          "POB1": 16525,
+          "POB84": 7959,
+          "POB42": 8566
+        },
+        {
+          "NOMGEO": "Ilamatlán",
+          "POB1": 13377,
+          "POB84": 6350,
+          "POB42": 7027
+        },
+        {
+          "NOMGEO": "Magdalena",
+          "POB1": 3299,
+          "POB84": 1591,
+          "POB42": 1708
+        },
+        {
+          "NOMGEO": "Maltrata",
+          "POB1": 18327,
+          "POB84": 8778,
+          "POB42": 9549
+        },
+        {
+          "NOMGEO": "Manlio Fabio Altamirano",
+          "POB1": 23918,
+          "POB84": 11737,
+          "POB42": 12181
+        },
+        {
+          "NOMGEO": "Mariano Escobedo",
+          "POB1": 38670,
+          "POB84": 18520,
+          "POB42": 20150
+        },
+        {
+          "NOMGEO": "Martínez de la Torre",
+          "POB1": 108842,
+          "POB84": 52176,
+          "POB42": 56666
+        },
+        {
+          "NOMGEO": "Mecatlán",
+          "POB1": 12799,
+          "POB84": 6296,
+          "POB42": 6503
+        },
+        {
+          "NOMGEO": "Mecayapan",
+          "POB1": 17134,
+          "POB84": 8228,
+          "POB42": 8906
+        },
+        {
+          "NOMGEO": "Medellín de Bravo",
+          "POB1": 95202,
+          "POB84": 45685,
+          "POB42": 49517
+        },
+        {
+          "NOMGEO": "Miahuatlán",
+          "POB1": 4841,
+          "POB84": 2406,
+          "POB42": 2435
+        },
+        {
+          "NOMGEO": "Misantla",
+          "POB1": 65761,
+          "POB84": 32030,
+          "POB42": 33731
+        },
+        {
+          "NOMGEO": "Mixtla de Altamirano",
+          "POB1": 12125,
+          "POB84": 5982,
+          "POB42": 6143
+        },
+        {
+          "NOMGEO": "Moloacán",
+          "POB1": 16493,
+          "POB84": 7953,
+          "POB42": 8540
+        },
+        {
+          "NOMGEO": "Naolinco",
+          "POB1": 22835,
+          "POB84": 11126,
+          "POB42": 11709
+        },
+        {
+          "NOMGEO": "Naranjal",
+          "POB1": 4614,
+          "POB84": 2232,
+          "POB42": 2382
+        },
+        {
+          "NOMGEO": "Nautla",
+          "POB1": 10130,
+          "POB84": 5050,
+          "POB42": 5080
+        },
+        {
+          "NOMGEO": "Nogales",
+          "POB1": 37314,
+          "POB84": 17775,
+          "POB42": 19539
+        },
+        {
+          "NOMGEO": "Otatitlán",
+          "POB1": 5651,
+          "POB84": 2739,
+          "POB42": 2912
+        },
+        {
+          "NOMGEO": "Oteapan",
+          "POB1": 10343,
+          "POB84": 4913,
+          "POB42": 5430
+        },
+        {
+          "NOMGEO": "Ozuluama de Mascareñas",
+          "POB1": 22756,
+          "POB84": 11612,
+          "POB42": 11144
+        },
+        {
+          "NOMGEO": "Pajapan",
+          "POB1": 18051,
+          "POB84": 8880,
+          "POB42": 9171
+        },
+        {
+          "NOMGEO": "Pánuco",
+          "POB1": 96185,
+          "POB84": 47219,
+          "POB42": 48966
+        },
+        {
+          "NOMGEO": "Papantla",
+          "POB1": 159910,
+          "POB84": 77178,
+          "POB42": 82732
+        },
+        {
+          "NOMGEO": "Paso del Macho",
+          "POB1": 31894,
+          "POB84": 15617,
+          "POB42": 16277
+        },
+        {
+          "NOMGEO": "Paso de Ovejas",
+          "POB1": 33442,
+          "POB84": 16531,
+          "POB42": 16911
+        },
+        {
+          "NOMGEO": "La Perla",
+          "POB1": 28258,
+          "POB84": 13717,
+          "POB42": 14541
+        },
+        {
+          "NOMGEO": "Perote",
+          "POB1": 77432,
+          "POB84": 38295,
+          "POB42": 39137
+        },
+        {
+          "NOMGEO": "Platón Sánchez",
+          "POB1": 18053,
+          "POB84": 8687,
+          "POB42": 9366
+        },
+        {
+          "NOMGEO": "Playa Vicente",
+          "POB1": 39327,
+          "POB84": 18844,
+          "POB42": 20483
+        },
+        {
+          "NOMGEO": "Poza Rica de Hidalgo",
+          "POB1": 189457,
+          "POB84": 88204,
+          "POB42": 101253
+        },
+        {
+          "NOMGEO": "Las Minas",
+          "POB1": 2934,
+          "POB84": 1453,
+          "POB42": 1481
+        },
+        {
+          "NOMGEO": "Minatitlán",
+          "POB1": 144776,
+          "POB84": 68789,
+          "POB42": 75987
+        },
+        {
+          "NOMGEO": "Oluta",
+          "POB1": 17027,
+          "POB84": 8178,
+          "POB42": 8849
+        },
+        {
+          "NOMGEO": "Las Vigas de Ramírez",
+          "POB1": 20300,
+          "POB84": 9962,
+          "POB42": 10338
+        },
+        {
+          "NOMGEO": "Pueblo Viejo",
+          "POB1": 57909,
+          "POB84": 28756,
+          "POB42": 29153
+        },
+        {
+          "NOMGEO": "Puente Nacional",
+          "POB1": 23544,
+          "POB84": 11493,
+          "POB42": 12051
+        },
+        {
+          "NOMGEO": "Rafael Delgado",
+          "POB1": 24127,
+          "POB84": 11804,
+          "POB42": 12323
+        },
+        {
+          "NOMGEO": "Rafael Lucio",
+          "POB1": 8343,
+          "POB84": 4024,
+          "POB42": 4319
+        },
+        {
+          "NOMGEO": "Los Reyes",
+          "POB1": 6308,
+          "POB84": 3097,
+          "POB42": 3211
+        },
+        {
+          "NOMGEO": "Tempoal",
+          "POB1": 34408,
+          "POB84": 16866,
+          "POB42": 17542
+        },
+        {
+          "NOMGEO": "Tenampa",
+          "POB1": 6448,
+          "POB84": 3225,
+          "POB42": 3223
+        },
+        {
+          "NOMGEO": "Tenochtitlán",
+          "POB1": 5040,
+          "POB84": 2482,
+          "POB42": 2558
+        },
+        {
+          "NOMGEO": "Teocelo",
+          "POB1": 16957,
+          "POB84": 8217,
+          "POB42": 8740
+        },
+        {
+          "NOMGEO": "Tepatlaxco",
+          "POB1": 8925,
+          "POB84": 4530,
+          "POB42": 4395
+        },
+        {
+          "NOMGEO": "Tepetlán",
+          "POB1": 9405,
+          "POB84": 4807,
+          "POB42": 4598
+        },
+        {
+          "NOMGEO": "Tepetzintla",
+          "POB1": 14619,
+          "POB84": 7196,
+          "POB42": 7423
+        },
+        {
+          "NOMGEO": "Tequila",
+          "POB1": 16343,
+          "POB84": 8066,
+          "POB42": 8277
+        },
+        {
+          "NOMGEO": "Río Blanco",
+          "POB1": 41795,
+          "POB84": 19312,
+          "POB42": 22483
+        },
+        {
+          "NOMGEO": "Saltabarranca",
+          "POB1": 6126,
+          "POB84": 2952,
+          "POB42": 3174
+        },
+        {
+          "NOMGEO": "José Azueta",
+          "POB1": 22709,
+          "POB84": 11136,
+          "POB42": 11573
+        },
+        {
+          "NOMGEO": "Texcatepec",
+          "POB1": 10824,
+          "POB84": 5274,
+          "POB42": 5550
+        },
+        {
+          "NOMGEO": "Texhuacán",
+          "POB1": 5575,
+          "POB84": 2644,
+          "POB42": 2931
+        },
+        {
+          "NOMGEO": "Texistepec",
+          "POB1": 19925,
+          "POB84": 9801,
+          "POB42": 10124
+        },
+        {
+          "NOMGEO": "Tezonapa",
+          "POB1": 54537,
+          "POB84": 26811,
+          "POB42": 27726
+        },
+        {
+          "NOMGEO": "Tierra Blanca",
+          "POB1": 95602,
+          "POB84": 45759,
+          "POB42": 49843
+        },
+        {
+          "NOMGEO": "Tihuatlán",
+          "POB1": 92726,
+          "POB84": 44657,
+          "POB42": 48069
+        },
+        {
+          "NOMGEO": "Tlacojalpan",
+          "POB1": 4489,
+          "POB84": 2219,
+          "POB42": 2270
+        },
+        {
+          "NOMGEO": "San Andrés Tenejapan",
+          "POB1": 3134,
+          "POB84": 1520,
+          "POB42": 1614
+        },
+        {
+          "NOMGEO": "San Andrés Tuxtla",
+          "POB1": 162428,
+          "POB84": 76986,
+          "POB42": 85442
+        },
+        {
+          "NOMGEO": "San Juan Evangelista",
+          "POB1": 32631,
+          "POB84": 15998,
+          "POB42": 16633
+        },
+        {
+          "NOMGEO": "Santiago Tuxtla",
+          "POB1": 57085,
+          "POB84": 27104,
+          "POB42": 29981
+        },
+        {
+          "NOMGEO": "Sayula de Alemán",
+          "POB1": 32400,
+          "POB84": 15629,
+          "POB42": 16771
+        },
+        {
+          "NOMGEO": "Soconusco",
+          "POB1": 16574,
+          "POB84": 7926,
+          "POB42": 8648
+        },
+        {
+          "NOMGEO": "Sochiapa",
+          "POB1": 3925,
+          "POB84": 1956,
+          "POB42": 1969
+        },
+        {
+          "NOMGEO": "Soledad Atzompa",
+          "POB1": 24578,
+          "POB84": 12001,
+          "POB42": 12577
+        },
+        {
+          "NOMGEO": "Soledad de Doblado",
+          "POB1": 28130,
+          "POB84": 13872,
+          "POB42": 14258
+        },
+        {
+          "NOMGEO": "Soteapan",
+          "POB1": 34385,
+          "POB84": 16531,
+          "POB42": 17854
+        },
+        {
+          "NOMGEO": "Tamalín",
+          "POB1": 11631,
+          "POB84": 5821,
+          "POB42": 5810
+        },
+        {
+          "NOMGEO": "Tamiahua",
+          "POB1": 21902,
+          "POB84": 10992,
+          "POB42": 10910
+        },
+        {
+          "NOMGEO": "Tampico Alto",
+          "POB1": 11561,
+          "POB84": 5927,
+          "POB42": 5634
+        },
+        {
+          "NOMGEO": "Tancoco",
+          "POB1": 5795,
+          "POB84": 2785,
+          "POB42": 3010
+        },
+        {
+          "NOMGEO": "Tantima",
+          "POB1": 11991,
+          "POB84": 6075,
+          "POB42": 5916
+        },
+        {
+          "NOMGEO": "Tantoyuca",
+          "POB1": 99959,
+          "POB84": 48133,
+          "POB42": 51826
+        },
+        {
+          "NOMGEO": "Tatatila",
+          "POB1": 6041,
+          "POB84": 3091,
+          "POB42": 2950
+        },
+        {
+          "NOMGEO": "Castillo de Teayo",
+          "POB1": 20145,
+          "POB84": 9936,
+          "POB42": 10209
+        },
+        {
+          "NOMGEO": "Tecolutla",
+          "POB1": 24551,
+          "POB84": 12102,
+          "POB42": 12449
+        },
+        {
+          "NOMGEO": "Tehuipango",
+          "POB1": 29686,
+          "POB84": 14225,
+          "POB42": 15461
+        },
+        {
+          "NOMGEO": "Álamo Temapache",
+          "POB1": 107270,
+          "POB84": 52748,
+          "POB42": 54522
+        },
+        {
+          "NOMGEO": "Tlacolulan",
+          "POB1": 11685,
+          "POB84": 5751,
+          "POB42": 5934
+        },
+        {
+          "NOMGEO": "Tlacotalpan",
+          "POB1": 12898,
+          "POB84": 6223,
+          "POB42": 6675
+        },
+        {
+          "NOMGEO": "Tlacotepec de Mejía",
+          "POB1": 4284,
+          "POB84": 2130,
+          "POB42": 2154
+        },
+        {
+          "NOMGEO": "Tlachichilco",
+          "POB1": 10900,
+          "POB84": 5307,
+          "POB42": 5593
+        },
+        {
+          "NOMGEO": "Tlalixcoyan",
+          "POB1": 37795,
+          "POB84": 18380,
+          "POB42": 19415
+        },
+        {
+          "NOMGEO": "Tlalnelhuayocan",
+          "POB1": 19664,
+          "POB84": 9585,
+          "POB42": 10079
+        },
+        {
+          "NOMGEO": "Tlapacoyan",
+          "POB1": 61377,
+          "POB84": 29598,
+          "POB42": 31779
+        },
+        {
+          "NOMGEO": "Tlaquilpa",
+          "POB1": 7933,
+          "POB84": 3711,
+          "POB42": 4222
+        },
+        {
+          "NOMGEO": "Yanga",
+          "POB1": 17902,
+          "POB84": 8425,
+          "POB42": 9477
+        },
+        {
+          "NOMGEO": "Yecuatla",
+          "POB1": 11205,
+          "POB84": 5543,
+          "POB42": 5662
+        },
+        {
+          "NOMGEO": "Zacualpan",
+          "POB1": 6788,
+          "POB84": 3238,
+          "POB42": 3550
+        },
+        {
+          "NOMGEO": "Zaragoza",
+          "POB1": 11899,
+          "POB84": 5637,
+          "POB42": 6262
+        },
+        {
+          "NOMGEO": "Zentla",
+          "POB1": 12581,
+          "POB84": 6288,
+          "POB42": 6293
+        },
+        {
+          "NOMGEO": "Zongolica",
+          "POB1": 45028,
+          "POB84": 21765,
+          "POB42": 23263
+        },
+        {
+          "NOMGEO": "Zontecomatlán de López y Fuentes",
+          "POB1": 14644,
+          "POB84": 7154,
+          "POB42": 7490
+        },
+        {
+          "NOMGEO": "Zozocolco de Hidalgo",
+          "POB1": 14524,
+          "POB84": 7020,
+          "POB42": 7504
+        },
+        {
+          "NOMGEO": "Agua Dulce",
+          "POB1": 44104,
+          "POB84": 21064,
+          "POB42": 23040
+        },
+        {
+          "NOMGEO": "El Higo",
+          "POB1": 19402,
+          "POB84": 9635,
+          "POB42": 9767
+        },
+        {
+          "NOMGEO": "Tlilapan",
+          "POB1": 5548,
+          "POB84": 2693,
+          "POB42": 2855
+        },
+        {
+          "NOMGEO": "Tomatlán",
+          "POB1": 7197,
+          "POB84": 3538,
+          "POB42": 3659
+        },
+        {
+          "NOMGEO": "Tonayán",
+          "POB1": 6105,
+          "POB84": 2956,
+          "POB42": 3149
+        },
+        {
+          "NOMGEO": "Totutla",
+          "POB1": 17217,
+          "POB84": 8525,
+          "POB42": 8692
+        },
+        {
+          "NOMGEO": "Tuxpan",
+          "POB1": 154600,
+          "POB84": 74195,
+          "POB42": 80405
+        },
+        {
+          "NOMGEO": "Tuxtilla",
+          "POB1": 2258,
+          "POB84": 1114,
+          "POB42": 1144
+        },
+        {
+          "NOMGEO": "Ursulo Galván",
+          "POB1": 30097,
+          "POB84": 14468,
+          "POB42": 15629
+        },
+        {
+          "NOMGEO": "Vega de Alatorre",
+          "POB1": 20204,
+          "POB84": 9772,
+          "POB42": 10432
+        },
+        {
+          "NOMGEO": "Veracruz",
+          "POB1": 607209,
+          "POB84": 287664,
+          "POB42": 319545
+        },
+        {
+          "NOMGEO": "Villa Aldama",
+          "POB1": 12492,
+          "POB84": 6113,
+          "POB42": 6379
+        },
+        {
+          "NOMGEO": "Xoxocotla",
+          "POB1": 5900,
+          "POB84": 2961,
+          "POB42": 2939
+        },
+        {
+          "NOMGEO": "Nanchital de Lázaro Cárdenas del Río",
+          "POB1": 29209,
+          "POB84": 13887,
+          "POB42": 15322
+        },
+        {
+          "NOMGEO": "Tres Valles",
+          "POB1": 44978,
+          "POB84": 21699,
+          "POB42": 23279
+        },
+        {
+          "NOMGEO": "Carlos A. Carrillo",
+          "POB1": 23376,
+          "POB84": 11090,
+          "POB42": 12286
+        },
+        {
+          "NOMGEO": "Tatahuicapan de Juárez",
+          "POB1": 15044,
+          "POB84": 7183,
+          "POB42": 7861
+        },
+        {
+          "NOMGEO": "Uxpanapa",
+          "POB1": 30891,
+          "POB84": 15440,
+          "POB42": 15451
+        },
+        {
+          "NOMGEO": "San Rafael",
+          "POB1": 30351,
+          "POB84": 14897,
+          "POB42": 15454
+        },
+        {
+          "NOMGEO": "Santiago Sochiapan",
+          "POB1": 13062,
+          "POB84": 6315,
+          "POB42": 6747
+        }
+      ]
+    };
+
+
+    const _oldMostrar = mostrarInfoMunicipio;
+    mostrarInfoMunicipio = function (cve, nombre) {
+      _oldMostrar(cve, nombre);
+
+      const p = poblacion.municipios.find(x => x.NOMGEO === nombre);
+
+      if (p) {
+        const panel = document.getElementById('info-content');
+        panel.innerHTML += `
+      <hr>
+      <b>Población</b>
+      <ul class="list-disc ml-4">
+        <li>Total: <b>${p.POB1.toLocaleString()}</b></li>
+        <li>Hombres: <b>${p.POB84.toLocaleString()}</b></li>
+        <li>Mujeres: <b>${p.POB42.toLocaleString()}</b></li>
+      </ul>`;
+      }
+    };
+
+
+
+    const _oldShowState = showState;
+    showState = function () {
+      _oldShowState();
+      const p = poblacion.veracruz;
+      if (p) {
+        const panel = document.getElementById('info-content');
+        panel.innerHTML += `<hr><b>Población</b><ul class="list-disc ml-4">
+      <li>Total: <b>${p.POB1.toLocaleString()}</b></li>
+      <li>Hombres: <b>${p.POB84.toLocaleString()}</b></li>
+      <li>Mujeres: <b>${p.POB42.toLocaleString()}</b></li>
+    </ul>`;
+      }
+    };
+
+
+    const _oldShowNational = showNational;
+    showNational = function () {
+      _oldShowNational();
+      const p = poblacion.nacional;
+      if (p) {
+        const panel = document.getElementById('info-content');
+        panel.innerHTML += `<hr><b>Población</b><ul class="list-disc ml-4">
+      <li>Total: <b>${p.POB1.toLocaleString()}</b></li>
+      <li>Hombres: <b>${p.POB84.toLocaleString()}</b></li>
+      <li>Mujeres: <b>${p.POB42.toLocaleString()}</b></li>
+    </ul>`;
+      }
+    };
+
+
+    const regionMap = {
+      'huasteca_alta': 'HuastecaAlta',
+      'huasteca_baja': 'HuastecaBaja',
+      'totonaca': 'Totonaca',
+      'nautla': 'Nautla1',
+      'capital': 'Capital',
+      'sotavento': 'Sotavento',
+      'altas_montanas': 'AltasMontañas',
+      'papaloapan': 'Papaloapan',
+      'tuxtlas': 'LosTuxtlas',
+      'olmeca': 'Olmeca'
+    };
+
+    const _oldMostrarRegion = mostrarInfoRegion;
+    mostrarInfoRegion = function (key) {
+      _oldMostrarRegion(key);
+      const realKey = regionMap[key];
+      const p = poblacion.regiones[realKey];
+      if (p) {
+        const panel = document.getElementById('info-content');
+        panel.innerHTML += `<hr><b>Población</b><ul class="list-disc ml-4">
+      <li>Total: <b>${p.POB1.toLocaleString()}</b></li>
+      <li>Hombres: <b>${p.POB84.toLocaleString()}</b></li>
+      <li>Mujeres: <b>${p.POB42.toLocaleString()}</b></li>
+    </ul>`;
+      }
+    };
+
+  </script>
+
+  <!-- Script para el sistema de marcado de puntos personalizados con Firebase -->
+  <script>
+    // ============================================
+    // CONFIGURACIÓN DE FIREBASE
+    // ============================================
+    // ✅ Configuración del proyecto: mapa-puntos-veracruz
+    // Consola: https://console.firebase.google.com/project/mapa-puntos-veracruz
+    const firebaseConfig = {
+      apiKey: "AIzaSyD8fcZP_FTEKDZpm_To4g0AvEZjvqOxjOg",
+      authDomain: "mapa-puntos-veracruz.firebaseapp.com",
+      projectId: "mapa-puntos-veracruz",
+      storageBucket: "mapa-puntos-veracruz.firebasestorage.app",
+      messagingSenderId: "481357191308",
+      appId: "1:481357191308:web:ba9f801c910009909283a9"
+    };
+
+    // Inicializar Firebase
+    let db = null;
+    let firebaseInitialized = false;
+
+    try {
+      if (typeof firebase !== 'undefined') {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+        firebaseInitialized = true;
+        console.log('✅ Firebase inicializado correctamente');
+      } else {
+        console.warn('⚠️ Firebase no está disponible. Usando solo localStorage.');
+      }
+    } catch (error) {
+      console.warn('⚠️ Error inicializando Firebase:', error.message);
+      console.warn('📝 Continuando con localStorage solamente.');
+    }
+
+    // Variables globales para el sistema de puntos personalizados
+    let markerModeActive = false;
+    let customPointsLayer = L.layerGroup().addTo(map);
+    let customPoints = [];
+    let currentEditingPoint = null;
+    let tempMarker = null;
+
+    // Colores por categoría
+    const categoryColors = {
+      'comercio': '#f59e0b',
+      'oficina': '#3b82f6',
+      'educacion': '#8b5cf6',
+      'salud': '#ef4444',
+      'recreacion': '#10b981',
+      'transporte': '#06b6d4',
+      'gobierno': '#6366f1',
+      'otro': '#64748b'
+    };
+
+    // ============================================
+    // FUNCIONES DE FIREBASE (NUBE)
+    // ============================================
+
+    // Cargar puntos desde Firebase (nube)
+    async function loadCustomPointsFromFirebase() {
+      if (!firebaseInitialized || !db) {
+        console.log('📝 Firebase no disponible, cargando desde localStorage');
+        loadCustomPointsFromLocalStorage();
+        return;
+      }
+
+      try {
+        console.log('☁️ Cargando puntos desde Firebase...');
+        const snapshot = await db.collection('customPoints').get();
+
+        customPoints = [];
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          customPoints.push({
+            id: doc.id,
+            ...data
+          });
+        });
+
+        console.log(`✅ Cargados ${customPoints.length} puntos desde Firebase`);
+
+        // Guardar copia en localStorage como respaldo
+        localStorage.setItem('customMapPoints', JSON.stringify(customPoints));
+
+        renderCustomPoints();
+        updateSavedPointsList();
+      } catch (error) {
+        console.error('❌ Error cargando desde Firebase:', error);
+        console.log('📝 Intentando cargar desde localStorage...');
+        loadCustomPointsFromLocalStorage();
+      }
+    }
+
+    // Cargar puntos desde localStorage (respaldo offline)
+    function loadCustomPointsFromLocalStorage() {
+      const saved = localStorage.getItem('customMapPoints');
+      if (saved) {
+        try {
+          customPoints = JSON.parse(saved);
+          console.log(`✓ Cargados ${customPoints.length} puntos desde localStorage`);
+          renderCustomPoints();
+          updateSavedPointsList();
+        } catch (e) {
+          console.warn('Error cargando puntos guardados:', e);
+          customPoints = [];
+        }
+      }
+    }
+
+    // Guardar punto en Firebase (nube)
+    async function savePointToFirebase(pointData) {
+      if (!firebaseInitialized || !db) {
+        console.log('📝 Firebase no disponible, guardando solo en localStorage');
+        return false;
+      }
+
+      try {
+        if (pointData.id && typeof pointData.id === 'string' && pointData.id.length > 15) {
+          // Actualizar punto existente
+          await db.collection('customPoints').doc(pointData.id).set(pointData);
+          console.log('✅ Punto actualizado en Firebase:', pointData.name);
+        } else {
+          // Crear nuevo punto
+          const docRef = await db.collection('customPoints').add(pointData);
+          pointData.id = docRef.id;
+          console.log('✅ Punto guardado en Firebase:', pointData.name);
+        }
+        return true;
+      } catch (error) {
+        console.error('❌ Error guardando en Firebase:', error);
+        return false;
+      }
+    }
+
+    // Eliminar punto de Firebase (nube)
+    async function deletePointFromFirebase(pointId) {
+      if (!firebaseInitialized || !db) {
+        console.log('📝 Firebase no disponible, eliminando solo de localStorage');
+        return false;
+      }
+
+      try {
+        await db.collection('customPoints').doc(pointId).delete();
+        console.log('✅ Punto eliminado de Firebase');
+        return true;
+      } catch (error) {
+        console.error('❌ Error eliminando de Firebase:', error);
+        return false;
+      }
+    }
+
+    // Guardar puntos en localStorage (respaldo)
+    function saveCustomPointsToStorage() {
+      localStorage.setItem('customMapPoints', JSON.stringify(customPoints));
+      console.log(`✓ Guardados ${customPoints.length} puntos en localStorage (respaldo)`);
+    }
+
+    // Activar/desactivar modo de marcado
+    function toggleMarkerMode() {
+      markerModeActive = !markerModeActive;
+      const btn = document.getElementById('marker-mode-toggle');
+
+      if (markerModeActive) {
+        btn.classList.add('active');
+        btn.querySelector('span').textContent = 'Modo Activo - Haz clic en el mapa';
+        map.getContainer().style.cursor = 'crosshair';
+
+        // Agregar listener para clicks en el mapa
+        map.on('click', onMapClickForMarker);
+
+        console.log('✓ Modo de marcado activado');
+      } else {
+        btn.classList.remove('active');
+        btn.querySelector('span').textContent = 'Marcar Puntos Personalizados';
+        map.getContainer().style.cursor = '';
+
+        // Remover listener
+        map.off('click', onMapClickForMarker);
+
+        // Limpiar marcador temporal si existe
+        if (tempMarker) {
+          map.removeLayer(tempMarker);
+          tempMarker = null;
+        }
+
+        console.log('✓ Modo de marcado desactivado');
+      }
+    }
+
+    // Manejar click en el mapa para marcar punto
+    function onMapClickForMarker(e) {
+      const { lat, lng } = e.latlng;
+
+      // Remover marcador temporal anterior si existe
+      if (tempMarker) {
+        map.removeLayer(tempMarker);
+      }
+
+      // Crear marcador temporal
+      tempMarker = L.marker([lat, lng], {
+        icon: L.divIcon({
+          className: 'temp-marker-container', // Clase neutra para no sobreescribir el transform de Leaflet
+          html: '<div class="temp-marker" style="background: #F6C453; width: 30px; height: 30px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.3);"></div>',
+          iconSize: [30, 30],
+          iconAnchor: [15, 42] // Adjusted anchor for rotated marker
+        })
+      }).addTo(map);
+
+      // Abrir panel y llenar coordenadas
+      openMarkerPanel(lat, lng);
+    }
+
+    // Abrir panel de marcado
+    function openMarkerPanel(lat, lng, existingPoint = null) {
+      const panel = document.getElementById('point-marker-panel');
+      panel.classList.add('active');
+
+      // Llenar coordenadas
+      document.getElementById('point-lat').value = lat.toFixed(6);
+      document.getElementById('point-lng').value = lng.toFixed(6);
+
+      if (existingPoint) {
+        // Modo edición
+        currentEditingPoint = existingPoint;
+        document.getElementById('point-name').value = existingPoint.name;
+        document.getElementById('point-category').value = existingPoint.category;
+        document.getElementById('point-description').value = existingPoint.description || '';
+        document.getElementById('point-address').value = existingPoint.address || '';
+        document.getElementById('delete-button-container').style.display = 'block';
+
+        // Cambiar título
+        panel.querySelector('h2').innerHTML = '<i class="fas fa-edit"></i> Editar Punto';
+      } else {
+        // Modo creación
+        currentEditingPoint = null;
+        document.getElementById('point-form').reset();
+        document.getElementById('point-lat').value = lat.toFixed(6);
+        document.getElementById('point-lng').value = lng.toFixed(6);
+        document.getElementById('delete-button-container').style.display = 'none';
+
+        // Restaurar título
+        panel.querySelector('h2').innerHTML = '<i class="fas fa-map-pin"></i> Punto Personalizado';
+      }
+    }
+
+    // Cerrar panel
+    function closeMarkerPanel() {
+      const panel = document.getElementById('point-marker-panel');
+      panel.classList.remove('active');
+      document.getElementById('point-form').reset();
+      currentEditingPoint = null;
+
+      // Limpiar marcador temporal
+      if (tempMarker) {
+        map.removeLayer(tempMarker);
+        tempMarker = null;
+      }
+    }
+
+    // Guardar punto personalizado
+    async function saveCustomPoint(event) {
+      event.preventDefault();
+
+      const pointData = {
+        id: currentEditingPoint ? currentEditingPoint.id : Date.now().toString(),
+        name: document.getElementById('point-name').value,
+        category: document.getElementById('point-category').value,
+        description: document.getElementById('point-description').value,
+        address: document.getElementById('point-address').value,
+        lat: parseFloat(document.getElementById('point-lat').value),
+        lng: parseFloat(document.getElementById('point-lng').value),
+        createdAt: currentEditingPoint ? currentEditingPoint.createdAt : new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+
+      // Intentar guardar en Firebase primero
+      const savedToFirebase = await savePointToFirebase(pointData);
+
+      if (currentEditingPoint) {
+        // Actualizar punto existente
+        const index = customPoints.findIndex(p => p.id === currentEditingPoint.id);
+        if (index !== -1) {
+          customPoints[index] = pointData;
+          console.log('✓ Punto actualizado:', pointData.name);
+        }
+      } else {
+        // Agregar nuevo punto
+        customPoints.push(pointData);
+        console.log('✓ Nuevo punto agregado:', pointData.name);
+      }
+
+      // Guardar en localStorage (respaldo)
+      saveCustomPointsToStorage();
+
+      // Renderizar puntos
+      renderCustomPoints();
+
+      // Actualizar lista
+      updateSavedPointsList();
+
+      // Cerrar panel
+      closeMarkerPanel();
+
+      // Mostrar notificación
+      const message = currentEditingPoint ? 'Punto actualizado' : 'Punto guardado';
+      const fullMessage = savedToFirebase ?
+        `${message} ☁️ (en la nube)` :
+        `${message} 📝 (solo local)`;
+      showNotification(fullMessage, 'success');
+    }
+
+    // Eliminar punto actual
+    async function deleteCurrentPoint() {
+      if (!currentEditingPoint) return;
+
+      if (confirm(`¿Estás seguro de eliminar "${currentEditingPoint.name}"?`)) {
+        // Intentar eliminar de Firebase primero
+        const deletedFromFirebase = await deletePointFromFirebase(currentEditingPoint.id);
+
+        // Eliminar del array local
+        customPoints = customPoints.filter(p => p.id !== currentEditingPoint.id);
+
+        // Actualizar localStorage
+        saveCustomPointsToStorage();
+
+        renderCustomPoints();
+        updateSavedPointsList();
+        closeMarkerPanel();
+
+        const message = deletedFromFirebase ?
+          'Punto eliminado ☁️ (de la nube)' :
+          'Punto eliminado 📝 (solo local)';
+        showNotification(message, 'success');
+      }
+    }
+
+    // Renderizar puntos personalizados en el mapa
+    function renderCustomPoints() {
+      customPointsLayer.clearLayers();
+
+      customPoints.forEach(point => {
+        const color = categoryColors[point.category] || '#64748b';
+
+        const marker = L.marker([point.lat, point.lng], {
+          icon: L.divIcon({
+            className: 'custom-point-marker',
+            html: `<div style="background: ${color}; width: 24px; height: 24px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 2px solid white; box-shadow: 0 3px 8px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;">
+              <i class="fas fa-star" style="color: white; font-size: 10px; transform: rotate(45deg);"></i>
+            </div>`,
+            iconSize: [24, 24],
+            iconAnchor: [14, 30]
+          })
+        });
+
+        // Crear elemento DOM para el popup (más seguro que string HTML)
+        const container = document.createElement('div');
+        container.style.fontFamily = "'Inter', sans-serif";
+        container.style.minWidth = "220px";
+
+        container.innerHTML = `
+            <h3 style="color: ${color}; font-weight: bold; margin-bottom: 8px; font-size: 15px;">
+              ${point.name}
+            </h3>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.9);">
+              <p style="margin: 4px 0;"><strong>Categoría:</strong> ${getCategoryLabel(point.category)}</p>
+              ${point.description ? `<p style="margin: 4px 0;"><strong>Descripción:</strong> ${point.description}</p>` : ''}
+              ${point.address ? `<p style="margin: 4px 0;"><strong>Dirección:</strong> ${point.address}</p>` : ''}
+              <p style="margin: 4px 0; font-size: 10px; opacity: 0.7;">
+                Lat: ${point.lat.toFixed(6)}, Lng: ${point.lng.toFixed(6)}
+              </p>
+            </div>
+            <div id="popup-actions-${point.id}" style="display: flex; gap: 8px; margin-top: 8px;">
+            </div>
+        `;
+
+        // Botón Editar
+        const btnEdit = document.createElement('button');
+        btnEdit.innerHTML = '<i class="fas fa-edit"></i> Editar';
+        Object.assign(btnEdit.style, {
+          flex: '1', padding: '6px 12px', background: 'rgba(246, 196, 83, 0.2)',
+          border: '1px solid #F6C453', color: '#F6C453', borderRadius: '6px',
+          cursor: 'pointer', fontSize: '12px', fontWeight: '600', transition: 'all 0.2s'
+        });
+        btnEdit.onmouseover = () => btnEdit.style.background = 'rgba(246, 196, 83, 0.3)';
+        btnEdit.onmouseout = () => btnEdit.style.background = 'rgba(246, 196, 83, 0.2)';
+
+        // Evento directo (sin strings)
+        btnEdit.onclick = (e) => {
+          e.stopPropagation();
+          editCustomPoint(point.id);
+        };
+
+        // Botón Eliminar
+        const btnDelete = document.createElement('button');
+        btnDelete.innerHTML = '<i class="fas fa-trash-alt"></i> Eliminar';
+        Object.assign(btnDelete.style, {
+          flex: '1', padding: '6px 12px', background: 'rgba(239, 68, 68, 0.2)',
+          border: '1px solid #ef4444', color: '#ef4444', borderRadius: '6px',
+          cursor: 'pointer', fontSize: '12px', fontWeight: '600', transition: 'all 0.2s'
+        });
+        btnDelete.onmouseover = () => btnDelete.style.background = 'rgba(239, 68, 68, 0.3)';
+        btnDelete.onmouseout = () => btnDelete.style.background = 'rgba(239, 68, 68, 0.2)';
+
+        // Evento directo (sin strings)
+        btnDelete.onclick = (e) => {
+          e.stopPropagation();
+          console.log('Intentando eliminar punto:', point.id);
+          deleteCustomPoint(point.id);
+        };
+
+        // Agregar botones al contenedor
+        const actionsDiv = container.querySelector(`div[id^="popup-actions-"]`);
+        if (actionsDiv) {
+          actionsDiv.appendChild(btnEdit);
+          actionsDiv.appendChild(btnDelete);
+        }
+
+        marker.bindPopup(container);
+        customPointsLayer.addLayer(marker);
+      });
+
+      console.log(`✓ Renderizados ${customPoints.length} puntos personalizados (DOM Mode)`);
+    }
+
+    // Función para eliminar directamente desde el popup
+    async function deleteCustomPoint(pointId) {
+      const point = customPoints.find(p => String(p.id) === String(pointId));
+      if (!point) return;
+
+      if (confirm(`¿Estás seguro de eliminar "${point.name}"?`)) {
+        // Intentar eliminar de Firebase primero
+        const deletedFromFirebase = await deletePointFromFirebase(pointId);
+
+        // Eliminar del array local
+        customPoints = customPoints.filter(p => String(p.id) !== String(pointId));
+
+        // Actualizar localStorage
+        saveCustomPointsToStorage();
+
+        renderCustomPoints();
+        updateSavedPointsList();
+
+        // Si el panel de edición estaba abierto con este punto, cerrarlo
+        if (currentEditingPoint && String(currentEditingPoint.id) === String(pointId)) {
+          closeMarkerPanel();
+        }
+
+        const message = deletedFromFirebase ?
+          'Punto eliminado ☁️ (de la nube)' :
+          'Punto eliminado 📝 (solo local)';
+        showNotification(message, 'success');
+      }
+    }
+
+    // Editar punto personalizado
+    function editCustomPoint(pointId) {
+      const point = customPoints.find(p => String(p.id) === String(pointId));
+      if (point) {
+        openMarkerPanel(point.lat, point.lng, point);
+      }
+    }
+
+    // Obtener etiqueta de categoría
+    function getCategoryLabel(category) {
+      const labels = {
+        'comercio': '🏪 Comercio',
+        'oficina': '🏢 Oficina',
+        'educacion': '🎓 Educación',
+        'salud': '🏥 Salud',
+        'recreacion': '🎯 Recreación',
+        'transporte': '🚌 Transporte',
+        'gobierno': '🏛️ Gobierno',
+        'otro': '📍 Otro'
+      };
+      return labels[category] || category;
+    }
+
+    // Actualizar lista de puntos guardados
+    function updateSavedPointsList() {
+      const listContainer = document.getElementById('saved-points-list');
+      const countSpan = document.getElementById('saved-points-count');
+
+      countSpan.textContent = customPoints.length;
+
+      if (customPoints.length === 0) {
+        listContainer.innerHTML = `
+          <p style="text-align: center; color: rgba(255, 255, 255, 0.5); font-size: 13px;">
+            No hay puntos guardados aún
+          </p>
+        `;
+        return;
+      }
+
+      listContainer.innerHTML = customPoints.map(point => `
+        <div class="saved-point-item" onclick="focusOnPoint(${point.id})">
+          <h4>${point.name}</h4>
+          <p>${getCategoryLabel(point.category)}</p>
+          ${point.address ? `<p style="font-size: 11px; opacity: 0.7;">${point.address}</p>` : ''}
+        </div>
+      `).join('');
+    }
+
+    // Enfocar en un punto
+    function focusOnPoint(pointId) {
+      const point = customPoints.find(p => p.id === pointId);
+      if (point) {
+        map.setView([point.lat, point.lng], 16);
+
+        // Abrir popup del marcador
+        customPointsLayer.eachLayer(layer => {
+          if (layer.getLatLng().lat === point.lat && layer.getLatLng().lng === point.lng) {
+            layer.openPopup();
+          }
+        });
+      }
+    }
+
+    // Mostrar notificación
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : 'rgba(30, 60, 114, 0.95)'};
+        color: white;
+        padding: 16px 24px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        z-index: 10001;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        animation: slideIn 0.3s ease-out;
+      `;
+      notification.textContent = message;
+
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
+    }
+
+    // Agregar animaciones CSS para notificaciones
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from {
+          transform: translateX(400px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      @keyframes slideOut {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(400px);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+  </script>
+
+  <!-- Modal de Confirmación Personalizado (HTML) -->
+  <div id="custom-confirm-modal" style="
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 20000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+  ">
+    <div style="
+      background: rgba(30, 60, 114, 0.95);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 24px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      text-align: center;
+      color: white;
+      font-family: 'Inter', sans-serif;
+    ">
+      <div style="font-size: 48px; margin-bottom: 16px; color: #ef4444;">
+        <i class="fas fa-exclamation-circle"></i>
+      </div>
+      <h3 style="margin: 0 0 8px 0; font-size: 20px; font-weight: bold;">¿Eliminar este punto?</h3>
+      <p id="confirm-modal-text" style="margin: 0 0 24px 0; opacity: 0.8; font-size: 14px;">Esta acción no se puede
+        deshacer.</p>
+
+      <div style="display: flex; gap: 12px;">
+        <button id="btn-cancel-delete" style="
+          flex: 1; padding: 12px;
+          background: rgba(255,255,255,0.1);
+          border: 1px solid rgba(255,255,255,0.2);
+          color: white; border-radius: 8px; cursor: pointer;
+          font-weight: 600;
+        ">Cancelar</button>
+        <button id="btn-confirm-delete" style="
+          flex: 1; padding: 12px;
+          background: linear-gradient(135deg, #ef4444, #dc2626);
+          border: none;
+          color: white; border-radius: 8px; cursor: pointer;
+          font-weight: 600;
+          box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        ">Sí, eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sistema de confirmación personalizado (Promesa)
+    function showCustomConfirm(message) {
+      return new Promise((resolve) => {
+        const modal = document.getElementById('custom-confirm-modal');
+        const text = document.getElementById('confirm-modal-text');
+        const btnYes = document.getElementById('btn-confirm-delete');
+        const btnNo = document.getElementById('btn-cancel-delete');
+
+        text.textContent = message || "¿Estás seguro? Esta acción es irreversible.";
+        modal.style.display = 'flex';
+
+        // Manejadores de una sola vez
+        const handleYes = () => {
+          cleanup();
+          resolve(true);
+        };
+
+        const handleNo = () => {
+          cleanup();
+          resolve(false);
+        };
+
+        function cleanup() {
+          modal.style.display = 'none';
+          btnYes.removeEventListener('click', handleYes);
+          btnNo.removeEventListener('click', handleNo);
+        }
+
+        btnYes.addEventListener('click', handleYes);
+        btnNo.addEventListener('click', handleNo);
+      });
+    }
+
+    // Sobreescribir la función de eliminación para usar el nuevo modal
+    window.deleteCustomPoint = async function (pointId) {
+      console.log('⚡ Solicitud de eliminación iniciada para ID:', pointId);
+
+      // Robustez: asegurar que pointId es string
+      pointId = String(pointId);
+
+      const point = customPoints.find(p => String(p.id) === pointId);
+      if (!point) {
+        console.error('❌ No se encontró el punto con ID:', pointId);
+        showNotification('Error: Punto no encontrado', 'error');
+        return;
+      }
+
+      // Usar nuestro modal personalizado en lugar de confirm()
+      const confirmed = await showCustomConfirm(`¿Estás seguro de eliminar el punto "${point.name}"?`);
+
+      if (confirmed) {
+        console.log('✅ Confirmación recibida. Procediendo a eliminar...');
+
+        // 1. Eliminación VISUAL INMEDIATA (Optimistic UI)
+        customPoints = customPoints.filter(p => String(p.id) !== pointId);
+        renderCustomPoints();
+        updateSavedPointsList();
+
+        // Cerrar panel si está abierto
+        if (currentEditingPoint && String(currentEditingPoint.id) === pointId) {
+          closeMarkerPanel();
+        }
+
+        // 2. Eliminación en SEGUNDO PLANO (Firebase/Storage)
+        showNotification('Eliminando punto...', 'info');
+
+        try {
+          const deletedFromFirebase = await deletePointFromFirebase(pointId);
+          saveCustomPointsToStorage(); // Guardar localmente
+
+          const message = deletedFromFirebase ?
+            'Punto eliminado correctamente ☁️' :
+            'Punto eliminado (modo local) 📝';
+
+          // Actualizar notificación final
+          showNotification(message, 'success');
+
+        } catch (error) {
+          console.error('Error al eliminar en backend:', error);
+          showNotification('Error al eliminar en la nube, pero se borró localmente.', 'warning');
+        }
+      } else {
+        console.log('❌ Eliminación cancelada por el usuario.');
+      }
+    };
+  </script>
+
+  <footer class="w-full text-center text-xs text-white/70 py-4 bg-black/20 mt-8">
+    <div class="max-w-6xl mx-auto px-4">
+      <!-- Universidad -->
+      <p class="mb-2 text-sm">
+        <strong class="text-white">© 2025 Universidad Veracruzana</strong> | Diseño y Desarrollo Web: <strong>Juan
+          Daniel Viveros Viveros</strong>
+      </p>
+
+
+      <p class="text-[10px] mb-2">
+        <strong class="text-white/80">CAPAS BASE DE MAPAS:</strong>
+        <a href="https://carto.com/attributions" target="_blank" class="hover:text-white underline">CartoDB</a> ·
+        <a href="https://www.openstreetmap.org/copyright" target="_blank"
+          class="hover:text-white underline">OpenStreetMap</a> ·
+        <a href="https://opentopomap.org" target="_blank" class="hover:text-white underline">OpenTopoMap</a> ·
+        <a href="https://www.esri.com" target="_blank" class="hover:text-white underline">Esri</a>
+      </p>
+
+
+      <p class="text-[10px]">
+        <strong class="text-white/80">Datos:</strong>
+        <a href="https://www.inegi.org.mx" target="_blank" class="hover:text-white underline">INEGI</a>
+        (DENUE 2025, Marco Geoestadístico 2020, Censo de Población y Vivienda 2020)
+      </p>
+    </div>
+  </footer>
+
+</body>
+
+</html>

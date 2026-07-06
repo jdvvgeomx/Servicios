@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resultados - Geografía de los Servicios</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 40%, #2e7d32 70%, #43a047 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            color: white;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: floatUp 14s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(.6);
+                opacity: .7;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-30vh) scale(1.3);
+                opacity: 0;
+            }
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-left: 1px solid rgba(255, 255, 255, 0.4);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 24px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                0 5px 15px rgba(0, 0, 0, 0.1),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        #particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+
+        .menu-btn {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            #menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                background: #006847;
+                margin-top: 10px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            #menu a {
+                padding: 12px;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            #menu.active {
+                display: flex;
+            }
+        }
+
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            min-height: 600px;
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .step-dot.active {
+            background: #F6C453;
+            transform: scale(1.2);
+        }
+
+        .student-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .student-btn:hover,
+        .student-btn.active {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #F6C453;
+        }
+
+        .student-btn img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particle-container"></div>
+
+
+    <nav class="bg-[#006847] text-white p-4 shadow-lg">
+        <div class="max-w-6xl mx-auto flex justify-between items-center flex-wrap">
+            <div class="flex items-center gap-3">
+                <img src="zLogosimbolo_color.jpg" class="h-12" />
+                <div>
+                    <h1 class="font-bold text-lg">Universidad Veracruzana</h1>
+                    <p class="text-sm opacity-90">Licenciatura en Geografía</p>
+                </div>
+            </div>
+
+            <div class="menu-btn md:hidden" onclick="toggleMenu()">☰</div>
+
+            <div id="menu" class="hidden md:flex gap-6 text-white/90 w-full md:w-auto">
+                <a href="index.html" class="hover:text-white">Inicio</a>
+                <a href="regiones.html" class="hover:text-white">Regiones</a>
+                <a href="estadisticas.html" class="hover:text-white">Estadísticas</a>
+                <a href="mapa.html" class="hover:text-white">Mapa</a>
+                <a href="resultados.html" class="hover:text-white font-bold">Resultados</a>
+                <a href="nosotros.html" class="hover:text-white">Nosotros</a>
+                <a href="bibliografia.html" class="hover:text-white">Bibliografía</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="text-center my-6 md:my-10 px-4">
+        <h1 class="text-3xl md:text-5xl font-bold text-[#F6C453] drop-shadow-md">Resultados del Análisis</h1>
+        <p class="text-white/80 max-w-3xl mx-auto mt-3 text-sm md:text-base">Recorrido interactivo: Regional → Municipal
+        </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 pb-20">
+
+
+        <section class="mb-10">
+            <div class="bg-black/20 rounded-xl p-6 border border-white/10">
+                <h2 class="text-xl font-bold mb-4 text-center">Selecciona un integrante para ver su análisis:</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" id="student-selector">
+
+                </div>
+            </div>
+        </section>
+
+
+        <section class="card carousel-container" id="results-carousel" style="display:none;">
+            <div class="bg-black/20 rounded-xl p-6 border border-white/10 relative h-full">
+
+
+                <div class="step-indicator">
+                    <div class="step-dot active" id="dot-0"></div>
+                    <div class="step-dot" id="dot-1"></div>
+                </div>
+
+
+                <div id="slide-content" class="relative min-h-[500px]">
+
+                </div>
+
+
+                <div class="flex justify-between mt-6 pt-4 border-t border-white/10">
+                    <button onclick="prevSlide()" id="btn-prev"
+                        class="px-6 py-2 rounded-lg bg-white/10 hover:bg-white/20 disabled:opacity-50 disabled:cursor-not-allowed transition">
+                        <i class="fa-solid fa-arrow-left"></i> Anterior
+                    </button>
+                    <button onclick="nextSlide()" id="btn-next"
+                        class="px-6 py-2 rounded-lg bg-[#F6C453] text-[#1e3c72] font-bold hover:bg-[#e0a845] transition">
+                        Siguiente <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="conclusion-card" class="card hidden animate-fade-in">
+            <div class="bg-black/20 rounded-xl p-6 border border-white/10">
+                <h2 class="text-3xl font-bold text-[#F6C453] text-center mb-6">Conclusión General</h2>
+                <div class="space-y-4 text-justify text-white/90 leading-relaxed">
+                    <p>
+                        Analizando los resultados bajo la óptica de la <strong>Teoría de los Lugares Centrales de August
+                            Lösch</strong>, observamos una clara jerarquización en la distribución de servicios. Lösch
+                        postula que los servicios se organizan en redes hexagonales donde los centros de mayor jerarquía
+                        concentran servicios más especializados y diversos, mientras que los de menor jerarquía ofrecen
+                        servicios básicos.
+                    </p>
+                    <p>
+                        Nuestros datos revelan una <strong>mayor presencia de servicios de alojamiento y preparación de
+                            alimentos</strong> en comparación con los servicios de transporte. Esto sugiere que la
+                        vocación
+                        turística y de servicios básicos de la región impulsa una densificación de unidades económicas
+                        orientadas al consumo directo (alojamiento y comida), las cuales requieren un umbral de demanda
+                        menor para subsistir en comparación con infraestructuras de transporte más complejas.
+                    </p>
+                    <p>
+                        Esta predominancia del sector terciario (alojamiento) sobre el transporte confirma que la
+                        estructura
+                        económica local está fuertemente orientada a satisfacer la demanda de visitantes y residentes en
+                        un
+                        nivel de proximidad, alineándose con los principios de Lösch sobre la maximización de la demanda
+                        en
+                        áreas de mercado específicas.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <div class="flex justify-center my-8">
+            <button onclick="toggleConclusion()"
+                class="px-8 py-3 rounded-full bg-[#F6C453] text-[#1e3c72] font-bold text-lg shadow-lg hover:bg-[#e0a845] hover:scale-105 transition transform">
+                Ver Conclusión
+            </button>
+        </div>
+
+
+        <div class="flex justify-between items-center mt-12">
+            <a href="mapa.html"
+                class="px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Anterior
+            </a>
+            <a href="nosotros.html"
+                class="px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition flex items-center gap-2">
+                Siguiente <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="w-full text-center text-xs text-white/70 py-4 bg-black/20 mt-8">
+        <p>
+            © 2025 Universidad Veracruzana | Licenciatura en Geografía | Diseño y Desarrollo Web: <strong>Juan Daniel
+                Viveros Viveros</strong>
+        </p>
+    </footer>
+
+    <script>
+
+        const students = [
+            { id: "fanny", name: "Fanny Lorelei Vasquez Cuixtla", region: "totonaca", municipio: "30158", municipioName: "Tecolutla", img: "img/fanny.jpg", reflection: "El municipio de Tecolutla, Veracruz es importante por su atractivo turístico enfocado en sus playas, tradiciones culturales, y conservación ambiental, como la protección de la tortuga marina. Así mismo, la cercanía con los sitios arqueológicos como El Tajín, los cuales conservan valor histórico y cultural al municipio, impulsando el desarrollo regional.<br><br>Elegí el municipio de Tecolutla, Veracruz para estudiar la distribución de servicios y hacer una comparativa de estos mismo, al hablar sobre el servicio de alojamiento temporal y preparación de alimentos y bebidas, es fundamental debido a la dinámica turística en la región. Permite analizar su localización, distribución, concentración, accesibilidad, demanda, infraestructura e interconexión con distintos servicios." },
+            { id: "luis", name: "Luis Alfredo Hernández Guerra", region: "nautla", municipio: "30109", municipioName: "Misantla", img: "img/luis.jpg", reflection: "Elegí el municipio de Misantla, Veracruz debido a que es muy interesante conocer y comprender como el municipio articula su vida económica y social, y como los habitantes logran satisfacer sus necesidades básicas y algunas complementarias. Al identificar la oferta del servicio de alojamiento temporal y la preparación de alimentos y bebidas, podrá posible apreciar el papel que desempeña Misantla como un centro regional que da un soporte a las localidades cercanas." },
+            { id: "juan", name: "Juan Daniel Viveros Viveros", region: "capital", municipio: "30009", municipioName: "Alto Lucero", img: "img/juan.jpg", reflection: "Elegí el municipio de Alto Lucero de Gutiérrez Barrios porque me llamó la atención su diversidad territorial y la forma en que se desarrollan sus actividades económicas. Me pareció un lugar interesante para analizar cómo se organizan los servicios y cómo influyen en la vida cotidiana de la población. Además, su ubicación y sus características territoriales ayudaron a estudiarlo con mayor detalle, ya que consideré que podía aportar una perspectiva diferente dentro de la región." },
+            { id: "merari", name: "Merari Amisadai Quesada Arnau", region: "altas_montanas", municipio: "30118", municipioName: "Orizaba", img: "img/merari.jpg", reflection: "Orizaba es un municipio que destaca dentro del centro de Veracruz por la variedad de actividades económicas y culturales que concentra. Esta diversidad ha impulsado el desarrollo de servicios como el hospedaje y la oferta gastronómica, los cuales se han vuelto fundamentales para el funcionamiento y organización de la ciudad. Tanto los hoteles como los establecimientos dedicados a la preparación de bebidas y alimentos forman parte de una red de servicios que atiende a habitantes, turistas y visitantes que llegan atraídos por el patrimonio histórico, los espacios recreativos y los eventos culturales del municipio.<br><br>Elegí el municipio de Orizaba Veracruz debido a que es un municipio versátil y es de mi interés personal para poder analizar los fenómenos espaciales que suceden en él, especialmente para comprender la distribución geográfica de los servicios." },
+            { id: "laura", name: "Laura de Dios Hernández", region: "papaloapan", municipio: "30178", municipioName: "Tlacotalpan", img: "img/laura.jpg", reflection: "Elegí mi municipio porque me apareció atractivo explicar y saber los servicios que este mismo tiene." },
+            { id: "wendy", name: "Wendy Elisa Sandoval Sayago", region: "tuxtlas", municipio: "30143", municipioName: "Santiago Tuxtla", img: "img/wendy.jpg", reflection: "La región de Los Tuxtlas resulta de gran interés para los estudios de geografía de los servicios debido a su marcada diversidad territorial. En este espacio se encuentran áreas agrícolas, comunidades rurales, centros urbanos y una importante actividad turística. Esta combinación de usos y dinámicas permite analizar cómo se distribuyen y acceden los servicios, además de observar las transformaciones derivadas del turismo, la urbanización y las actividades productivas. En conjunto." }
+
+        ];
+
+        const generalData = {
+            "nacional": { "transportes": 39260, "alojamiento": 801050, "educativos": 148406, "salud": 272412, "esparcimiento": 67814 },
+            "estatal": { "transportes": 1963, "alojamiento": 53622, "educativos": 10001, "salud": 14618, "esparcimiento": 3882 },
+            "huasteca_alta": { "transportes": 85, "alojamiento": 2257, "educativos": 443, "salud": 484, "esparcimiento": 123 },
+            "huasteca_baja": { "transportes": 106, "alojamiento": 5795, "educativos": 492, "salud": 673, "esparcimiento": 139 },
+            "totonaca": { "transportes": 102, "alojamiento": 3696, "educativos": 822, "salud": 990, "esparcimiento": 240 },
+            "nautla": { "transportes": 80, "alojamiento": 2520, "educativos": 435, "salud": 634, "esparcimiento": 167 },
+            "capital": { "transportes": 239, "alojamiento": 8237, "educativos": 2027, "salud": 3412, "esparcimiento": 845 },
+            "sotavento": { "transportes": 644, "alojamiento": 9137, "educativos": 1485, "salud": 2457, "esparcimiento": 694 },
+            "altas_montanas": { "transportes": 285, "alojamiento": 11084, "educativos": 1707, "salud": 2668, "esparcimiento": 787 },
+            "papaloapan": { "transportes": 95, "alojamiento": 4789, "educativos": 696, "salud": 870, "esparcimiento": 290 },
+            "tuxtlas": { "transportes": 56, "alojamiento": 1538, "educativos": 274, "salud": 456, "esparcimiento": 112 },
+            "olmeca": { "transportes": 180, "alojamiento": 5836, "educativos": 1062, "salud": 1294, "esparcimiento": 275 }
+        };
+
+        const municipalData = {
+            "30178": { "transportes": 2, "alojamiento": 122, "educativos": 22, "salud": 24, "esparcimiento": 17 }, // Tlacotalpan
+            "30109": { "transportes": 10, "alojamiento": 389, "educativos": 76, "salud": 120, "esparcimiento": 29 }, // Misantla
+            "30039": { "transportes": 90, "alojamiento": 2505, "educativos": 535, "salud": 653, "esparcimiento": 205 }, // Coatzacoalcos
+            "30118": { "transportes": 36, "alojamiento": 2164, "educativos": 317, "salud": 559, "esparcimiento": 157 }, // Orizaba
+            "30143": { "transportes": 4, "alojamiento": 214, "educativos": 39, "salud": 57, "esparcimiento": 9 }, // Santiago Tuxtla
+            "30123": { "transportes": 19, "alojamiento": 341, "educativos": 102, "salud": 103, "esparcimiento": 21 }, // Pánuco
+            "30009": { "transportes": 3, "alojamiento": 134, "educativos": 26, "salud": 50, "esparcimiento": 10 }, // Alto Lucero
+            "30158": { "transportes": 8, "alojamiento": 502, "educativos": 20, "salud": 11, "esparcimiento": 6 } // Tecolutla
+        };
+
+        const categories = [
+            "Transportes, correos y almacenamientos",
+            "Servicios de alojamiento temporal y de preparación de alimentos y bebidas",
+            "Servicios educativos",
+            "Servicios de salud y de asistencia social",
+            "Servicios de esparcimiento cultural y deportivos, y otros servicios"
+        ];
+        const categoryKeys = ["transportes", "alojamiento", "educativos", "salud", "esparcimiento"];
+
+
+        let currentStudent = null;
+        let currentStep = 0; // 0: Regional, 1: Municipal
+
+
+        function init() {
+            const selector = document.getElementById('student-selector');
+            students.forEach(s => {
+                const btn = document.createElement('button');
+                btn.className = 'student-btn';
+                btn.innerHTML = `<img src="${s.img}" alt="${s.name}"> <span>${s.name}</span>`;
+                btn.onclick = () => selectStudent(s, btn);
+                selector.appendChild(btn);
+            });
+            spawnParticles();
+        }
+
+        function spawnParticles() {
+            const box = document.getElementById("particle-container");
+            for (let i = 0; i < 70; i++) {
+                const p = document.createElement("div");
+                p.classList.add("particle");
+                p.style.left = Math.random() * 100 + "vw";
+                p.style.top = Math.random() * 100 + "vh";
+                const size = Math.random() * 8 + 6;
+                p.style.width = size + "px";
+                p.style.height = size + "px";
+                p.style.animationDelay = Math.random() * 12 + "s";
+                box.appendChild(p);
+            }
+        }
+
+        function selectStudent(student, btnElement) {
+            currentStudent = student;
+            currentStep = 0;
+
+
+            document.querySelectorAll('.student-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            document.getElementById('results-carousel').style.display = 'block';
+
+            renderSlide();
+        }
+
+        function renderSlide() {
+            const container = document.getElementById('slide-content');
+            const dots = document.querySelectorAll('.step-dot');
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+
+
+            dots.forEach((d, i) => d.classList.toggle('active', i === currentStep));
+
+
+            btnPrev.disabled = currentStep === 0;
+            btnNext.innerHTML = currentStep === 1 ? 'Finalizar' : 'Siguiente <i class="fa-solid fa-arrow-right"></i>';
+            btnNext.disabled = false;
+
+
+            let title = "";
+            let data = null;
+            let context = "";
+
+            if (currentStep === 0) {
+                title = `Región: ${currentStudent.region.replace('_', ' ').toUpperCase()}`;
+                data = generalData[currentStudent.region];
+                context = `Región analizada por ${currentStudent.name}.`;
+            } else if (currentStep === 1) {
+                title = `Municipio: ${currentStudent.municipioName}`;
+                data = municipalData[currentStudent.municipio];
+                context = `Municipio seleccionado por ${currentStudent.name}.`;
+            }
+
+
+            const values = categoryKeys.map(k => data[k]);
+
+            container.innerHTML = `
+                <div class="slide active">
+                    <h2 class="text-3xl font-bold text-[#F6C453] text-center mb-2">${title}</h2>
+                    <p class="text-center text-white/80 mb-6">${context}</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div id="chart-div" class="w-full h-[350px]"></div>
+                        
+                        <div class="bg-black/20 p-6 rounded-xl">
+                            <h3 class="font-bold mb-4 border-b border-white/20 pb-2">Detalle de Servicios</h3>
+                            <ul class="space-y-3 text-sm">
+                                ${categoryKeys.map((k, i) => `
+                                    <li class="flex justify-between">
+                                        <span>${categories[i]}</span>
+                                        <span class="font-bold text-[#F6C453]">${data[k].toLocaleString()}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
+
+                    
+                    <div class="mt-8 bg-white/10 p-6 rounded-xl border border-white/20">
+                        <h3 class="text-xl font-bold text-[#F6C453] mb-2">Reflexión</h3>
+                        <p class="text-white/90 text-justify leading-relaxed">
+                            ${currentStudent.reflection}
+                        </p>
+                    </div>
+                </div>
+            `;
+
+
+            const plotData = [{
+                values: values,
+                labels: ['Transportes', 'Alojamiento', 'Educativos', 'Salud', 'Esparcimiento'],
+                type: 'pie',
+                textinfo: 'label+percent',
+                textposition: 'inside',
+                automargin: true,
+                marker: {
+                    colors: ['#FFD54F', '#00966c', '#2563eb', '#d946ef', '#ea580c']
+                }
+            }];
+
+            const layout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                font: { color: 'white' },
+                margin: { t: 0, b: 0, l: 0, r: 0 },
+                showlegend: false
+            };
+
+            Plotly.newPlot('chart-div', plotData, layout, { responsive: true, displayModeBar: false });
+        }
+
+        function nextSlide() {
+            if (currentStep < 1) {
+                currentStep++;
+                renderSlide();
+            } else {
+
+                const currentIndex = students.findIndex(s => s.id === currentStudent.id);
+                let nextIndex = currentIndex + 1;
+
+
+                if (nextIndex >= students.length) {
+                    nextIndex = 0;
+                }
+
+                const nextStudent = students[nextIndex];
+                const buttons = document.querySelectorAll('.student-btn');
+                const nextBtn = buttons[nextIndex];
+
+                selectStudent(nextStudent, nextBtn);
+            }
+        }
+
+        function prevSlide() {
+            if (currentStep > 0) {
+                currentStep--;
+                renderSlide();
+            }
+        }
+
+        function toggleConclusion() {
+            const card = document.getElementById('conclusion-card');
+            card.classList.toggle('hidden');
+            if (!card.classList.contains('hidden')) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('active');
+        }
+
+
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
+</body>
+
+</html>

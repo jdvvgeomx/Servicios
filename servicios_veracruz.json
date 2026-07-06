@@ -1,0 +1,2122 @@
+{
+  "30033": {
+    "municipio": "Cazones de Herrera",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 73.0,
+      "educativos": 17.0,
+      "salud": 16.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30064": {
+    "municipio": "Chumatlán",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 8.0,
+      "educativos": 8.0,
+      "salud": 5.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30037": {
+    "municipio": "Coahuitlán",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 23.0,
+      "educativos": 13.0,
+      "salud": 4.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30040": {
+    "municipio": "Coatzintla",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 225.0,
+      "educativos": 44.0,
+      "salud": 52.0,
+      "esparcimiento": 14.0
+    }
+  },
+  "30050": {
+    "municipio": "Coxquihui",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 39.0,
+      "educativos": 15.0,
+      "salud": 9.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30051": {
+    "municipio": "Coyutla",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 114.0,
+      "educativos": 19.0,
+      "salud": 42.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30066": {
+    "municipio": "Espinal",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 134.0,
+      "educativos": 32.0,
+      "salud": 29.0,
+      "esparcimiento": 5.0
+    }
+  },
+  "30067": {
+    "municipio": "Filomeno Mata",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 62.0,
+      "educativos": 14.0,
+      "salud": 3.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30069": {
+    "municipio": "Gutiérrez Zamora",
+    "servicios": {
+      "transportes": 4.0,
+      "alojamiento": 152.0,
+      "educativos": 33.0,
+      "salud": 48.0,
+      "esparcimiento": 13.0
+    }
+  },
+  "30103": {
+    "municipio": "Mecatlán",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 28.0,
+      "educativos": 11.0,
+      "salud": 3.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30124": {
+    "municipio": "Papantla",
+    "servicios": {
+      "transportes": 14.0,
+      "alojamiento": 579.0,
+      "educativos": 170.0,
+      "salud": 210.0,
+      "esparcimiento": 33.0
+    }
+  },
+  "30131": {
+    "municipio": "Poza Rica de Hidalgo",
+    "servicios": {
+      "transportes": 60.0,
+      "alojamiento": 1408.0,
+      "educativos": 360.0,
+      "salud": 494.0,
+      "esparcimiento": 137.0
+    }
+  },
+  "30158": {
+    "municipio": "Tecolutla",
+    "servicios": {
+      "transportes": 8.0,
+      "alojamiento": 502.0,
+      "educativos": 20.0,
+      "salud": 11.0,
+      "esparcimiento": 6.0
+    }
+  },
+  "30175": {
+    "municipio": "Tihuatlán",
+    "servicios": {
+      "transportes": 8.0,
+      "alojamiento": 345.0,
+      "educativos": 73.0,
+      "salud": 67.0,
+      "esparcimiento": 18.0
+    }
+  },
+  "30203": {
+    "municipio": "Zozocolco de Hidalgo",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 43.0,
+      "educativos": 8.0,
+      "salud": 6.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30055": {
+    "municipio": "Chalma",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 15.0,
+      "educativos": 9.0,
+      "salud": 6.0,
+      "esparcimiento": 0
+    }
+  },
+  "30056": {
+    "municipio": "Chiconamel",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 4.0,
+      "educativos": 6.0,
+      "salud": 3.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30205": {
+    "municipio": "El Higo",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 110.0,
+      "educativos": 18.0,
+      "salud": 24.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30121": {
+    "municipio": "Ozuluama de Mascareñas",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 57.0,
+      "educativos": 7.0,
+      "salud": 22.0,
+      "esparcimiento": 6.0
+    }
+  },
+  "30123": {
+    "municipio": "Pánuco",
+    "servicios": {
+      "transportes": 19.0,
+      "alojamiento": 341.0,
+      "educativos": 102.0,
+      "salud": 103.0,
+      "esparcimiento": 21.0
+    }
+  },
+  "30129": {
+    "municipio": "Platón Sánchez",
+    "servicios": {
+      "transportes": 5.0,
+      "alojamiento": 102.0,
+      "educativos": 26.0,
+      "salud": 23.0,
+      "esparcimiento": 10.0
+    }
+  },
+  "30133": {
+    "municipio": "Pueblo Viejo",
+    "servicios": {
+      "transportes": 14.0,
+      "alojamiento": 301.0,
+      "educativos": 65.0,
+      "salud": 48.0,
+      "esparcimiento": 18.0
+    }
+  },
+  "30152": {
+    "municipio": "Tampico Alto",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 54.0,
+      "educativos": 6.0,
+      "salud": 12.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30155": {
+    "municipio": "Tantoyuca",
+    "servicios": {
+      "transportes": 22.0,
+      "alojamiento": 322.0,
+      "educativos": 72.0,
+      "salud": 93.0,
+      "esparcimiento": 16.0
+    }
+  },
+  "30161": {
+    "municipio": "Tempoal",
+    "servicios": {
+      "transportes": 4.0,
+      "alojamiento": 121.0,
+      "educativos": 32.0,
+      "salud": 35.0,
+      "esparcimiento": 9.0
+    }
+  },
+  "30060": {
+    "municipio": "Chinampa de Gorostiza",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 97.0,
+      "educativos": 14.0,
+      "salud": 10.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30150": {
+    "municipio": "Tamalín",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 68.0,
+      "educativos": 13.0,
+      "salud": 13.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30151": {
+    "municipio": "Tamiahua",
+    "servicios": {
+      "transportes": 9.0,
+      "alojamiento": 99.0,
+      "educativos": 10.0,
+      "salud": 16.0,
+      "esparcimiento": 5.0
+    }
+  },
+  "30154": {
+    "municipio": "Tantima",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 5.0,
+      "educativos": 6.0,
+      "salud": 5.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30027": {
+    "municipio": "Benito Juárez",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 30.0,
+      "educativos": 8.0,
+      "salud": 12.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30157": {
+    "municipio": "Castillo de Teayo",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 50.0,
+      "educativos": 16.0,
+      "salud": 25.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30034": {
+    "municipio": "Cerro Azul",
+    "servicios": {
+      "transportes": 9.0,
+      "alojamiento": 180.0,
+      "educativos": 53.0,
+      "salud": 55.0,
+      "esparcimiento": 16.0
+    }
+  },
+  "30058": {
+    "municipio": "Chicontepec",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 117.0,
+      "educativos": 18.0,
+      "salud": 31.0,
+      "esparcimiento": 5.0
+    }
+  },
+  "30063": {
+    "municipio": "Chontla",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 43.0,
+      "educativos": 5.0,
+      "salud": 9.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30035": {
+    "municipio": "Citlaltépetl",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 58.0,
+      "educativos": 8.0,
+      "salud": 27.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30072": {
+    "municipio": "Huayacocotla",
+    "servicios": {
+      "transportes": 6.0,
+      "alojamiento": 75.0,
+      "educativos": 16.0,
+      "salud": 29.0,
+      "esparcimiento": 6.0
+    }
+  },
+  "30076": {
+    "municipio": "Ilamatlán",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 5.0,
+      "educativos": 4.0,
+      "salud": 1.0,
+      "esparcimiento": 0
+    }
+  },
+  "30078": {
+    "municipio": "Ixcatepec",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 29.0,
+      "educativos": 9.0,
+      "salud": 13.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30083": {
+    "municipio": "Ixhuatlán de Madero",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 71.0,
+      "educativos": 20.0,
+      "salud": 19.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30153": {
+    "municipio": "Tancoco",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 3.0,
+      "educativos": 6.0,
+      "salud": 2.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30160": {
+    "municipio": "Álamo Temapache",
+    "servicios": {
+      "transportes": 34.0,
+      "alojamiento": 581.0,
+      "educativos": 83.0,
+      "salud": 109.0,
+      "esparcimiento": 32.0
+    }
+  },
+  "30167": {
+    "municipio": "Tepetzintla",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 89.0,
+      "educativos": 11.0,
+      "salud": 14.0,
+      "esparcimiento": 7.0
+    }
+  },
+  "30170": {
+    "municipio": "Texcatepec",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 6.0,
+      "educativos": 3.0,
+      "salud": 1.0,
+      "esparcimiento": 0
+    }
+  },
+  "30180": {
+    "municipio": "Tlachichilco",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 24.0,
+      "educativos": 4.0,
+      "salud": 4.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30189": {
+    "municipio": "Tuxpan",
+    "servicios": {
+      "transportes": 48.0,
+      "alojamiento": 866.0,
+      "educativos": 221.0,
+      "salud": 314.0,
+      "esparcimiento": 55.0
+    }
+  },
+  "30198": {
+    "municipio": "Zacualpan",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 7.0,
+      "educativos": 4.0,
+      "salud": 2.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30202": {
+    "municipio": "Zontecomatlán de López y Fuentes",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 23.0,
+      "educativos": 4.0,
+      "salud": 6.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30023": {
+    "municipio": "Atzalan",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 92.0,
+      "educativos": 18.0,
+      "salud": 27.0,
+      "esparcimiento": 10.0
+    }
+  },
+  "30042": {
+    "municipio": "Colipa",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 40.0,
+      "educativos": 6.0,
+      "salud": 5.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30095": {
+    "municipio": "Juchique de Ferrer",
+    "servicios": {
+      "transportes": 5.0,
+      "alojamiento": 86.0,
+      "educativos": 16.0,
+      "salud": 21.0,
+      "esparcimiento": 7.0
+    }
+  },
+  "30102": {
+    "municipio": "Martínez de la Torre",
+    "servicios": {
+      "transportes": 40.0,
+      "alojamiento": 850.0,
+      "educativos": 160.0,
+      "salud": 267.0,
+      "esparcimiento": 51.0
+    }
+  },
+  "30109": {
+    "municipio": "Misantla",
+    "servicios": {
+      "transportes": 10.0,
+      "alojamiento": 389.0,
+      "educativos": 76.0,
+      "salud": 120.0,
+      "esparcimiento": 29.0
+    }
+  },
+  "30114": {
+    "municipio": "Nautla",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 50.0,
+      "educativos": 9.0,
+      "salud": 9.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30211": {
+    "municipio": "San Rafael",
+    "servicios": {
+      "transportes": 4.0,
+      "alojamiento": 189.0,
+      "educativos": 33.0,
+      "salud": 41.0,
+      "esparcimiento": 12.0
+    }
+  },
+  "30163": {
+    "municipio": "Tenochtitlán",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 13.0,
+      "educativos": 6.0,
+      "salud": 3.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30183": {
+    "municipio": "Tlapacoyan",
+    "servicios": {
+      "transportes": 14.0,
+      "alojamiento": 600.0,
+      "educativos": 74.0,
+      "salud": 96.0,
+      "esparcimiento": 38.0
+    }
+  },
+  "30192": {
+    "municipio": "Vega de Alatorre",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 180.0,
+      "educativos": 28.0,
+      "salud": 36.0,
+      "esparcimiento": 8.0
+    }
+  },
+  "30197": {
+    "municipio": "Yecuatla",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 31.0,
+      "educativos": 9.0,
+      "salud": 9.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30001": {
+    "municipio": "Acajete",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 39.0,
+      "educativos": 11.0,
+      "salud": 7.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30002": {
+    "municipio": "Acatlán",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 24.0,
+      "educativos": 6.0,
+      "salud": 8.0,
+      "esparcimiento": 5.0
+    }
+  },
+  "30004": {
+    "municipio": "Actopan",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 130.0,
+      "educativos": 16.0,
+      "salud": 34.0,
+      "esparcimiento": 11.0
+    }
+  },
+  "30009": {
+    "municipio": "Alto Lucero de Gutiérrez Barrios",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 134.0,
+      "educativos": 26.0,
+      "salud": 50.0,
+      "esparcimiento": 10.0
+    }
+  },
+  "30010": {
+    "municipio": "Altotonga",
+    "servicios": {
+      "transportes": 7.0,
+      "alojamiento": 304.0,
+      "educativos": 50.0,
+      "salud": 94.0,
+      "esparcimiento": 18.0
+    }
+  },
+  "30017": {
+    "municipio": "Apazapan",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 10.0,
+      "educativos": 4.0,
+      "salud": 1.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30025": {
+    "municipio": "Ayahualulco",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 44.0,
+      "educativos": 16.0,
+      "salud": 13.0,
+      "esparcimiento": 6.0
+    }
+  },
+  "30026": {
+    "municipio": "Banderilla",
+    "servicios": {
+      "transportes": 22.0,
+      "alojamiento": 200.0,
+      "educativos": 50.0,
+      "salud": 62.0,
+      "esparcimiento": 28.0
+    }
+  },
+  "30036": {
+    "municipio": "Coacoatzintla",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 88.0,
+      "educativos": 12.0,
+      "salud": 19.0,
+      "esparcimiento": 7.0
+    }
+  },
+  "30038": {
+    "municipio": "Coatepec",
+    "servicios": {
+      "transportes": 17.0,
+      "alojamiento": 747.0,
+      "educativos": 156.0,
+      "salud": 238.0,
+      "esparcimiento": 72.0
+    }
+  },
+  "30046": {
+    "municipio": "Cosautlán de Carvajal",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 56.0,
+      "educativos": 16.0,
+      "salud": 16.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30057": {
+    "municipio": "Chiconquiaco",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 24.0,
+      "educativos": 7.0,
+      "salud": 12.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30065": {
+    "municipio": "Emiliano Zapata",
+    "servicios": {
+      "transportes": 12.0,
+      "alojamiento": 532.0,
+      "educativos": 100.0,
+      "salud": 124.0,
+      "esparcimiento": 34.0
+    }
+  },
+  "30079": {
+    "municipio": "Ixhuacán de los Reyes",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 18.0,
+      "educativos": 6.0,
+      "salud": 8.0,
+      "esparcimiento": 5.0
+    }
+  },
+  "30086": {
+    "municipio": "Jalacingo",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 156.0,
+      "educativos": 25.0,
+      "salud": 33.0,
+      "esparcimiento": 18.0
+    }
+  },
+  "30088": {
+    "municipio": "Jalcomulco",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 89.0,
+      "educativos": 5.0,
+      "salud": 8.0,
+      "esparcimiento": 13.0
+    }
+  },
+  "30093": {
+    "municipio": "Jilotepec",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 43.0,
+      "educativos": 18.0,
+      "salud": 20.0,
+      "esparcimiento": 6.0
+    }
+  },
+  "30096": {
+    "municipio": "Landero y Coss",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 3.0,
+      "educativos": 4.0,
+      "salud": 3.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30106": {
+    "municipio": "Miahuatlán",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 11.0,
+      "educativos": 6.0,
+      "salud": 8.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30107": {
+    "municipio": "Las Minas",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 6.0,
+      "educativos": 4.0,
+      "salud": 3.0,
+      "esparcimiento": 0
+    }
+  },
+  "30128": {
+    "municipio": "Perote",
+    "servicios": {
+      "transportes": 19.0,
+      "alojamiento": 600.0,
+      "educativos": 123.0,
+      "salud": 216.0,
+      "esparcimiento": 65.0
+    }
+  },
+  "30136": {
+    "municipio": "Rafael Lucio",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 35.0,
+      "educativos": 8.0,
+      "salud": 12.0,
+      "esparcimiento": 7.0
+    }
+  },
+  "30156": {
+    "municipio": "Tatatila",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 2.0,
+      "educativos": 5.0,
+      "salud": 4.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30164": {
+    "municipio": "Teocelo",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 145.0,
+      "educativos": 22.0,
+      "salud": 36.0,
+      "esparcimiento": 12.0
+    }
+  },
+  "30166": {
+    "municipio": "Tepetlán",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 9.0,
+      "educativos": 4.0,
+      "salud": 2.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30177": {
+    "municipio": "Tlacolulan",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 16.0,
+      "educativos": 7.0,
+      "salud": 7.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30182": {
+    "municipio": "Tlalnelhuayocan",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 46.0,
+      "educativos": 11.0,
+      "salud": 4.0,
+      "esparcimiento": 6.0
+    }
+  },
+  "30187": {
+    "municipio": "Tonayán",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 11.0,
+      "educativos": 4.0,
+      "salud": 2.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30132": {
+    "municipio": "Las Vigas de Ramírez",
+    "servicios": {
+      "transportes": 4.0,
+      "alojamiento": 106.0,
+      "educativos": 26.0,
+      "salud": 35.0,
+      "esparcimiento": 15.0
+    }
+  },
+  "30194": {
+    "municipio": "Villa Aldama",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 66.0,
+      "educativos": 12.0,
+      "salud": 13.0,
+      "esparcimiento": 10.0
+    }
+  },
+  "30087": {
+    "municipio": "Xalapa",
+    "servicios": {
+      "transportes": 137.0,
+      "alojamiento": 4150.0,
+      "educativos": 1201.0,
+      "salud": 2200.0,
+      "esparcimiento": 416.0
+    }
+  },
+  "30092": {
+    "municipio": "Xico",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 280.0,
+      "educativos": 46.0,
+      "salud": 80.0,
+      "esparcimiento": 37.0
+    }
+  },
+  "30016": {
+    "municipio": "La Antigua",
+    "servicios": {
+      "transportes": 16.0,
+      "alojamiento": 337.0,
+      "educativos": 59.0,
+      "salud": 131.0,
+      "esparcimiento": 28.0
+    }
+  },
+  "30049": {
+    "municipio": "Cotaxtla",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 76.0,
+      "educativos": 12.0,
+      "salud": 24.0,
+      "esparcimiento": 6.0
+    }
+  },
+  "30090": {
+    "municipio": "Jamapa",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 66.0,
+      "educativos": 13.0,
+      "salud": 11.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30100": {
+    "municipio": "Manlio Fabio Altamirano",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 87.0,
+      "educativos": 10.0,
+      "salud": 14.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30105": {
+    "municipio": "Medellín de Bravo",
+    "servicios": {
+      "transportes": 6.0,
+      "alojamiento": 403.0,
+      "educativos": 79.0,
+      "salud": 68.0,
+      "esparcimiento": 22.0
+    }
+  },
+  "30126": {
+    "municipio": "Paso de Ovejas",
+    "servicios": {
+      "transportes": 4.0,
+      "alojamiento": 118.0,
+      "educativos": 23.0,
+      "salud": 35.0,
+      "esparcimiento": 14.0
+    }
+  },
+  "30134": {
+    "municipio": "Puente Nacional",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 63.0,
+      "educativos": 12.0,
+      "salud": 11.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30148": {
+    "municipio": "Soledad de Doblado",
+    "servicios": {
+      "transportes": 4.0,
+      "alojamiento": 200.0,
+      "educativos": 25.0,
+      "salud": 41.0,
+      "esparcimiento": 17.0
+    }
+  },
+  "30181": {
+    "municipio": "Tlalixcoyan",
+    "servicios": {
+      "transportes": 4.0,
+      "alojamiento": 209.0,
+      "educativos": 39.0,
+      "salud": 58.0,
+      "esparcimiento": 13.0
+    }
+  },
+  "30193": {
+    "municipio": "Veracruz",
+    "servicios": {
+      "transportes": 546.0,
+      "alojamiento": 5491.0,
+      "educativos": 870.0,
+      "salud": 1479.0,
+      "esparcimiento": 405.0
+    }
+  },
+  "30006": {
+    "municipio": "Acultzingo",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 69.0,
+      "educativos": 12.0,
+      "salud": 11.0,
+      "esparcimiento": 5.0
+    }
+  },
+  "30008": {
+    "municipio": "Alpatláhuac",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 19.0,
+      "educativos": 4.0,
+      "salud": 2.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30014": {
+    "municipio": "Amatlán de los Reyes",
+    "servicios": {
+      "transportes": 19.0,
+      "alojamiento": 290.0,
+      "educativos": 30.0,
+      "salud": 43.0,
+      "esparcimiento": 14.0
+    }
+  },
+  "30018": {
+    "municipio": "Aquila",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 3.0,
+      "educativos": 3.0,
+      "salud": 2.0,
+      "esparcimiento": 0
+    }
+  },
+  "30019": {
+    "municipio": "Astacinga",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 21.0,
+      "educativos": 6.0,
+      "salud": 2.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30020": {
+    "municipio": "Atlahuilco",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 19.0,
+      "educativos": 8.0,
+      "salud": 4.0,
+      "esparcimiento": 0
+    }
+  },
+  "30021": {
+    "municipio": "Atoyac",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 325.0,
+      "educativos": 28.0,
+      "salud": 37.0,
+      "esparcimiento": 12.0
+    }
+  },
+  "30022": {
+    "municipio": "Atzacan",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 132.0,
+      "educativos": 18.0,
+      "salud": 23.0,
+      "esparcimiento": 8.0
+    }
+  },
+  "30029": {
+    "municipio": "Calcahualco",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 10.0,
+      "educativos": 4.0,
+      "salud": 5.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30007": {
+    "municipio": "Camarón de Tejeda",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 28.0,
+      "educativos": 5.0,
+      "salud": 3.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30030": {
+    "municipio": "Camerino Z. Mendoza",
+    "servicios": {
+      "transportes": 6.0,
+      "alojamiento": 444.0,
+      "educativos": 64.0,
+      "salud": 96.0,
+      "esparcimiento": 28.0
+    }
+  },
+  "30031": {
+    "municipio": "Carrillo Puerto",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 16.0,
+      "educativos": 4.0,
+      "salud": 2.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30062": {
+    "municipio": "Chocamán",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 106.0,
+      "educativos": 18.0,
+      "salud": 27.0,
+      "esparcimiento": 20.0
+    }
+  },
+  "30041": {
+    "municipio": "Coetzala",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 7.0,
+      "educativos": 3.0,
+      "salud": 3.0,
+      "esparcimiento": 0
+    }
+  },
+  "30043": {
+    "municipio": "Comapa",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 45.0,
+      "educativos": 24.0,
+      "salud": 25.0,
+      "esparcimiento": 7.0
+    }
+  },
+  "30044": {
+    "municipio": "Córdoba",
+    "servicios": {
+      "transportes": 80.0,
+      "alojamiento": 2441.0,
+      "educativos": 372.0,
+      "salud": 751.0,
+      "esparcimiento": 200.0
+    }
+  },
+  "30047": {
+    "municipio": "Coscomatepec",
+    "servicios": {
+      "transportes": 8.0,
+      "alojamiento": 271.0,
+      "educativos": 50.0,
+      "salud": 105.0,
+      "esparcimiento": 40.0
+    }
+  },
+  "30052": {
+    "municipio": "Cuichapa",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 89.0,
+      "educativos": 18.0,
+      "salud": 21.0,
+      "esparcimiento": 7.0
+    }
+  },
+  "30053": {
+    "municipio": "Cuitláhuac",
+    "servicios": {
+      "transportes": 9.0,
+      "alojamiento": 298.0,
+      "educativos": 34.0,
+      "salud": 62.0,
+      "esparcimiento": 21.0
+    }
+  },
+  "30068": {
+    "municipio": "Fortín",
+    "servicios": {
+      "transportes": 16.0,
+      "alojamiento": 553.0,
+      "educativos": 84.0,
+      "salud": 135.0,
+      "esparcimiento": 36.0
+    }
+  },
+  "30071": {
+    "municipio": "Huatusco",
+    "servicios": {
+      "transportes": 13.0,
+      "alojamiento": 535.0,
+      "educativos": 74.0,
+      "salud": 173.0,
+      "esparcimiento": 39.0
+    }
+  },
+  "30074": {
+    "municipio": "Huiloapan de Cuauhtémoc",
+    "servicios": {
+      "transportes": 4.0,
+      "alojamiento": 55.0,
+      "educativos": 12.0,
+      "salud": 6.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30080": {
+    "municipio": "Ixhuatlán del Café",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 93.0,
+      "educativos": 16.0,
+      "salud": 20.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30081": {
+    "municipio": "Ixhuatlancillo",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 126.0,
+      "educativos": 16.0,
+      "salud": 8.0,
+      "esparcimiento": 11.0
+    }
+  },
+  "30085": {
+    "municipio": "Ixtaczoquitlán",
+    "servicios": {
+      "transportes": 25.0,
+      "alojamiento": 587.0,
+      "educativos": 86.0,
+      "salud": 79.0,
+      "esparcimiento": 33.0
+    }
+  },
+  "30127": {
+    "municipio": "La Perla",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 39.0,
+      "educativos": 7.0,
+      "salud": 11.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30137": {
+    "municipio": "Los Reyes",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 2.0,
+      "educativos": 8.0,
+      "salud": 4.0,
+      "esparcimiento": 0
+    }
+  },
+  "30098": {
+    "municipio": "Magdalena",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 18.0,
+      "educativos": 4.0,
+      "salud": 4.0,
+      "esparcimiento": 0
+    }
+  },
+  "30099": {
+    "municipio": "Maltrata",
+    "servicios": {
+      "transportes": 4.0,
+      "alojamiento": 119.0,
+      "educativos": 13.0,
+      "salud": 16.0,
+      "esparcimiento": 5.0
+    }
+  },
+  "30101": {
+    "municipio": "Mariano Escobedo",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 156.0,
+      "educativos": 33.0,
+      "salud": 18.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30110": {
+    "municipio": "Mixtla de Altamirano",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 5.0,
+      "educativos": 5.0,
+      "salud": 1.0,
+      "esparcimiento": 0
+    }
+  },
+  "30113": {
+    "municipio": "Naranjal",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 18.0,
+      "educativos": 6.0,
+      "salud": 3.0,
+      "esparcimiento": 0
+    }
+  },
+  "30115": {
+    "municipio": "Nogales",
+    "servicios": {
+      "transportes": 7.0,
+      "alojamiento": 276.0,
+      "educativos": 43.0,
+      "salud": 39.0,
+      "esparcimiento": 15.0
+    }
+  },
+  "30117": {
+    "municipio": "Omealca",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 98.0,
+      "educativos": 8.0,
+      "salud": 23.0,
+      "esparcimiento": 7.0
+    }
+  },
+  "30118": {
+    "municipio": "Orizaba",
+    "servicios": {
+      "transportes": 36.0,
+      "alojamiento": 2164.0,
+      "educativos": 317.0,
+      "salud": 559.0,
+      "esparcimiento": 157.0
+    }
+  },
+  "30125": {
+    "municipio": "Paso del Macho",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 241.0,
+      "educativos": 26.0,
+      "salud": 55.0,
+      "esparcimiento": 16.0
+    }
+  },
+  "30135": {
+    "municipio": "Rafael Delgado",
+    "servicios": {
+      "transportes": 4.0,
+      "alojamiento": 139.0,
+      "educativos": 27.0,
+      "salud": 17.0,
+      "esparcimiento": 9.0
+    }
+  },
+  "30138": {
+    "municipio": "Río Blanco",
+    "servicios": {
+      "transportes": 16.0,
+      "alojamiento": 391.0,
+      "educativos": 61.0,
+      "salud": 71.0,
+      "esparcimiento": 18.0
+    }
+  },
+  "30140": {
+    "municipio": "San Andrés Tenejapan",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 10.0,
+      "educativos": 3.0,
+      "salud": 2.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30146": {
+    "municipio": "Sochiapa",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 4.0,
+      "educativos": 4.0,
+      "salud": 5.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30147": {
+    "municipio": "Soledad Atzompa",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 30.0,
+      "educativos": 12.0,
+      "salud": 5.0,
+      "esparcimiento": 0
+    }
+  },
+  "30159": {
+    "municipio": "Tehuipango",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 25.0,
+      "educativos": 7.0,
+      "salud": 8.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30162": {
+    "municipio": "Tenampa",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 4.0,
+      "educativos": 4.0,
+      "salud": 4.0,
+      "esparcimiento": 0
+    }
+  },
+  "30165": {
+    "municipio": "Tepatlaxco",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 19.0,
+      "educativos": 4.0,
+      "salud": 8.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30168": {
+    "municipio": "Tequila",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 49.0,
+      "educativos": 14.0,
+      "salud": 12.0,
+      "esparcimiento": 0
+    }
+  },
+  "30171": {
+    "municipio": "Texhuacán",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 15.0,
+      "educativos": 7.0,
+      "salud": 4.0,
+      "esparcimiento": 0
+    }
+  },
+  "30173": {
+    "municipio": "Tezonapa",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 237.0,
+      "educativos": 24.0,
+      "salud": 44.0,
+      "esparcimiento": 12.0
+    }
+  },
+  "30179": {
+    "municipio": "Tlacotepec de Mejía",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 22.0,
+      "educativos": 8.0,
+      "salud": 4.0,
+      "esparcimiento": 0
+    }
+  },
+  "30024": {
+    "municipio": "Tlaltetela",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 32.0,
+      "educativos": 8.0,
+      "salud": 10.0,
+      "esparcimiento": 5.0
+    }
+  },
+  "30184": {
+    "municipio": "Tlaquilpa",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 17.0,
+      "educativos": 4.0,
+      "salud": 5.0,
+      "esparcimiento": 0
+    }
+  },
+  "30186": {
+    "municipio": "Tomatlán",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 65.0,
+      "educativos": 5.0,
+      "salud": 15.0,
+      "esparcimiento": 8.0
+    }
+  },
+  "30188": {
+    "municipio": "Totutla",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 46.0,
+      "educativos": 12.0,
+      "salud": 20.0,
+      "esparcimiento": 6.0
+    }
+  },
+  "30195": {
+    "municipio": "Xoxocotla",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 13.0,
+      "educativos": 5.0,
+      "salud": 2.0,
+      "esparcimiento": 0
+    }
+  },
+  "30196": {
+    "municipio": "Yanga",
+    "servicios": {
+      "transportes": 6.0,
+      "alojamiento": 98.0,
+      "educativos": 12.0,
+      "salud": 28.0,
+      "esparcimiento": 11.0
+    }
+  },
+  "30200": {
+    "municipio": "Zentla",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 14.0,
+      "educativos": 5.0,
+      "salud": 9.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30201": {
+    "municipio": "Zongolica",
+    "servicios": {
+      "transportes": 9.0,
+      "alojamiento": 139.0,
+      "educativos": 21.0,
+      "salud": 32.0,
+      "esparcimiento": 6.0
+    }
+  },
+  "30005": {
+    "municipio": "Acula",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 31.0,
+      "educativos": 7.0,
+      "salud": 5.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30011": {
+    "municipio": "Alvarado",
+    "servicios": {
+      "transportes": 14.0,
+      "alojamiento": 388.0,
+      "educativos": 80.0,
+      "salud": 59.0,
+      "esparcimiento": 36.0
+    }
+  },
+  "30012": {
+    "municipio": "Amatitlán",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 15.0,
+      "educativos": 5.0,
+      "salud": 6.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30208": {
+    "municipio": "Carlos A. Carrillo",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 185.0,
+      "educativos": 32.0,
+      "salud": 25.0,
+      "esparcimiento": 17.0
+    }
+  },
+  "30054": {
+    "municipio": "Chacaltianguis",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 64.0,
+      "educativos": 8.0,
+      "salud": 11.0,
+      "esparcimiento": 6.0
+    }
+  },
+  "30045": {
+    "municipio": "Cosamaloapan de Carpio",
+    "servicios": {
+      "transportes": 9.0,
+      "alojamiento": 701.0,
+      "educativos": 103.0,
+      "salud": 136.0,
+      "esparcimiento": 33.0
+    }
+  },
+  "30075": {
+    "municipio": "Ignacio de la Llave",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 87.0,
+      "educativos": 13.0,
+      "salud": 27.0,
+      "esparcimiento": 6.0
+    }
+  },
+  "30077": {
+    "municipio": "Isla",
+    "servicios": {
+      "transportes": 14.0,
+      "alojamiento": 335.0,
+      "educativos": 47.0,
+      "salud": 71.0,
+      "esparcimiento": 20.0
+    }
+  },
+  "30084": {
+    "municipio": "Ixmatlahuacan",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 34.0,
+      "educativos": 4.0,
+      "salud": 5.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30169": {
+    "municipio": "José Azueta",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 109.0,
+      "educativos": 26.0,
+      "salud": 21.0,
+      "esparcimiento": 5.0
+    }
+  },
+  "30094": {
+    "municipio": "Juan Rodríguez Clara",
+    "servicios": {
+      "transportes": 9.0,
+      "alojamiento": 286.0,
+      "educativos": 36.0,
+      "salud": 39.0,
+      "esparcimiento": 12.0
+    }
+  },
+  "30097": {
+    "municipio": "Lerdo de Tejada",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 198.0,
+      "educativos": 32.0,
+      "salud": 42.0,
+      "esparcimiento": 16.0
+    }
+  },
+  "30119": {
+    "municipio": "Otatitlán",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 129.0,
+      "educativos": 11.0,
+      "salud": 13.0,
+      "esparcimiento": 5.0
+    }
+  },
+  "30130": {
+    "municipio": "Playa Vicente",
+    "servicios": {
+      "transportes": 10.0,
+      "alojamiento": 363.0,
+      "educativos": 53.0,
+      "salud": 68.0,
+      "esparcimiento": 15.0
+    }
+  },
+  "30139": {
+    "municipio": "Saltabarranca",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 20.0,
+      "educativos": 8.0,
+      "salud": 2.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30212": {
+    "municipio": "Santiago Sochiapan",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 24.0,
+      "educativos": 8.0,
+      "salud": 7.0,
+      "esparcimiento": 0
+    }
+  },
+  "30174": {
+    "municipio": "Tierra Blanca",
+    "servicios": {
+      "transportes": 20.0,
+      "alojamiento": 913.0,
+      "educativos": 109.0,
+      "salud": 159.0,
+      "esparcimiento": 56.0
+    }
+  },
+  "30176": {
+    "municipio": "Tlacojalpan",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 58.0,
+      "educativos": 10.0,
+      "salud": 6.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30178": {
+    "municipio": "Tlacotalpan",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 122.0,
+      "educativos": 22.0,
+      "salud": 24.0,
+      "esparcimiento": 17.0
+    }
+  },
+  "30207": {
+    "municipio": "Tres Valles",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 533.0,
+      "educativos": 60.0,
+      "salud": 88.0,
+      "esparcimiento": 25.0
+    }
+  },
+  "30190": {
+    "municipio": "Tuxtilla",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 31.0,
+      "educativos": 5.0,
+      "salud": 8.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30032": {
+    "municipio": "Catemaco",
+    "servicios": {
+      "transportes": 28.0,
+      "alojamiento": 325.0,
+      "educativos": 56.0,
+      "salud": 87.0,
+      "esparcimiento": 34.0
+    }
+  },
+  "30073": {
+    "municipio": "Hueyapan de Ocampo",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 144.0,
+      "educativos": 33.0,
+      "salud": 32.0,
+      "esparcimiento": 7.0
+    }
+  },
+  "30141": {
+    "municipio": "San Andrés Tuxtla",
+    "servicios": {
+      "transportes": 23.0,
+      "alojamiento": 855.0,
+      "educativos": 146.0,
+      "salud": 280.0,
+      "esparcimiento": 62.0
+    }
+  },
+  "30143": {
+    "municipio": "Santiago Tuxtla",
+    "servicios": {
+      "transportes": 4.0,
+      "alojamiento": 214.0,
+      "educativos": 39.0,
+      "salud": 57.0,
+      "esparcimiento": 9.0
+    }
+  },
+  "30003": {
+    "municipio": "Acayucan",
+    "servicios": {
+      "transportes": 34.0,
+      "alojamiento": 615.0,
+      "educativos": 127.0,
+      "salud": 250.0,
+      "esparcimiento": 41.0
+    }
+  },
+  "30039": {
+    "municipio": "Coatzacoalcos",
+    "servicios": {
+      "transportes": 90.0,
+      "alojamiento": 2505.0,
+      "educativos": 535.0,
+      "salud": 653.0,
+      "esparcimiento": 205.0
+    }
+  },
+  "30048": {
+    "municipio": "Cosoleacaque",
+    "servicios": {
+      "transportes": 23.0,
+      "alojamiento": 844.0,
+      "educativos": 152.0,
+      "salud": 99.0,
+      "esparcimiento": 24.0
+    }
+  },
+  "30059": {
+    "municipio": "Chinameca",
+    "servicios": {
+      "transportes": 6.0,
+      "alojamiento": 112.0,
+      "educativos": 16.0,
+      "salud": 10.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30061": {
+    "municipio": "Las Choapas",
+    "servicios": {
+      "transportes": 13.0,
+      "alojamiento": 476.0,
+      "educativos": 89.0,
+      "salud": 100.0,
+      "esparcimiento": 13.0
+    }
+  },
+  "30070": {
+    "municipio": "Hidalgotitlán",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 67.0,
+      "educativos": 9.0,
+      "salud": 10.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30082": {
+    "municipio": "Ixhuatlán del Sureste",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 99.0,
+      "educativos": 13.0,
+      "salud": 18.0,
+      "esparcimiento": 6.0
+    }
+  },
+  "30089": {
+    "municipio": "Jáltipan",
+    "servicios": {
+      "transportes": 15.0,
+      "alojamiento": 343.0,
+      "educativos": 58.0,
+      "salud": 82.0,
+      "esparcimiento": 15.0
+    }
+  },
+  "30091": {
+    "municipio": "Jesús Carranza",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 141.0,
+      "educativos": 26.0,
+      "salud": 42.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30104": {
+    "municipio": "Mecayapan",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 56.0,
+      "educativos": 16.0,
+      "salud": 8.0,
+      "esparcimiento": 2.0
+    }
+  },
+  "30108": {
+    "municipio": "Minatitlán",
+    "servicios": {
+      "transportes": 52.0,
+      "alojamiento": 1313.0,
+      "educativos": 219.0,
+      "salud": 349.0,
+      "esparcimiento": 84.0
+    }
+  },
+  "30111": {
+    "municipio": "Moloacán",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 72.0,
+      "educativos": 17.0,
+      "salud": 21.0,
+      "esparcimiento": 5.0
+    }
+  },
+  "30206": {
+    "municipio": "Nanchital de Lázaro Cárdenas del Río",
+    "servicios": {
+      "transportes": 5.0,
+      "alojamiento": 205.0,
+      "educativos": 31.0,
+      "salud": 51.0,
+      "esparcimiento": 13.0
+    }
+  },
+  "30116": {
+    "municipio": "Oluta",
+    "servicios": {
+      "transportes": 3.0,
+      "alojamiento": 187.0,
+      "educativos": 21.0,
+      "salud": 26.0,
+      "esparcimiento": 8.0
+    }
+  },
+  "30120": {
+    "municipio": "Oteapan",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 119.0,
+      "educativos": 25.0,
+      "salud": 17.0,
+      "esparcimiento": 7.0
+    }
+  },
+  "30122": {
+    "municipio": "Pajapan",
+    "servicios": {
+      "transportes": 4.0,
+      "alojamiento": 138.0,
+      "educativos": 14.0,
+      "salud": 15.0,
+      "esparcimiento": 5.0
+    }
+  },
+  "30142": {
+    "municipio": "San Juan Evangelista",
+    "servicios": {
+      "transportes": 1.0,
+      "alojamiento": 126.0,
+      "educativos": 20.0,
+      "salud": 14.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30144": {
+    "municipio": "Sayula de Alemán",
+    "servicios": {
+      "transportes": 7.0,
+      "alojamiento": 181.0,
+      "educativos": 28.0,
+      "salud": 24.0,
+      "esparcimiento": 6.0
+    }
+  },
+  "30145": {
+    "municipio": "Soconusco",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 58.0,
+      "educativos": 19.0,
+      "salud": 16.0,
+      "esparcimiento": 4.0
+    }
+  },
+  "30149": {
+    "municipio": "Soteapan",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 92.0,
+      "educativos": 31.0,
+      "salud": 26.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30209": {
+    "municipio": "Tatahuicapan de Juárez",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 87.0,
+      "educativos": 17.0,
+      "salud": 15.0,
+      "esparcimiento": 1.0
+    }
+  },
+  "30172": {
+    "municipio": "Texistepec",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 61.0,
+      "educativos": 14.0,
+      "salud": 13.0,
+      "esparcimiento": 3.0
+    }
+  },
+  "30210": {
+    "municipio": "Uxpanapa",
+    "servicios": {
+      "transportes": 2.0,
+      "alojamiento": 70.0,
+      "educativos": 9.0,
+      "salud": 20.0,
+      "esparcimiento": 0
+    }
+  },
+  "30199": {
+    "municipio": "Zaragoza",
+    "servicios": {
+      "transportes": 0,
+      "alojamiento": 94.0,
+      "educativos": 12.0,
+      "salud": 14.0,
+      "esparcimiento": 8.0
+    }
+  },
+  "30112": {
+    "municipio": "Naolinco",
+    "servicios": {
+        "transportes": 4,
+        "alojamiento": 113,
+        "educativos": 20,
+        "salud": 40,
+        "esparcimiento": 20
+    }
+  },
+  "30013": {
+    "municipio": "Naranjos Amatlán",
+    "servicios": {
+        "transportes": 4,
+        "alojamiento": 253,
+        "educativos": 57,
+        "salud": 71,
+        "esparcimiento": 23
+    }
+  },
+  "30015": {
+    "municipio": "Ángel R. Cabada",
+    "servicios": {
+        "transportes": 3,
+        "alojamiento": 163,
+        "educativos": 17,
+        "salud": 48,
+        "esparcimiento": 7
+    }
+  },
+  "30028": {
+    "municipio": "Boca del Río",
+    "servicios": {
+        "transportes": 57,
+        "alojamiento": 1697,
+        "educativos": 299,
+        "salud": 543,
+        "esparcimiento": 152
+    }
+  },
+  "30204": {
+    "municipio": "Agua Dulce",
+    "servicios": {
+        "transportes": 4,
+        "alojamiento": 280,
+        "educativos": 79,
+        "salud": 54,
+        "esparcimiento": 19
+    }
+  },
+  "30185": {
+    "municipio": "Tlilapan",
+    "servicios": {
+        "transportes": 1,
+        "alojamiento": 32,
+        "educativos": 5,
+        "salud": 3,
+        "esparcimiento": 5
+    }
+  },
+  "30191": {
+    "municipio": "Úrsulo Galván",
+    "servicios": {
+        "transportes": 3,
+        "alojamiento": 390,
+        "educativos": 44,
+        "salud": 42,
+        "esparcimiento": 25
+    }
+}
+}

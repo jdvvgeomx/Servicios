@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regiones - Geografía de los Servicios</title>
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"></script>
+    <script src="https://unpkg.com/proj4leaflet@1.0.2/src/proj4leaflet.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 40%, #2e7d32 70%, #43a047 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+
+        #particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: floatUp 14s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(.6);
+                opacity: .7;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-30vh) scale(1.3);
+                opacity: 0;
+            }
+        }
+
+
+        .card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-left: 1px solid rgba(255, 255, 255, 0.4);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 24px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            color: white;
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                0 5px 15px rgba(0, 0, 0, 0.1),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .service-tile {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 16px;
+            border-radius: 18px;
+            text-align: center;
+        }
+
+        .num {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FFD166;
+        }
+
+        .btn-top {
+            float: right;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 8px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+
+        main h1,
+        main h2,
+        main h3,
+        section h1,
+        section h2,
+        section h3 {
+            color: #F6C453 !important;
+        }
+
+
+        nav h1,
+        nav h2,
+        nav h3 {
+            color: white !important;
+        }
+
+
+        .menu-btn {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            #menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                background: #006847;
+                padding: 15px 0;
+            }
+
+            #menu a {
+                padding: 12px 20px;
+                border-top: 1px solid #ffffff33;
+                text-align: center;
+                display: block;
+            }
+
+            #menu.active {
+                display: flex;
+            }
+        }
+
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #F6C453 !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #F6C453 !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="particles-container"></div>
+
+    <script>
+        const container = document.getElementById("particles-container");
+
+        for (let i = 0; i < 70; i++) {
+            const p = document.createElement("div");
+            p.classList.add("particle");
+            p.style.left = Math.random() * 100 + "vw";
+            p.style.top = Math.random() * 100 + "vh";
+            const size = Math.random() * 8 + 6;
+            p.style.width = size + "px";
+            p.style.height = size + "px";
+            p.style.animationDelay = Math.random() * 12 + "s";
+            container.appendChild(p);
+        }
+    </script>
+
+    <nav class="bg-[#006847]/90 text-white p-4 shadow-xl backdrop-blur">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+
+            <div class="flex items-center gap-3">
+                <img src="zLogosimbolo_color.jpg" class="h-12">
+                <div>
+                    <h1 class="font-bold text-lg">Universidad Veracruzana</h1>
+                    <p class="text-sm opacity-90">Licenciatura en Geografía</p>
+                </div>
+            </div>
+
+            <div class="menu-btn md:hidden" onclick="toggleMenu()">☰</div>
+
+            <div id="menu" class="hidden md:flex gap-6 text-white/90">
+                <a href="index.html" class="hover:text-white">Inicio</a>
+                <a href="regiones.html" class="hover:text-white font-bold">Regiones</a>
+                <a href="estadisticas.html" class="hover:text-white">Estadísticas</a>
+                <a href="mapa.html" class="hover:text-white">Mapa</a>
+                <a href="resultados.html" class="hover:text-white">Resultados</a>
+                <a href="nosotros.html" class="hover:text-white">Nosotros</a>
+                <a href="bibliografia.html" class="hover:text-white">Bibliografía</a>
+            </div>
+
+        </div>
+    </nav>
+
+    <script>
+        function toggleMenu() { document.getElementById("menu").classList.toggle("active"); }
+    </script>
+
+
+    <header class="text-center my-10">
+        <h1 class="text-4xl font-bold" style="color:#F6C453;">Regiones Geoestadísticas</h1>
+        <p class="text-white/80">Panorama geográfico del Sector Servicios (DENUE – INEGI)</p>
+    </header>
+
+    <main>
+
+        <section class="card max-w-5xl mx-auto">
+            <div class="bg-black/20 rounded-xl p-6 border border-white/10">
+                <h2 class="text-3xl font-bold text-center">Panorama Nacional</h2>
+                <p class="text-center mt-2">Distribución total de servicios a nivel nacional (INEGI · DENUE)</p>
+
+                <div class="services-grid mt-6">
+                    <div class="service-tile">
+                        <div class="icon"><i class="fa-solid fa-truck"></i></div>
+                        <div class="num">39,260</div>
+                        <p>Transportes, correos y almacenamientos</p>
+                    </div>
+
+                    <div class="service-tile">
+                        <div class="icon"><i class="fa-solid fa-bell-concierge"></i></div>
+                        <div class="num">801,050</div>
+                        <p>Alojamiento temporal y alimentos</p>
+                    </div>
+
+                    <div class="service-tile">
+                        <div class="icon"><i class="fa-solid fa-school"></i></div>
+                        <div class="num">148,406</div>
+                        <p>Servicios educativos</p>
+                    </div>
+
+                    <div class="service-tile">
+                        <div class="icon"><i class="fa-solid fa-hospital-user"></i></div>
+                        <div class="num">272,412</div>
+                        <p>Salud y asistencia social</p>
+                    </div>
+
+                    <div class="service-tile">
+                        <div class="icon"><i class="fa-solid fa-theater-masks"></i></div>
+                        <div class="num">67,814</div>
+                        <p>Esparcimiento y cultura</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="card max-w-5xl mx-auto">
+            <div class="bg-black/20 rounded-xl p-6 border border-white/10">
+                <h2 class="text-3xl font-bold text-center">Panorama Estatal (Veracruz)</h2>
+                <p class="text-center mt-2">Distribución de servicios en el estado (INEGI · DENUE)</p>
+
+                <div class="services-grid mt-6">
+                    <div class="service-tile">
+                        <div class="icon"><i class="fa-solid fa-truck"></i></div>
+                        <div class="num">1,963</div>
+                        <p>Transportes</p>
+                    </div>
+                    <div class="service-tile">
+                        <div class="icon"><i class="fa-solid fa-bell-concierge"></i></div>
+                        <div class="num">53,622</div>
+                        <p>Alojamiento y alimentos</p>
+                    </div>
+                    <div class="service-tile">
+                        <div class="icon"><i class="fa-solid fa-school"></i></div>
+                        <div class="num">10,001</div>
+                        <p>Educativos</p>
+                    </div>
+                    <div class="service-tile">
+                        <div class="icon"><i class="fa-solid fa-hospital-user"></i></div>
+                        <div class="num">14,618</div>
+                        <p>Salud</p>
+                    </div>
+                    <div class="service-tile">
+                        <div class="icon"><i class="fa-solid fa-theater-masks"></i></div>
+                        <div class="num">3,882</div>
+                        <p>Cultura y deportes</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <h2 class="text-3xl font-bold text-center mb-8" style="color:#F6C453;">
+            Regiones de Veracruz
+        </h2>
+
+
+
+
+        <div class="swiper mySwiper max-w-6xl mx-auto px-4 py-12">
+            <div class="swiper-wrapper">
+
+
+                <div class="swiper-slide">
+                    <section class="card h-full flex flex-col justify-between">
+                        <div
+                            class="bg-black/20 rounded-xl p-4 border border-white/10 h-full flex flex-col justify-between">
+                            <div>
+                                <a href="estadisticas.html?region=huasteca_alta" class="btn-top"><i
+                                        class="fa-solid fa-chart-simple"></i>
+                                    Estadísticas</a>
+                                <h2 class="text-2xl font-bold text-center mb-4">Huasteca Alta <span
+                                        class="text-base font-normal opacity-80">(15 municipios)</span></h2>
+                                <p class="text-center mb-4">Ubicada al norte del estado, en la cuenca del río Tuxpan. Es
+                                    una
+                                    región de clima cálido-húmedo, abundantes cuerpos de agua y vegetación tropical. Su
+                                    economía se basa en la agricultura (cítricos, maíz), ganadería y la industria
+                                    petrolera.
+                                    Culturalmente, mantiene fuerte presencia indígena náhuatl y una tradición musical
+                                    rica
+                                    en huapangos.</p>
+
+                                <div class="text-sm space-y-2">
+                                    <p><strong><i class="fa-solid fa-location-dot text-[#F6C453]"></i>
+                                            Localización:</strong> Norte del estado.</p>
+                                    <p><strong><i class="fa-solid fa-city text-[#F6C453]"></i> Municipios
+                                            importantes:</strong> Tantoyuca, Tempoal, Platón Sánchez, El Higo,
+                                        Chicontepec.
+                                    </p>
+                                    <p><strong><i class="fa-solid fa-briefcase text-[#F6C453]"></i> Economía:</strong>
+                                        Agricultura (cítricos, maíz), ganadería, petróleo.</p>
+                                    <p><strong><i class="fa-solid fa-camera text-[#F6C453]"></i> Atractivos:</strong>
+                                        Fiesta
+                                        de Xantolo, Zona Arqueológica Castillo de Teayo.</p>
+                                    <p><strong><i class="fa-solid fa-utensils text-[#F6C453]"></i> Gastronomía:</strong>
+                                        Zacahuil, bocoles, enchiladas huastecas.</p>
+                                </div>
+                            </div>
+                            <div id="map-huasteca-alta" class="h-32 w-96 mx-auto rounded-xl mt-6 z-0"></div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <div class="swiper-slide">
+                    <section class="card h-full flex flex-col justify-between">
+                        <div
+                            class="bg-black/20 rounded-xl p-4 border border-white/10 h-full flex flex-col justify-between">
+                            <div>
+                                <a href="estadisticas.html?region=huasteca_baja" class="btn-top"><i
+                                        class="fa-solid fa-chart-simple"></i>
+                                    Estadísticas</a>
+                                <h2 class="text-2xl font-bold text-center mb-4">Huasteca Baja <span
+                                        class="text-base font-normal opacity-80">(18 municipios)</span></h2>
+                                <p class="text-center mb-4">Situada al noreste del estado, en torno al río Pánuco.
+                                    Presenta
+                                    llanuras costeras, pantanos y áreas agrícolas. La pesca, la agricultura de caña de
+                                    azúcar y la ganadería son actividades esenciales. Destaca por su herencia huasteca,
+                                    danzas tradicionales y gastronomía a base de mariscos y productos del río.</p>
+
+                                <div class="text-sm space-y-2">
+                                    <p><strong><i class="fa-solid fa-location-dot text-[#F6C453]"></i>
+                                            Localización:</strong> Norte del estado, al sur de la Huasteca Alta.</p>
+                                    <p><strong><i class="fa-solid fa-city text-[#F6C453]"></i> Municipios
+                                            importantes:</strong> Pánuco, Pueblo Viejo, Ozuluama, Álamo Temapache,
+                                        Tuxpan.
+                                    </p>
+                                    <p><strong><i class="fa-solid fa-briefcase text-[#F6C453]"></i> Economía:</strong>
+                                        Pesca, caña de azúcar, ganadería, petróleo.</p>
+                                    <p><strong><i class="fa-solid fa-camera text-[#F6C453]"></i> Atractivos:</strong>
+                                        Playas
+                                        de Tuxpan, Laguna de Tamiahua.</p>
+                                    <p><strong><i class="fa-solid fa-utensils text-[#F6C453]"></i> Gastronomía:</strong>
+                                        Mariscos, acamayas, tamales de cazuela.</p>
+                                </div>
+                            </div>
+                            <div id="map-huasteca-baja" class="h-32 w-96 mx-auto rounded-xl mt-6 z-0"></div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <div class="swiper-slide">
+                    <section class="card h-full flex flex-col justify-between">
+                        <div
+                            class="bg-black/20 rounded-xl p-4 border border-white/10 h-full flex flex-col justify-between">
+                            <div>
+                                <a href="estadisticas.html?region=totonaca" class="btn-top"><i
+                                        class="fa-solid fa-chart-simple"></i>
+                                    Estadísticas</a>
+                                <h2 class="text-2xl font-bold text-center mb-1">Totonaca <span
+                                        class="text-base font-normal opacity-80">(15 municipios)</span></h2>
+                                <p class="text-center text-xs text-[#F6C453] mb-4 italic">Análisis por: Fanny Lorelei
+                                    Vasquez Cuixtla</p>
+                                <p class="text-center mb-4">Región del centro-norte, comprendida principalmente por
+                                    Papantla
+                                    y su entorno. Es una zona de selvas medianas y tierras productivas. Famosa por su
+                                    producción de vainilla, su cultura totonaca, la Ceremonia de los Voladores y el
+                                    sitio
+                                    arqueológico de El Tajín. Tiene un importante desarrollo turístico y artesanal.</p>
+
+                                <div class="text-sm space-y-2">
+                                    <p><strong><i class="fa-solid fa-location-dot text-[#F6C453]"></i>
+                                            Localización:</strong> Zona norte-centro.</p>
+                                    <p><strong><i class="fa-solid fa-city text-[#F6C453]"></i> Municipios
+                                            importantes:</strong> Papantla, Poza Rica, Coatzintla, Tihuatlán, Cazones de
+                                        Herrera.</p>
+                                    <p><strong><i class="fa-solid fa-briefcase text-[#F6C453]"></i> Economía:</strong>
+                                        Vainilla, petróleo, turismo, artesanías.</p>
+                                    <p><strong><i class="fa-solid fa-camera text-[#F6C453]"></i> Atractivos:</strong> El
+                                        Tajín, Voladores de Papantla, Cumbre Tajín.</p>
+                                    <p><strong><i class="fa-solid fa-utensils text-[#F6C453]"></i> Gastronomía:</strong>
+                                        Mole de Xico, tamales, vainilla.</p>
+                                </div>
+                            </div>
+                            <div id="map-totonaca" class="h-32 w-96 mx-auto rounded-xl mt-6 z-0"></div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <div class="swiper-slide">
+                    <section class="card h-full flex flex-col justify-between">
+                        <div
+                            class="bg-black/20 rounded-xl p-4 border border-white/10 h-full flex flex-col justify-between">
+                            <div>
+                                <a href="estadisticas.html?region=nautla" class="btn-top"><i
+                                        class="fa-solid fa-chart-simple"></i>
+                                    Estadísticas</a>
+                                <h2 class="text-2xl font-bold text-center mb-1">Nautla <span
+                                        class="text-base font-normal opacity-80">(11 municipios)</span></h2>
+                                <p class="text-center text-xs text-[#F6C453] mb-4 italic">Análisis por: Luis Alfredo
+                                    Hernández Guerra</p>
+                                <p class="text-center mb-4">Ubicada en la franja costera central, caracterizada por
+                                    playas,
+                                    esteros y llanuras agrícolas. La región destaca por su producción de caña, cítricos
+                                    y
+                                    ganadería. El turismo de playa y los humedales son elementos importantes. Su
+                                    identidad
+                                    cultural combina tradiciones mestizas con elementos totonacos.</p>
+
+                                <div class="text-sm space-y-2">
+                                    <p><strong><i class="fa-solid fa-location-dot text-[#F6C453]"></i>
+                                            Localización:</strong> Costa centro-norte.</p>
+                                    <p><strong><i class="fa-solid fa-city text-[#F6C453]"></i> Municipios
+                                            importantes:</strong> Martínez de la Torre, San Rafael, Misantla,
+                                        Tlapacoyan,
+                                        Vega de la Torre.</p>
+                                    <p><strong><i class="fa-solid fa-briefcase text-[#F6C453]"></i> Economía:</strong>
+                                        Cítricos (limón, naranja), caña, ganadería.</p>
+                                    <p><strong><i class="fa-solid fa-camera text-[#F6C453]"></i> Atractivos:</strong>
+                                        Costa
+                                        Esmeralda, Rápidos de Filobobos.</p>
+                                    <p><strong><i class="fa-solid fa-utensils text-[#F6C453]"></i> Gastronomía:</strong>
+                                        Mariscos, ceviche, antojitos regionales.</p>
+                                </div>
+                            </div>
+                            <div id="map-nautla" class="h-32 w-96 mx-auto rounded-xl mt-6 z-0"></div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <div class="swiper-slide">
+                    <section class="card h-full flex flex-col justify-between">
+                        <div
+                            class="bg-black/20 rounded-xl p-4 border border-white/10 h-full flex flex-col justify-between">
+                            <div>
+                                <a href="estadisticas.html?region=capital" class="btn-top"><i
+                                        class="fa-solid fa-chart-simple"></i>
+                                    Estadísticas</a>
+                                <h2 class="text-2xl font-bold text-center mb-1">Capital <span
+                                        class="text-base font-normal opacity-80">(33 municipios)</span></h2>
+                                <p class="text-center text-xs text-[#F6C453] mb-4 italic">Análisis por: Juan Daniel
+                                    Viveros
+                                    Viveros</p>
+                                <p class="text-center mb-4">Región central montañosa donde se concentra la capital,
+                                    Xalapa.
+                                    Cuenta con clima templado-húmedo, bosques de niebla y un fuerte desarrollo urbano,
+                                    educativo y administrativo. Es el centro político y cultural del estado, con
+                                    universidades, museos y una economía basada en servicios, comercio y educación.</p>
+
+                                <div class="text-sm space-y-2">
+                                    <p><strong><i class="fa-solid fa-location-dot text-[#F6C453]"></i>
+                                            Localización:</strong> Centro del estado (zona montañosa).</p>
+                                    <p><strong><i class="fa-solid fa-city text-[#F6C453]"></i> Municipios
+                                            importantes:</strong> Xalapa, Coatepec, Emiliano Zapata, Banderilla, Xico.
+                                    </p>
+                                    <p><strong><i class="fa-solid fa-briefcase text-[#F6C453]"></i> Economía:</strong>
+                                        Gobierno, educación, café, servicios.</p>
+                                    <p><strong><i class="fa-solid fa-camera text-[#F6C453]"></i> Atractivos:</strong>
+                                        Museo
+                                        de Antropología, Coatepec y Xico (Pueblos Mágicos).</p>
+                                    <p><strong><i class="fa-solid fa-utensils text-[#F6C453]"></i> Gastronomía:</strong>
+                                        Café de altura, mole xiqueño, chiles rellenos.</p>
+                                </div>
+                            </div>
+                            <div id="map-capital" class="h-32 w-96 mx-auto rounded-xl mt-6 z-0"></div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <div class="swiper-slide">
+                    <section class="card h-full flex flex-col justify-between">
+                        <div
+                            class="bg-black/20 rounded-xl p-4 border border-white/10 h-full flex flex-col justify-between">
+                            <div>
+                                <a href="estadisticas.html?region=sotavento" class="btn-top"><i
+                                        class="fa-solid fa-chart-simple"></i>
+                                    Estadísticas</a>
+                                <h2 class="text-2xl font-bold text-center mb-4">Sotavento <span
+                                        class="text-base font-normal opacity-80">(12 municipios)</span></h2>
+                                <p class="text-center mb-4">Ubicada en la planicie del centro-sur, con clima cálido-seco
+                                    y
+                                    extensas áreas de agricultura y ganadería. Famosa por el son jarocho, la décima y la
+                                    tradición musical de arpa y jarana. Su actividad económica se centra en la caña de
+                                    azúcar, ganadería y comercio regional.</p>
+
+                                <div class="text-sm space-y-2">
+                                    <p><strong><i class="fa-solid fa-location-dot text-[#F6C453]"></i>
+                                            Localización:</strong> Costa central.</p>
+                                    <p><strong><i class="fa-solid fa-city text-[#F6C453]"></i> Municipios
+                                            importantes:</strong> Veracruz, Boca del Río, Medellín, La Antigua,
+                                        Alvarado.
+                                    </p>
+                                    <p><strong><i class="fa-solid fa-briefcase text-[#F6C453]"></i> Economía:</strong>
+                                        Puerto, turismo, comercio, pesca.</p>
+                                    <p><strong><i class="fa-solid fa-camera text-[#F6C453]"></i> Atractivos:</strong>
+                                        San
+                                        Juan de Ulúa, Acuario, Carnaval, Malecón.</p>
+                                    <p><strong><i class="fa-solid fa-utensils text-[#F6C453]"></i> Gastronomía:</strong>
+                                        Arroz a la tumbada, café lechero, picadas.</p>
+                                </div>
+                            </div>
+                            <div id="map-sotavento" class="h-32 w-96 mx-auto rounded-xl mt-6 z-0"></div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <div class="swiper-slide">
+                    <section class="card h-full flex flex-col justify-between">
+                        <div
+                            class="bg-black/20 rounded-xl p-4 border border-white/10 h-full flex flex-col justify-between">
+                            <div>
+                                <a href="estadisticas.html?region=altas_montanas" class="btn-top"><i
+                                        class="fa-solid fa-chart-simple"></i>
+                                    Estadísticas</a>
+                                <h2 class="text-2xl font-bold text-center mb-1">Altas Montañas <span
+                                        class="text-base font-normal opacity-80">(57 municipios)</span></h2>
+                                <p class="text-center text-xs text-[#F6C453] mb-4 italic">Análisis por: Merari Amisadai
+                                    Quesada Arnau</p>
+                                <p class="text-center mb-4">Compuesta por municipios serranos como Orizaba, Córdoba y
+                                    Zongolica. Predominan montañas elevadas, climas templados y fríos, y bosques de
+                                    altura.
+                                    Es una región cafetalera por excelencia, además de ser industrial y comercial.
+                                    Culturalmente destaca por su población nahua y su herencia colonial.</p>
+
+                                <div class="text-sm space-y-2">
+                                    <p><strong><i class="fa-solid fa-location-dot text-[#F6C453]"></i>
+                                            Localización:</strong> Zona centro-oeste (montañosa).</p>
+                                    <p><strong><i class="fa-solid fa-city text-[#F6C453]"></i> Municipios
+                                            importantes:</strong> Orizaba, Córdoba, Nogales, Río Blanco, Fortín.</p>
+                                    <p><strong><i class="fa-solid fa-briefcase text-[#F6C453]"></i> Economía:</strong>
+                                        Café,
+                                        industria cervecera y textil, comercio.</p>
+                                    <p><strong><i class="fa-solid fa-camera text-[#F6C453]"></i> Atractivos:</strong>
+                                        Pico
+                                        de Orizaba, Teleférico, Cascada de Texolo.</p>
+                                    <p><strong><i class="fa-solid fa-utensils text-[#F6C453]"></i> Gastronomía:</strong>
+                                        Café de olla, pan de Córdoba, tlatonile.</p>
+                                </div>
+                            </div>
+                            <div id="map-altas-montanas" class="h-32 w-96 mx-auto rounded-xl mt-6 z-0"></div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <div class="swiper-slide">
+                    <section class="card h-full flex flex-col justify-between">
+                        <div
+                            class="bg-black/20 rounded-xl p-4 border border-white/10 h-full flex flex-col justify-between">
+                            <div>
+                                <a href="estadisticas.html?region=papaloapan" class="btn-top"><i
+                                        class="fa-solid fa-chart-simple"></i>
+                                    Estadísticas</a>
+                                <h2 class="text-2xl font-bold text-center mb-1">Papaloapan <span
+                                        class="text-base font-normal opacity-80">(22 municipios)</span></h2>
+                                <p class="text-center text-xs text-[#F6C453] mb-4 italic">Análisis por: Laura de Dios
+                                    Hernández</p>
+                                <p class="text-center mb-4">Situada en la cuenca baja del río Papaloapan, una de las más
+                                    grandes del país. Es una región de humedales, ríos majestuosos y suelos fértiles.
+                                    Destaca en agricultura (arroz, caña, maíz), pesca y ganadería. Tiene una identidad
+                                    cultural afro mestiza notable, especialmente en municipios como Tlacotalpan.</p>
+
+                                <div class="text-sm space-y-2">
+                                    <p><strong><i class="fa-solid fa-location-dot text-[#F6C453]"></i>
+                                            Localización:</strong> Sur del estado (cuenca del Papaloapan).</p>
+                                    <p><strong><i class="fa-solid fa-city text-[#F6C453]"></i> Municipios
+                                            importantes:</strong> Cosamaloapan, Tierra Blanca, Tres Valles, Isla, Playa
+                                        Vicente.</p>
+                                    <p><strong><i class="fa-solid fa-briefcase text-[#F6C453]"></i> Economía:</strong>
+                                        Arroz, caña, piña, ganadería, pesca.</p>
+                                    <p><strong><i class="fa-solid fa-camera text-[#F6C453]"></i> Atractivos:</strong>
+                                        Tlacotalpan (Patrimonio UNESCO), Río Papaloapan.</p>
+                                    <p><strong><i class="fa-solid fa-utensils text-[#F6C453]"></i> Gastronomía:</strong>
+                                        Toritos, minilla, arroz con mariscos.</p>
+                                </div>
+                            </div>
+                            <div id="map-papaloapan" class="h-32 w-96 mx-auto rounded-xl mt-6 z-0"></div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <div class="swiper-slide">
+                    <section class="card h-full flex flex-col justify-between">
+                        <div
+                            class="bg-black/20 rounded-xl p-4 border border-white/10 h-full flex flex-col justify-between">
+                            <div>
+                                <a href="estadisticas.html?region=tuxtlas" class="btn-top"><i
+                                        class="fa-solid fa-chart-simple"></i>
+                                    Estadísticas</a>
+                                <h2 class="text-2xl font-bold text-center mb-1">Los Tuxtlas <span
+                                        class="text-base font-normal opacity-80">(4 municipios)</span></h2>
+                                <p class="text-center text-xs text-[#F6C453] mb-4 italic">Análisis por: Wendy Elisa
+                                    Sandoval
+                                    Sayago</p>
+                                <p class="text-center mb-4">Región selvática del sur-centro, con una de las reservas
+                                    naturales más importantes del país. Montañas volcánicas, lagunas y playas
+                                    caracterizan
+                                    su geografía. Es rica en biodiversidad y tiene fuerte tradición indígena popoluca y
+                                    náhuatl. Su economía combina agricultura, pesca, ecoturismo y productos como tabaco
+                                    y
+                                    café.</p>
+
+                                <div class="text-sm space-y-2">
+                                    <p><strong><i class="fa-solid fa-location-dot text-[#F6C453]"></i>
+                                            Localización:</strong> Sureste (sierra de los Tuxtlas).</p>
+                                    <p><strong><i class="fa-solid fa-city text-[#F6C453]"></i> Municipios
+                                            importantes:</strong> San Andrés Tuxtla, Santiago Tuxtla, Catemaco, Hueyapan
+                                        de
+                                        Ocampo.</p>
+                                    <p><strong><i class="fa-solid fa-briefcase text-[#F6C453]"></i> Economía:</strong>
+                                        Tabaco, ecoturismo, pesca, ganadería.</p>
+                                    <p><strong><i class="fa-solid fa-camera text-[#F6C453]"></i> Atractivos:</strong>
+                                        Laguna
+                                        de Catemaco, Salto de Eyipantla, Reserva de la Biosfera.</p>
+                                    <p><strong><i class="fa-solid fa-utensils text-[#F6C453]"></i> Gastronomía:</strong>
+                                        Tegogolo, carne de chango, mojarras.</p>
+                                </div>
+                            </div>
+                            <div id="map-los-tuxtlas" class="h-32 w-96 mx-auto rounded-xl mt-6 z-0"></div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <div class="swiper-slide">
+                    <section class="card h-full flex flex-col justify-between">
+                        <div
+                            class="bg-black/20 rounded-xl p-4 border border-white/10 h-full flex flex-col justify-between">
+                            <div>
+                                <a href="estadisticas.html?region=olmeca" class="btn-top"><i
+                                        class="fa-solid fa-chart-simple"></i>
+                                    Estadísticas</a>
+                                <h2 class="text-2xl font-bold text-center mb-4">Olmeca <span
+                                        class="text-base font-normal opacity-80">(25 municipios)</span></h2>
+                                <p class="text-center mb-4">Ubicada al extremo sur del estado, colindante con Tabasco y
+                                    Oaxaca. Es una zona de industria petrolera, puertos (Coatzacoalcos) y corredores
+                                    logísticos. Su geografía presenta llanuras costeras y zonas pantanosas. Tiene
+                                    influencia
+                                    cultural olmeca en su historia y gran diversidad económica: industria, comercio,
+                                    energía
+                                    y pesca.</p>
+
+                                <div class="text-sm space-y-2">
+                                    <p><strong><i class="fa-solid fa-location-dot text-[#F6C453]"></i>
+                                            Localización:</strong> Extremo sur del estado.</p>
+                                    <p><strong><i class="fa-solid fa-city text-[#F6C453]"></i> Municipios
+                                            importantes:</strong> Coatzacoalcos, Minatitlán, Cosoleacaque, Las Choapas,
+                                        Agua
+                                        Dulce.</p>
+                                    <p><strong><i class="fa-solid fa-briefcase text-[#F6C453]"></i> Economía:</strong>
+                                        Petroquímica, refinación, puertos, comercio.</p>
+                                    <p><strong><i class="fa-solid fa-camera text-[#F6C453]"></i> Atractivos:</strong>
+                                        Museo
+                                        Olmeca, Parque Jaguaroundi, playas.</p>
+                                    <p><strong><i class="fa-solid fa-utensils text-[#F6C453]"></i> Gastronomía:</strong>
+                                        Pejelagarto, chirmol, tamales de chipilín.</p>
+                                </div>
+                            </div>
+                            <div id="map-olmeca" class="h-32 w-96 mx-auto rounded-xl mt-6 z-0"></div>
+                    </section>
+                </div>
+
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+
+        <section class="card max-w-5xl mx-auto text-center">
+            <div class="bg-black/20 rounded-xl p-6 border border-white/10">
+                <h2 class="text-3xl font-bold">Mapa de las Regiones de Veracruz</h2>
+
+                <div class="relative inline-block mt-6">
+                    <img src="Regiones_de_Veracruz.jpg" class="rounded-xl shadow-xl max-w-full">
+
+
+                    <div
+                        style="position: absolute; bottom: 3.8%; left: 28%; width: 34%; height: 4.2%; background-color: white; z-index: 10; display: flex; align-items: center; justify-content: center; text-align: center; font-family: Arial, sans-serif; font-size: 0.45vw; line-height: 1.25; color: black;">
+                        <div>
+                            <strong>Elaboraron:</strong> Laura de Dios Hernández, Luis Alfredo Hernández Guerra,<br>
+                            Merari Amisadai Quesada Arnau, Wendy Elisa Sandoval Sayago,<br>
+                            Fanny Lorelei Vasquez Cuixtla y Juan Daniel Viveros Viveros.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <div class="flex justify-between items-center max-w-5xl mx-auto mt-12 mb-16 px-4">
+            <a href="index.html"
+                class="px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Anterior
+            </a>
+            <a href="estadisticas.html"
+                class="px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition flex items-center gap-2">
+                Siguiente <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            on: {
+                slideChangeTransitionEnd: function () {
+
+                    Object.values(mapsInstances).forEach(map => {
+                        map.invalidateSize();
+                    });
+                },
+                init: function () {
+
+                    setTimeout(() => {
+                        Object.values(mapsInstances).forEach(map => {
+                            map.invalidateSize();
+                        });
+                    }, 500);
+                }
+            }
+        });
+
+
+        var mapsInstances = {};
+
+
+        proj4.defs("EPSG:6372", "+proj=lcc +lat_1=17.5 +lat_2=29.5 +lat_0=12 +lon_0=-102 +x_0=2500000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
+
+
+        function esriToGeoJSON(esriJSON) {
+            if (!esriJSON || !esriJSON.features) {
+                console.error("Formato Esri JSON inválido");
+                return null;
+            }
+
+            return {
+                type: "FeatureCollection",
+                features: esriJSON.features.map(feature => {
+
+                    let geometry = null;
+
+                    if (feature.geometry && feature.geometry.rings) {
+
+                        const transformedRings = feature.geometry.rings.map(ring => {
+                            return ring.map(coord => {
+
+                                const [lon, lat] = proj4("EPSG:6372", "EPSG:4326", coord);
+                                return [lon, lat];
+                            });
+                        });
+
+                        geometry = {
+                            type: "Polygon",
+                            coordinates: transformedRings
+                        };
+                    } else if (feature.geometry && feature.geometry.paths) {
+                        const transformedPaths = feature.geometry.paths[0].map(coord => {
+                            const [lon, lat] = proj4("EPSG:6372", "EPSG:4326", coord);
+                            return [lon, lat];
+                        });
+
+                        geometry = {
+                            type: "LineString",
+                            coordinates: transformedPaths
+                        };
+                    } else if (feature.geometry && feature.geometry.x !== undefined) {
+                        const [lon, lat] = proj4("EPSG:6372", "EPSG:4326", [feature.geometry.x, feature.geometry.y]);
+
+                        geometry = {
+                            type: "Point",
+                            coordinates: [lon, lat]
+                        };
+                    }
+
+                    return {
+                        type: "Feature",
+                        properties: feature.attributes || {},
+                        geometry: geometry
+                    };
+                })
+            };
+        }
+
+        // Configuración de mapas
+        const regionMaps = [
+            { id: 'map-huasteca-alta', file: 'HuastecaAlta.geojson', color: '#1d4ed8' },
+            { id: 'map-huasteca-baja', file: 'HuastecaBaja.geojson', color: '#16a34a' },
+            { id: 'map-totonaca', file: 'Totonaca.geojson', color: '#ca8a04' },
+            { id: 'map-nautla', file: 'Nautla1.geojson', color: '#0ea5e9' },
+            { id: 'map-capital', file: 'Capital.geojson', color: '#7c3aed' },
+            { id: 'map-sotavento', file: 'Sotavento.geojson', color: '#059669' },
+            { id: 'map-altas-montanas', file: 'AltasMontañas.geojson', color: '#dc2626' },
+            { id: 'map-papaloapan', file: 'Papaloapan.geojson', color: '#d946ef' },
+            { id: 'map-los-tuxtlas', file: 'LosTuxtlas.geojson', color: '#ea580c' },
+            { id: 'map-olmeca', file: 'Olmeca.geojson', color: '#10b981' }
+        ];
+
+
+        regionMaps.forEach(region => {
+            try {
+                const mapContainer = document.getElementById(region.id);
+                if (!mapContainer) return;
+
+                const map = L.map(region.id, {
+                    zoomControl: false,
+                    dragging: false,
+                    scrollWheelZoom: false,
+                    doubleClickZoom: false,
+                    boxZoom: false,
+                    attributionControl: false,
+                    keyboard: false
+                }).setView([19.5, -96.5], 7);
+
+
+                mapsInstances[region.id] = map;
+
+
+                L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 17,
+                    opacity: 0.7,
+                    attribution: 'Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap'
+                }).addTo(map);
+
+
+                fetch(region.file)
+                    .then(response => {
+                        if (!response.ok) throw new Error("No se pudo cargar " + region.file);
+                        return response.json();
+                    })
+                    .then(geoData => {
+
+                        const layer = L.geoJSON(geoData, {
+                            style: {
+                                color: region.color,
+                                weight: 2,
+                                fillOpacity: 0.4,
+                                fillColor: region.color
+                            },
+                            interactive: false
+                        }).addTo(map);
+
+
+                        map.fitBounds(layer.getBounds(), {
+                            padding: [10, 10],
+                            maxZoom: 11
+                        });
+
+
+                        setTimeout(() => {
+                            map.invalidateSize();
+                        }, 100);
+                    })
+                    .catch(error => {
+                        console.error("Error cargando mapa:", error);
+                        mapContainer.innerHTML = `<div class="flex items-center justify-center h-full text-white/70 text-xs p-4 border border-white/20 rounded">
+                                No se pudo cargar el mapa.<br>Verifique que los archivos JSON estén en la carpeta correcta.
+                            </div>`;
+                    });
+
+            } catch (e) {
+                console.error("Error inicializando mapa " + region.id, e);
+            }
+        });
+    </script>
+
+
+    <footer class="w-full text-center text-xs text-white/70 py-4 bg-black/20">
+        <p>
+            © 2025 Universidad Veracruzana | Licenciatura en Geografía | Diseño y Desarrollo Web: <strong>Juan Daniel
+                Viveros Viveros</strong>
+        </p>
+        <p class="mt-1">Datos: DENUE - INEGI • Regiones Geoestadísticas (2020)</p>
+    </footer>
+</body>
+
+</html>

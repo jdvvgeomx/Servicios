@@ -1,0 +1,86 @@
+{
+  "nacional": {
+    "transportes": 39260,
+    "alojamiento": 801050,
+    "educativos": 148406,
+    "salud": 272412,
+    "esparcimiento": 67814
+  },
+  "estatal": {
+    "transportes": 1963,
+    "alojamiento": 53622,
+    "educativos": 10001,
+    "salud": 14618,
+    "esparcimiento": 3882
+  },
+  "huasteca_alta": {
+    "transportes": 85,
+    "alojamiento": 2257,
+    "educativos": 443,
+    "salud": 484,
+    "esparcimiento": 123
+  },
+  "huasteca_baja": {
+    "transportes": 106,
+    "alojamiento": 5795,
+    "educativos": 492,
+    "salud": 673,
+    "esparcimiento": 139
+  },
+  "totonaca": {
+    "transportes": 102,
+    "alojamiento": 3696,
+    "educativos": 822,
+    "salud": 990,
+    "esparcimiento": 240
+  },
+  "nautla": {
+    "transportes": 80,
+    "alojamiento": 2520,
+    "educativos": 435,
+    "salud": 634,
+    "esparcimiento": 167
+  },
+  "capital": {
+    "transportes": 239,
+    "alojamiento": 8237,
+    "educativos": 2027,
+    "salud": 3412,
+    "esparcimiento": 845
+  },
+  "sotavento": {
+    "transportes": 644,
+    "alojamiento": 9137,
+    "educativos": 1485,
+    "salud": 2457,
+    "esparcimiento": 694
+  },
+  "altas_montanas": {
+    "transportes": 285,
+    "alojamiento": 11084,
+    "educativos": 1707,
+    "salud": 2668,
+    "esparcimiento": 787
+  },
+  "papaloapan": {
+    "transportes": 95,
+    "alojamiento": 4789,
+    "educativos": 696,
+    "salud": 870,
+    "esparcimiento": 290
+  },
+  "tuxtlas": {
+    "transportes": 56,
+    "alojamiento": 1538,
+    "educativos": 274,
+    "salud": 456,
+    "esparcimiento": 112
+  },
+  "olmeca": {
+    "transportes": 180,
+    "alojamiento": 5836,
+    "educativos": 1062,
+    "salud": 1294,
+    "esparcimiento": 275
+  }
+}

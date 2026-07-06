@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas - Geografía de los Servicios</title>
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 40%, #2e7d32 70%, #43a047 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            color: white;
+        }
+
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: floatUp 14s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(.6);
+                opacity: .7;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-30vh) scale(1.3);
+                opacity: 0;
+            }
+        }
+
+        #particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-left: 1px solid rgba(255, 255, 255, 0.4);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 24px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            color: white;
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                0 5px 15px rgba(0, 0, 0, 0.1),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .region-button {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .region-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .selected-region {
+            background: #F6C453 !important;
+
+            color: #1e3c72 !important;
+            border-color: #F6C453 !important;
+            font-weight: 800;
+        }
+
+
+        .menu-btn {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            #menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                background: #006847;
+                margin-top: 10px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            #menu a {
+                padding: 12px;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            #menu.active {
+                display: flex;
+            }
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background: rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+
+</head>
+
+<body class="min-h-screen flex flex-col">
+    <div id="particle-container"></div>
+    <script>
+        function spawnParticles() {
+            const box = document.getElementById("particle-container");
+            for (let i = 0; i < 70; i++) {
+                const p = document.createElement("div");
+                p.classList.add("particle");
+                p.style.left = Math.random() * 100 + "vw";
+                p.style.top = Math.random() * 100 + "vh";
+                const size = Math.random() * 8 + 6;
+                p.style.width = size + "px";
+                p.style.height = size + "px";
+                p.style.animationDelay = Math.random() * 12 + "s";
+                box.appendChild(p);
+            }
+        }
+        spawnParticles();
+
+        function toggleMenu() {
+            const menu = document.getElementById("menu");
+            menu.classList.toggle("active");
+        }
+    </script>
+
+    </head>
+
+    <body class="min-h-screen flex flex-col">
+
+
+        <nav class="bg-[#006847] text-white p-4 shadow-lg">
+            <div class="max-w-7xl mx-auto flex justify-between items-center flex-wrap">
+                <div class="flex items-center gap-3">
+                    <img src="zLogosimbolo_color.jpg" class="h-12" />
+                    <div>
+                        <h1 class="font-bold text-lg">Universidad Veracruzana</h1>
+                        <p class="text-sm opacity-90">Licenciatura en Geografía</p>
+                    </div>
+                </div>
+
+                <div class="menu-btn md:hidden" onclick="toggleMenu()">☰</div>
+
+                <div id="menu" class="hidden md:flex gap-6 text-white/90 w-full md:w-auto">
+                    <a href="index.html" class="hover:text-white">Inicio</a>
+                    <a href="regiones.html" class="hover:text-white">Regiones</a>
+                    <a href="estadisticas.html" class="hover:text-white font-bold">Estadísticas</a>
+                    <a href="mapa.html" class="hover:text-white">Mapa</a>
+                    <a href="resultados.html" class="hover:text-white">Resultados</a>
+                    <a href="nosotros.html" class="hover:text-white">Nosotros</a>
+                    <a href="bibliografia.html" class="hover:text-white">Bibliografía</a>
+                </div>
+            </div>
+        </nav>
+
+
+
+        <section class="py-10 md:py-14 text-center px-4">
+            <h1 class="text-3xl md:text-5xl font-bold text-[#F6C453] drop-shadow-md leading-tight">
+                Estadísticas del DENUE — Veracruz
+            </h1>
+            <p class="text-white/90 mt-4 max-w-3xl mx-auto text-sm md:text-lg">
+                Distribución porcentual de los cinco tipos de servicios a nivel nacional, estatal y regional,
+                utilizando datos del Directorio Nacional de Unidades Económicas (DENUE).
+            </p>
+        </section>
+
+        <section class="py-6">
+            <div class="max-w-7xl mx-auto px-6">
+
+                <h2 class="text-2xl font-bold text-white mb-6 text-center">
+                    Selecciona una región para visualizar sus estadísticas
+                </h2>
+
+                <div class="flex flex-wrap justify-center gap-3">
+
+                    <!-- Botones -->
+                    <button class="region-button" onclick="showRegion('nacional')">Nacional</button>
+                    <button class="region-button" onclick="showRegion('estatal')">Estatal</button>
+                    <button class="region-button" onclick="showRegion('huasteca_alta')">Huasteca Alta</button>
+                    <button class="region-button" onclick="showRegion('huasteca_baja')">Huasteca Baja</button>
+                    <button class="region-button" onclick="showRegion('totonaca')">Totonaca</button>
+                    <button class="region-button" onclick="showRegion('nautla')">Nautla</button>
+                    <button class="region-button" onclick="showRegion('capital')">Capital</button>
+                    <button class="region-button" onclick="showRegion('sotavento')">Sotavento</button>
+                    <button class="region-button" onclick="showRegion('altas_montanas')">Altas Montañas</button>
+                    <button class="region-button" onclick="showRegion('papaloapan')">Papaloapan</button>
+                    <button class="region-button" onclick="showRegion('tuxtlas')">Los Tuxtlas</button>
+                    <button class="region-button" onclick="showRegion('olmeca')">Olmeca</button>
+
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="py-10">
+            <div class="max-w-7xl mx-auto px-6">
+
+
+                <div id="region-content" class="space-y-10">
+
+
+                    <div class="text-center text-white/70 text-lg py-12">
+                        Selecciona una región para ver sus gráficos y tablas.
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <script>
+
+            const data = {
+
+                nacional: {
+                    labels: [
+                        "Transportes, correos y almacenamientos",
+                        "Servicios de alojamiento temporal y de preparación de alimentos y bebidas",
+                        "Servicios educativos",
+                        "Servicios de salud y de asistencia social",
+                        "Servicios de esparcimiento cultural y deportivos, y otros servicios"
+                    ],
+                    values: [39260, 801050, 148406, 272412, 67814]
+                },
+
+
+                estatal: {
+                    labels: [
+                        "Transportes, correos y almacenamientos",
+                        "Servicios de alojamiento temporal y de preparación de alimentos y bebidas",
+                        "Servicios educativos",
+                        "Servicios de salud y de asistencia social",
+                        "Servicios de esparcimiento cultural y deportivos, y otros servicios"
+                    ],
+                    values: [1963, 53622, 10001, 14618, 3882]
+                },
+
+                huasteca_alta: {
+                    labels: [
+                        "Transportes, correos y almacenamientos",
+                        "Servicios de alojamiento temporal y de preparación de alimentos y bebidas",
+                        "Servicios educativos",
+                        "Servicios de salud y de asistencia social",
+                        "Servicios de esparcimiento cultural y deportivos, y otros servicios"
+                    ],
+                    values: [53, 1117, 205, 482, 104]
+                },
+
+                huasteca_baja: {
+                    labels: [
+                        "Transportes, correos y almacenamientos",
+                        "Servicios de alojamiento temporal y de preparación de alimentos y bebidas",
+                        "Servicios educativos",
+                        "Servicios de salud y de asistencia social",
+                        "Servicios de esparcimiento cultural y deportivos, y otros servicios"
+                    ],
+                    values: [109, 2184, 232, 708, 211]
+                },
+
+                totonaca: {
+                    labels: [
+                        "Transportes, correos y almacenamientos",
+                        "Servicios de alojamiento temporal y de preparación de alimentos y bebidas",
+                        "Servicios educativos",
+                        "Servicios de salud y de asistencia social",
+                        "Servicios de esparcimiento cultural y deportivos, y otros servicios"
+                    ],
+                    values: [93, 2236, 196, 841, 160]
+                },
+
+                nautla: {
+                    labels: [
+                        "Transportes, correos y almacenamientos",
+                        "Servicios de alojamiento temporal y de preparación de alimentos y bebidas",
+                        "Servicios educativos",
+                        "Servicios de salud y de asistencia social",
+                        "Servicios de esparcimiento cultural y deportivos, y otros servicios"
+                    ],
+                    values: [98, 1516, 215, 512, 137]
+                },
+
+                capital: {
+                    labels: [
+                        "Transportes, correos y almacenamientos",
+                        "Servicios de alojamiento temporal y de preparación de alimentos y bebidas",
+                        "Servicios educativos",
+                        "Servicios de salud y de asistencia social",
+                        "Servicios de esparcimiento cultural y deportivos, y otros servicios"
+                    ],
+                    values: [190, 6240, 1622, 1980, 421]
+                },
+
+                sotavento: {
+                    labels: [
+                        "Transportes, correos y almacenamientos",
+                        "Servicios de alojamiento temporal y de preparación de alimentos y bebidas",
+                        "Servicios educativos",
+                        "Servicios de salud y de asistencia social",
+                        "Servicios de esparcimiento cultural y deportivos, y otros servicios"
+                    ],
+                    values: [87, 3764, 482, 1126, 218]
+                },
+
+                altas_montanas: {
+                    labels: [
+                        "Transportes, correos y almacenamientos",
+                        "Servicios de alojamiento temporal y de preparación de alimentos y bebidas",
+                        "Servicios educativos",
+                        "Servicios de salud y de asistencia social",
+                        "Servicios de esparcimiento cultural y deportivos, y otros servicios"
+                    ],
+                    values: [165, 5338, 1146, 1916, 381]
+                },
+
+                papaloapan: {
+                    labels: [
+                        "Transportes, correos y almacenamientos",
+                        "Servicios de alojamiento temporal y de preparación de alimentos y bebidas",
+                        "Servicios educativos",
+                        "Servicios de salud y de asistencia social",
+                        "Servicios de esparcimiento cultural y deportivos, y otros servicios"
+                    ],
+                    values: [79, 2079, 355, 796, 140]
+                },
+
+                tuxtlas: {
+                    labels: [
+                        "Transportes, correos y almacenamientos",
+                        "Servicios de alojamiento temporal y de preparación de alimentos y bebidas",
+                        "Servicios educativos",
+                        "Servicios de salud y de asistencia social",
+                        "Servicios de esparcimiento cultural y deportivos, y otros servicios"
+                    ],
+                    values: [40, 1237, 183, 542, 122]
+                },
+
+                olmeca: {
+                    labels: [
+                        "Transportes, correos y almacenamientos",
+                        "Servicios de alojamiento temporal y de preparación de alimentos y bebidas",
+                        "Servicios educativos",
+                        "Servicios de salud y de asistencia social",
+                        "Servicios de esparcimiento cultural y deportivos, y otros servicios"
+                    ],
+                    values: [139, 2616, 452, 1325, 199]
+                }
+
+            };
+
+            function makePlots(containerId, labels, values) {
+
+                var commonLayout = {
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    font: { color: 'white' },
+                    margin: { t: 30, b: 80, l: 40, r: 20 },
+                    height: 380
+                };
+
+                // Etiquetas numéricas para ambas gráficas
+                var numericLabels = ['1', '2', '3', '4', '5'];
+
+
+                var pieData = [{
+                    labels: numericLabels,
+                    values: values,
+                    type: "pie",
+                    hole: 0.35,
+                    textinfo: "percent",
+                    textposition: "inside",
+                    marker: {
+                        colors: ['#FFD54F', '#00966c', '#2563eb', '#d946ef', '#ea580c']
+                    },
+                    text: labels,  // Mostrar nombre completo en hover
+                    hovertemplate: '<b>%{text}</b><br>Cantidad: %{value}<br>Porcentaje: %{percent}<extra></extra>'
+                }];
+
+                var pieLayout = { ...commonLayout, showlegend: false };
+
+                Plotly.newPlot(containerId + "-pie", pieData, pieLayout, { responsive: true });
+
+
+                var barData = [{
+                    x: numericLabels,
+                    y: values,
+                    type: "bar",
+                    marker: { color: "#F6C453" },
+                    text: labels,  // Mostrar nombre completo en hover
+                    hovertemplate: '<b>%{text}</b><br>Cantidad: %{y}<extra></extra>',
+                    textposition: 'none'  // No mostrar texto dentro de las barras
+                }];
+
+                var barLayout = {
+                    ...commonLayout,
+                    xaxis: {
+                        tickangle: 0,
+                        color: 'white'
+                    },
+                    yaxis: { color: 'white', gridcolor: 'rgba(255,255,255,0.1)' }
+                };
+
+                Plotly.newPlot(containerId + "-bar", barData, barLayout, { responsive: true });
+            }
+
+
+
+
+            function showRegion(regionKey) {
+                const region = data[regionKey];
+
+                if (!region) return;
+
+
+                document.querySelectorAll(".region-button").forEach(btn => {
+                    btn.classList.remove("selected-region");
+                });
+
+
+                event.target.classList.add("selected-region");
+
+
+                const container = document.getElementById("region-content");
+
+
+                container.innerHTML = `
+        <div class="stat-card">
+            <div class="bg-black/20 rounded-xl p-6 border border-white/10">
+                <h2 class="text-3xl font-bold mb-4 text-[#F6C453]">${regionKey.replace("_", " ").toUpperCase()}</h2>
+    
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div id="${regionKey}-pie"></div>
+                    <div id="${regionKey}-bar"></div>
+                </div>
+    
+                
+                <div class="bg-black/20 rounded-lg p-4 mb-6 text-sm">
+                    <p class="text-white/90 leading-relaxed">
+                        <strong class="text-[#F6C453]">1)</strong> Transportes, correos y almacenamientos<br>
+                        <strong class="text-[#F6C453]">2)</strong> Servicios de alojamiento temporal y de preparación de alimentos y bebidas<br>
+                        <strong class="text-[#F6C453]">3)</strong> Servicios educativos<br>
+                        <strong class="text-[#F6C453]">4)</strong> Servicios de salud y de asistencia social<br>
+                        <strong class="text-[#F6C453]">5)</strong> Servicios de esparcimiento cultural y deportivos, y otros servicios
+                    </p>
+                </div>
+    
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr>
+                                <th>Categoría</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${region.labels.map((label, i) => `
+                                <tr>
+                                    <td>${label}</td>
+                                    <td class="font-semibold">${region.values[i].toLocaleString()}</td>
+                                </tr>
+                            `).join("")}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    `;
+
+
+                makePlots(regionKey, region.labels, region.values);
+            }
+        </script>
+        <script>
+
+            document.addEventListener("DOMContentLoaded", () => {
+                // Leer parámetro 'region' de la URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const regionParam = urlParams.get('region');
+
+                // Lista de regiones válidas
+                const regionesValidas = ['nacional', 'estatal', 'huasteca_alta', 'huasteca_baja', 'totonaca', 'nautla', 'capital', 'sotavento', 'altas_montanas', 'papaloapan', 'tuxtlas', 'olmeca'];
+
+                // Determinar qué región mostrar
+                let regionToShow = 'nacional'; // Por defecto
+                if (regionParam && regionesValidas.includes(regionParam)) {
+                    regionToShow = regionParam;
+                }
+
+                // Simular click en el botón correspondiente
+                const btn = document.querySelector(`button[onclick="showRegion('${regionToShow}')"]`);
+                if (btn) btn.click();
+            });
+        </script>
+
+        <section class="py-16">
+            <div class="stat-card max-w-5xl mx-auto px-6 text-center">
+
+                <h2 class="text-4xl font-bold text-[#F6C453] mb-4">Interpretación General</h2>
+                <div class="w-24 h-1 mx-auto bg-white/50 rounded-full mb-6"></div>
+
+                <div class="bg-black/20 rounded-xl p-6 border border-white/10">
+                    <p class="text-white/90 text-lg leading-relaxed max-w-3xl mx-auto">
+                        Las estadísticas presentadas permiten visualizar la distribución de los cinco tipos principales
+                        de
+                        servicios económicos del DENUE tanto a nivel nacional como en cada una de las diez regiones del
+                        estado
+                        de Veracruz. Las gráficas y tablas interactúan para ofrecer una comprensión clara de la
+                        concentración,
+                        diversidad y variación territorial de los servicios relacionados con actividades económicas,
+                        educativas,
+                        asistenciales y recreativas.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="py-12">
+            <!-- Navegación -->
+            <div class="flex justify-between items-center max-w-7xl mx-auto px-6">
+                <a href="regiones.html"
+                    class="px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Anterior
+                </a>
+                <a href="mapa.html"
+                    class="px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition flex items-center gap-2">
+                    Siguiente <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </section>
+
+        <footer class="w-full text-center text-xs text-white/70 py-4 bg-black/20 mt-8">
+            <p>
+                © 2025 Universidad Veracruzana | Licenciatura en Geografía | Diseño y Desarrollo Web: <strong>Juan
+                    Daniel Viveros Viveros</strong> | Datos: INEGI (DENUE 2025, Marco Geoestadístico 2020)
+            </p>
+        </footer>
+    </body>
+
+</html>

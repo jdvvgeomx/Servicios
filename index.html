@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Inicio - Geografía de los Servicios</title>
+
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 40%, #2e7d32 70%, #43a047 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        #particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: floatUp 14s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(.6);
+                opacity: .7;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-30vh) scale(1.3);
+                opacity: 0;
+            }
+        }
+
+        
+        .card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-left: 1px solid rgba(255, 255, 255, 0.4);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 24px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            color: white;
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                0 5px 15px rgba(0, 0, 0, 0.1),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        
+        .card h2 {
+            color: #F6C453 !important;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+        }
+
+        .card h3 {
+            color: #F6C453 !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .card h4 {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .card p {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .card ul li {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .meta {
+            font-size: 0.9rem;
+            color: #e6f4ea;
+        }
+
+        
+        .menu-btn {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            #menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                background: #006847;
+                padding: 15px 0;
+            }
+
+            #menu a {
+                padding: 12px 20px;
+                border-top: 1px solid #ffffff33;
+                text-align: center;
+                display: block;
+            }
+
+            #menu.active {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="particle-container"></div>
+
+    <script>
+        const container = document.getElementById("particle-container");
+
+        for (let i = 0; i < 70; i++) {
+            const p = document.createElement("div");
+            p.classList.add("particle");
+            p.style.left = Math.random() * 100 + "vw";
+            p.style.top = Math.random() * 100 + "vh";
+            const size = Math.random() * 8 + 6;
+            p.style.width = size + "px";
+            p.style.height = size + "px";
+            p.style.animationDelay = Math.random() * 12 + "s";
+            container.appendChild(p);
+        }
+    </script>
+
+    <nav class="bg-[#006847]/90 text-white p-4 shadow-xl backdrop-blur">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+
+            <div class="flex items-center gap-3">
+                <img src="zLogosimbolo_color.jpg" class="h-12">
+                <div>
+                    <h1 class="font-bold text-lg">Universidad Veracruzana</h1>
+                    <p class="text-sm opacity-90">Licenciatura en Geografía</p>
+                </div>
+            </div>
+
+            <div class="menu-btn md:hidden" onclick="toggleMenu()">☰</div>
+
+            <div id="menu" class="hidden md:flex gap-6 text-white/90">
+                <a href="index.html" class="hover:text-white font-bold">Inicio</a>
+                <a href="regiones.html" class="hover:text-white">Regiones</a>
+                <a href="estadisticas.html" class="hover:text-white">Estadísticas</a>
+                <a href="mapa.html" class="hover:text-white">Mapa</a>
+                <a href="resultados.html" class="hover:text-white">Resultados</a>
+                <a href="nosotros.html" class="hover:text-white">Nosotros</a>
+                <a href="bibliografia.html" class="hover:text-white">Bibliografía</a>
+            </div>
+
+        </div>
+    </nav>
+
+    <script>
+        function toggleMenu() { document.getElementById("menu").classList.toggle("active"); }
+    </script>
+
+    
+    <header class="text-center my-10">
+        <h1 class="text-4xl font-bold" style="color:#F6C453;">Los Servicios en Veracruz</h1>
+        <p class="text-white/90">Un análisis geográfico — Geografía de los Servicios (DENUE – INEGI)</p>
+    </header>
+
+    <main>
+        
+        <div class="max-w-6xl mx-auto px-4 pb-12">
+
+            
+            <section class="card">
+                <div class="bg-black/15 rounded-xl p-6 border border-white/10">
+                    <h2 class="text-2xl font-bold text-center mb-4"><i
+                            class="fa-solid fa-book-open mr-2"></i>Introducción
+                        general del proyecto</h2>
+                    <p class="text-center mb-4">
+                        Este proyecto propone un análisis integral de la <strong>Geografía de los
+                            Servicios</strong> en el
+                        estado de Veracruz, abordando cómo la localización, accesibilidad y concentración de
+                        servicios
+                        influyen en la dinámica económica y social de las regiones analizadas.
+                    </p>
+                    <p class="text-center mb-4">
+                        A partir del trabajo colaborativo de ocho integrantes, se exploraron cinco tipos de
+                        servicios en
+                        ocho regiones del estado. Los hallazgos muestran que el servicio de <em>alojamiento
+                            temporal y
+                            preparación de alimentos y bebidas</em> es particularmente representativo por su
+                        vínculo con el
+                        turismo regional, la diversidad gastronómica y su aporte a la actividad económica local.
+                    </p>
+                    <p class="meta text-center">Creado por el equipo de la experiencia educativa "Geografía de
+                        los Servicios" —
+                        Universidad Veracruzana.</p>
+                </div>
+            </section>
+
+            
+            <section class="card">
+                <div class="bg-black/15 rounded-xl p-6 border border-white/10">
+                    <div class="text-center mb-6">
+                        <div
+                            class="inline-block bg-[#F6C453] text-[#006847] text-xs font-bold px-4 py-1 rounded-full shadow-lg border border-white/20 tracking-wider mb-4">
+                            CONCEPTO
+                        </div>
+                        <h2 class="text-3xl font-bold text-[#F6C453] mb-3">
+                            <i class="fa-solid fa-globe mr-2"></i>Geografía de los Servicios
+                        </h2>
+                        <div class="w-16 h-1 mx-auto bg-white/30 rounded-full mb-4"></div>
+                    </div>
+
+                    <p class="text-center text-lg leading-relaxed text-white/90 max-w-3xl mx-auto mb-6">
+                        "El sector terciario son actividades económicas cuya finalidad es prestar
+                        servicios al consumidor o productores. Van desde educación, sanidad, hasta
+                        turismo y comercio."
+                    </p>
+
+                    <p class="text-sm text-white/50 text-center italic border-t border-white/10 pt-4">
+                        Referencia: Antón, Burgos (2001)
+                    </p>
+                </div>
+            </section>
+
+            
+            <section class="card">
+                <div class="bg-black/15 rounded-xl p-6 border border-white/10">
+                    <div class="text-center mb-6">
+                        <div
+                            class="inline-block bg-[#F6C453] text-[#006847] text-xs font-bold px-4 py-1 rounded-full shadow-lg border border-white/20 tracking-wider mb-4">
+                            CONCEPTO
+                        </div>
+                        <h2 class="text-3xl font-bold text-[#F6C453] mb-3">
+                            <i class="fa-solid fa-building mr-2"></i>Sector Servicios
+                        </h2>
+                        <div class="w-16 h-1 mx-auto bg-white/30 rounded-full mb-4"></div>
+                    </div>
+
+                    <p class="text-center text-lg leading-relaxed text-white/90 max-w-3xl mx-auto mb-6">
+                        "Abarca actividades relacionadas con la oferta de bienes y servicios: comercio,
+                        transporte, turismo, sanidad y cultura. Representa la evolución de las
+                        sociedades."
+                    </p>
+
+                    <p class="text-sm text-white/50 text-center italic border-t border-white/10 pt-4">
+                        Referencia: IGN (Bachillerato)
+                    </p>
+                </div>
+            </section>
+
+            
+            <section class="card">
+                <div class="bg-black/15 rounded-xl p-6 border border-white/10">
+                    <div class="text-center mb-6">
+                        <div
+                            class="inline-block bg-[#F6C453] text-[#006847] text-xs font-bold px-4 py-1 rounded-full shadow-lg border border-white/20 tracking-wider mb-4">
+                            CONCEPTO
+                        </div>
+                        <h2 class="text-3xl font-bold text-[#F6C453] mb-3">
+                            <i class="fa-solid fa-utensils mr-2"></i>Alojamiento y Alimentos
+                        </h2>
+                        <div class="w-16 h-1 mx-auto bg-white/30 rounded-full mb-4"></div>
+                    </div>
+
+                    <p class="text-center text-lg leading-relaxed text-white/90 max-w-3xl mx-auto mb-6">
+                        "Comprende unidades económicas dedicadas a alojamiento temporal (hoteles,
+                        cabañas) y preparación de alimentos para consumo inmediato."
+                    </p>
+
+                    <p class="text-sm text-white/50 text-center italic border-t border-white/10 pt-4">
+                        Referencia: IIEG (2025) Sector 72
+                    </p>
+                </div>
+            </section>
+
+            
+            <section class="card">
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl font-bold text-[#F6C453] mb-3">
+                        <i class="fa-solid fa-bullseye mr-2"></i>Objetivos
+                    </h2>
+                    <div class="w-16 h-1 mx-auto bg-white/30 rounded-full mb-4"></div>
+                </div>
+
+                <div class="max-w-3xl mx-auto">
+                    <div class="bg-black/20 rounded-xl p-6 border border-white/10 mb-4">
+                        <h3 class="text-xl font-bold text-[#F6C453] mb-3">
+                            <i class="fa-solid fa-target mr-2"></i>Objetivo General
+                        </h3>
+                        <p class="text-center leading-relaxed">
+                            Analizar la distribución y localización de los servicios, así como los factores
+                            que influyen en su organización y accesibilidad.
+                        </p>
+                    </div>
+
+                    <div class="bg-black/20 rounded-xl p-6 border border-white/10">
+                        <h3 class="text-xl font-bold text-[#F6C453] mb-3">
+                            <i class="fa-solid fa-list-check mr-2"></i>Objetivos Específicos
+                        </h3>
+                        <ul class="list-disc ml-6 space-y-2">
+                            <li>Analizar la distribución espacial de los servicios de alojamiento y alimentos en
+                                Veracruz.</li>
+                            <li>Identificar factores que influyen en la oferta y demanda del servicio.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            
+            <section class="card">
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl font-bold text-[#F6C453] mb-3" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                        <i class="fa-solid fa-lightbulb mr-2"></i>Planteamiento del Problema
+                    </h2>
+                    <div class="w-16 h-1 mx-auto bg-white/30 rounded-full mb-4"></div>
+                </div>
+
+                <div class="max-w-4xl mx-auto">
+                    <!-- Contexto del Equipo -->
+                    <div class="bg-black/20 rounded-xl p-6 border border-white/10 mb-4">
+                        <h3 class="text-xl font-bold text-[#F6C453] mb-4 text-center"
+                            style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+                            <i class="fa-solid fa-users mr-2"></i>Contexto del Estudio
+                        </h3>
+                        <p class="leading-relaxed text-center mb-4" style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
+                            Nuestro equipo de <strong>seis integrantes</strong> analizó cómo influyen los servicios
+                            en Veracruz, estudiando <strong>una región cada uno</strong>. Investigamos
+                            <strong>cinco servicios principales</strong> y concluimos que el servicio de
+                            <strong>alojamiento y la preparación de alimentos y bebidas</strong> es el más
+                            representativo en la mayoría de las regiones.
+                        </p>
+                    </div>
+
+                    
+                    <div class="bg-black/20 rounded-xl p-6 border border-white/10 mb-4">
+                        <h3 class="text-xl font-bold text-[#F6C453] mb-4 text-center"
+                            style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+                            <i class="fa-solid fa-map-marked-alt mr-2"></i>Alcance del Estudio
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="text-center">
+                                <p class="text-4xl font-bold text-[#F6C453] mb-2"
+                                    style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">6</p>
+                                <p class="text-sm" style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);">Regiones de Veracruz
+                                </p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-4xl font-bold text-[#F6C453] mb-2"
+                                    style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">5</p>
+                                <p class="text-sm" style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);">Tipos de Servicios
+                                </p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-center mt-4 text-white/90"
+                            style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
+                            Alojamiento y alimentos · Transporte · Salud · Educación · Esparcimiento
+                        </p>
+                    </div>
+
+                    
+                    <div class="bg-black/20 rounded-xl p-6 border border-white/10">
+                        <h3 class="text-xl font-bold text-[#F6C453] mb-4 text-center"
+                            style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+                            <i class="fa-solid fa-star mr-2"></i>Justificación del Servicio Seleccionado
+                        </h3>
+                        <p class="leading-relaxed text-center mb-4" style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
+                            Decidimos enfocarnos en el sector de <strong>alojamiento y preparación de alimentos
+                                y bebidas</strong> por tres razones fundamentales:
+                        </p>
+                        <div class="grid md:grid-cols-3 gap-4 mt-4">
+                            <div class="bg-black/15 rounded-lg p-4 text-center">
+                                <i class="fa-solid fa-plane-departure text-3xl text-[#F6C453] mb-2"
+                                    style="filter: drop-shadow(0 2px 3px rgba(0,0,0,0.5));"></i>
+                                <p class="font-bold mb-2" style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);">Importancia
+                                    Turística</p>
+                                <p class="text-xs text-white/90" style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);">Motor
+                                    del desarrollo turístico regional</p>
+                            </div>
+                            <div class="bg-black/15 rounded-lg p-4 text-center">
+                                <i class="fa-solid fa-utensils text-3xl text-[#F6C453] mb-2"
+                                    style="filter: drop-shadow(0 2px 3px rgba(0,0,0,0.5));"></i>
+                                <p class="font-bold mb-2" style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);">Variedad
+                                    Regional</p>
+                                <p class="text-xs text-white/90" style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
+                                    Diversidad gastronómica y cultural</p>
+                            </div>
+                            <div class="bg-black/15 rounded-lg p-4 text-center">
+                                <i class="fa-solid fa-chart-line text-3xl text-[#F6C453] mb-2"
+                                    style="filter: drop-shadow(0 2px 3px rgba(0,0,0,0.5));"></i>
+                                <p class="font-bold mb-2" style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);">Impacto
+                                    Económico</p>
+                                <p class="text-xs text-white/90" style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
+                                    Generación de empleo y derrama económica</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            
+            <section class="card">
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl font-bold text-[#F6C453] mb-3">
+                        <i class="fa-solid fa-flask mr-2"></i>Metodología
+                    </h2>
+                    <div class="w-16 h-1 mx-auto bg-white/30 rounded-full mb-4"></div>
+                </div>
+
+                <div class="max-w-3xl mx-auto">
+                    <div class="bg-black/20 rounded-xl p-6 border border-white/10">
+                        <h3 class="text-xl font-bold text-[#F6C453] mb-4 text-center">
+                            <i class="fa-solid fa-diagram-project mr-2"></i>Proceso de Investigación
+                        </h3>
+                        <div class="space-y-4">
+                            <!-- Paso 1 -->
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="flex-shrink-0 w-10 h-10 rounded-full bg-[#F6C453] text-[#006847] flex items-center justify-center font-bold">
+                                    1
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-[#F6C453] mb-1">Recopilación de datos</h4>
+                                    <p class="text-sm text-white/90">Obtención de información del Directorio Estadístico
+                                        Nacional de Unidades Económicas (DENUE) del INEGI</p>
+                                </div>
+                            </div>
+
+                            
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="flex-shrink-0 w-10 h-10 rounded-full bg-[#F6C453] text-[#006847] flex items-center justify-center font-bold">
+                                    2
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-[#F6C453] mb-1">Clasificación de servicios</h4>
+                                    <p class="text-sm text-white/90">Categorización de las unidades económicas según el
+                                        tipo de servicio prestado</p>
+                                </div>
+                            </div>
+
+                            
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="flex-shrink-0 w-10 h-10 rounded-full bg-[#F6C453] text-[#006847] flex items-center justify-center font-bold">
+                                    3
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-[#F6C453] mb-1">Análisis espacial y cartografía temática
+                                    </h4>
+                                    <p class="text-sm text-white/90">Elaboración de mapas interactivos y análisis de
+                                        distribución geográfica de los servicios</p>
+                                </div>
+                            </div>
+
+                            
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="flex-shrink-0 w-10 h-10 rounded-full bg-[#F6C453] text-[#006847] flex items-center justify-center font-bold">
+                                    4
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-[#F6C453] mb-1">Revisión de accesibilidad y distribución
+                                    </h4>
+                                    <p class="text-sm text-white/90">Evaluación de la cobertura territorial y análisis
+                                        de patrones de concentración espacial</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            
+            <section class="card">
+                <h2 class="text-2xl font-bold text-center mb-6"><i class="fa-solid fa-users-viewfinder mr-2"></i>Las 5
+                    teorías vistas en clase</h2>
+
+                
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+
+                    
+                    <div
+                        class="bg-black/20 rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition group">
+                        <div
+                            class="w-24 h-24 mx-auto mb-3 rounded-full overflow-hidden border-2 border-[#F6C453] shadow-lg">
+                            <img src="walter_christaller.png" alt="Walter Christaller"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-[#F6C453] font-bold text-sm mb-1">Walter Christaller</h3>
+                        <p class="text-[10px] leading-tight text-white/90">Teoría de los centros de mercado
+                            y jerarquía de centros.</p>
+                    </div>
+
+                    
+                    <div
+                        class="bg-black/20 rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition group">
+                        <div
+                            class="w-24 h-24 mx-auto mb-3 rounded-full overflow-hidden border-2 border-[#F6C453] shadow-lg">
+                            <img src="august_losch.png" alt="August Lösch" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-[#F6C453] font-bold text-sm mb-1">August Lösch</h3>
+                        <p class="text-[10px] leading-tight text-white/90">Teoría de los centros de mercado
+                            y economías de la aglomeración.</p>
+                    </div>
+
+                    
+                    <div
+                        class="bg-black/20 rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition group">
+                        <div
+                            class="w-24 h-24 mx-auto mb-3 rounded-full overflow-hidden border-2 border-[#F6C453] shadow-lg">
+                            <img src="walter_isard.png" alt="Walter Isard" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-[#F6C453] font-bold text-sm mb-1">Walter Isard</h3>
+                        <p class="text-[10px] leading-tight text-white/90">Distribución espacial de
+                            actividades económicas.</p>
+                    </div>
+
+                    
+                    <div
+                        class="bg-black/20 rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition group">
+                        <div
+                            class="w-24 h-24 mx-auto mb-3 rounded-full overflow-hidden border-2 border-[#F6C453] shadow-lg">
+                            <img src="harvey_miller.png" alt="Harvey J. Miller" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-[#F6C453] font-bold text-sm mb-1">Harvey J. Miller</h3>
+                        <p class="text-[10px] leading-tight text-white/90">Accesibilidad y movilidad
+                            aplicadas a los servicios.</p>
+                    </div>
+
+                    
+                    <div
+                        class="bg-black/20 rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition group">
+                        <div
+                            class="w-24 h-24 mx-auto mb-3 rounded-full overflow-hidden border-2 border-[#F6C453] shadow-lg">
+                            <img src="paul_krugman.png" alt="Paul Krugman" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-[#F6C453] font-bold text-sm mb-1">Paul Krugman</h3>
+                        <p class="text-[10px] leading-tight text-white/90">Teoría sobre economías de escala
+                            y centros de actividad.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            
+            <section class="card">
+                <div class="bg-black/15 rounded-xl p-6 border border-white/10">
+                    <h2 class="text-2xl font-bold text-center mb-4"><i class="fa-solid fa-star mr-2"></i>Teoría
+                        Seleccionada</h2>
+                    <h3 class="font-semibold text-lg text-center mb-3">August Lösch: Teoría de los centros de
+                        mercado y
+                        economías de la aglomeración</h3>
+
+                    
+                    <div
+                        class="w-40 h-40 mx-auto mb-6 rounded-full overflow-hidden border-4 border-[#F6C453] shadow-2xl">
+                        <img src="august_losch.png" alt="August Lösch"
+                            class="w-full h-full object-cover opacity-90 hover:opacity-100 transition">
+                    </div>
+
+                    <p class="text-center mb-4">
+                        La teoría de August Lösch fue elegida porque permite explicar de manera precisa cómo se
+                        distribuyen los
+                        servicios en el territorio según la demanda, la accesibilidad y el tamaño del mercado.
+                        Lösch plantea que
+                        cada actividad económica genera un área de influencia distinta y que los servicios se
+                        organizan en
+                        patrones espaciales flexibles, no rígidos, lo cual coincide con la distribución real
+                        observada en los
+                        datos del DENUE para Veracruz.
+                    </p>
+                </div>
+            </section>
+
+            
+            <section class="card">
+                <h2 class="text-2xl font-bold text-center mb-6"><i class="fa-solid fa-layer-group mr-2"></i>Los cinco
+                    servicios estudiados</h2>
+
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    
+                    <div
+                        class="bg-black/20 rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition">
+                        <img src="servicio_transportes.png" alt="Transportes"
+                            class="w-full h-24 object-contain rounded-lg mb-2">
+                        <p class="text-xs font-semibold">Transportes, correos y almacenamientos</p>
+                    </div>
+
+                    
+                    <div
+                        class="bg-black/20 rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition">
+                        <img src="servicio_alojamiento.png" alt="Alojamiento"
+                            class="w-full h-24 object-contain rounded-lg mb-2">
+                        <p class="text-xs font-semibold">Servicios de alojamiento temporal y de preparación
+                            de alimentos y bebidas</p>
+                    </div>
+
+                    
+                    <div
+                        class="bg-black/20 rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition">
+                        <img src="servicio_educacion.png" alt="Educación"
+                            class="w-full h-24 object-contain rounded-lg mb-2">
+                        <p class="text-xs font-semibold">Servicios educativos</p>
+                    </div>
+
+                    
+                    <div
+                        class="bg-black/20 rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition">
+                        <img src="servicio_salud.png" alt="Salud" class="w-full h-24 object-contain rounded-lg mb-2">
+                        <p class="text-xs font-semibold">Servicios de salud y de asistencia social</p>
+                    </div>
+
+                    
+                    <div
+                        class="bg-black/20 rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition">
+                        <img src="servicio_esparcimiento.png" alt="Esparcimiento"
+                            class="w-full h-24 object-contain rounded-lg mb-2">
+                        <p class="text-xs font-semibold">Servicios de esparcimiento cultural y deportivos, y
+                            otros servicios</p>
+                    </div>
+                </div>
+            </section>
+
+            
+            <section class="card">
+                <div class="bg-black/15 rounded-xl p-6 border border-white/10">
+                    <h2 class="text-2xl font-bold text-center mb-4"><i class="fa-solid fa-hotel mr-2"></i>Servicio
+                        seleccionado</h2>
+                    <p class="text-center mb-4">
+                        El servicio de <strong>alojamiento temporal y preparación de alimentos y
+                            bebidas</strong> es el más
+                        representativo en las regiones analizadas, por su vínculo con el turismo, la actividad
+                        económica y la
+                        diversidad gastronómica del estado de Veracruz.
+                    </p>
+
+                    <h3 class="font-semibold mt-4 mb-2 text-center"><i
+                            class="fa-solid fa-chart-bar mr-2 text-[#F6C453]"></i>Elementos analizados</h3>
+                    <ul class="space-y-2 mb-4">
+                        <li class="flex items-center justify-center gap-2"><i
+                                class="fa-solid fa-map-pin text-[#F6C453]"></i> Distribución espacial por
+                            municipio.</li>
+                        <li class="flex items-center justify-center gap-2"><i
+                                class="fa-solid fa-road text-[#F6C453]"></i>
+                            Accesibilidad y conectividad.</li>
+                    </ul>
+
+                    <div class="text-center mt-6">
+                        <a href="mapa.html?servicio=alojamiento"
+                            class="inline-block px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition">
+                            <i class="fa-solid fa-map-location-dot mr-2"></i> Ver en el mapa
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        
+        <div class="flex justify-end items-center max-w-6xl mx-auto mt-12 mb-16 px-4">
+            <a href="regiones.html"
+                class="px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition flex items-center gap-2">
+                Siguiente <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+    </main>
+
+    
+    <footer class="w-full text-center text-xs text-white/70 py-4 bg-black/20">
+        <p>
+            © 2025 Universidad Veracruzana | Licenciatura en Geografía | Diseño y Desarrollo Web: <strong>Juan Daniel
+                Viveros Viveros</strong>
+        </p>
+    </footer>
+
+</body>
+
+</html>
