@@ -1,0 +1,2631 @@
+[
+  {
+    "nombre": "ALMACEN DE MATERIALES Y AGREGADOS ABBAS",
+    "tipo": "transporte",
+    "coords": [
+      19.59476202,
+      -96.94601118
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "AMAYA TOURS",
+    "tipo": "transporte",
+    "coords": [
+      19.53682893,
+      -96.90984761
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "AUT0TRANSPORTES TLAXCALA APIZACO HUAMANTLA",
+    "tipo": "transporte",
+    "coords": [
+      19.56415732,
+      -97.24526992
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "AUTOBUSES ALTOTONGA TATEMPA",
+    "tipo": "transporte",
+    "coords": [
+      19.76398443,
+      -97.24109519
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Altotonga",
+    "clave_municipio": "10"
+  },
+  {
+    "nombre": "AUTOBUSES ROJOS DE PEROTE",
+    "tipo": "transporte",
+    "coords": [
+      19.56176783,
+      -97.24544951
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "AUTOBUSES TURISTICOS EXPRESS, SA DE CV",
+    "tipo": "transporte",
+    "coords": [
+      19.53500066,
+      -96.8901216
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "AUTOTRANSPORTE ALTOTONGA JALACINGO",
+    "tipo": "transporte",
+    "coords": [
+      19.8042968,
+      -97.30988907
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Jalacingo",
+    "clave_municipio": "86"
+  },
+  {
+    "nombre": "AUTOTRANSPORTE FORANEO DE MATERIALES PARA LA CONSTRUCCION",
+    "tipo": "transporte",
+    "coords": [
+      19.36282983,
+      -96.65719624
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Emiliano Zapata",
+    "clave_municipio": "65"
+  },
+  {
+    "nombre": "AUTOTRANSPORTES ATAH",
+    "tipo": "transporte",
+    "coords": [
+      19.76735507,
+      -97.24379467
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Altotonga",
+    "clave_municipio": "10"
+  },
+  {
+    "nombre": "AUTOTRANSPORTES BANDERILLA",
+    "tipo": "transporte",
+    "coords": [
+      19.57605056,
+      -96.91024621
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "AUTOTRANSPORTES BRONTE",
+    "tipo": "transporte",
+    "coords": [
+      19.59274481,
+      -96.95805707
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "AUTOTRANSPORTES LIBRA LOGISTICA",
+    "tipo": "transporte",
+    "coords": [
+      19.45844074,
+      -96.95040185
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "AUTOTRANSPORTES MIRADORES DEL MAR",
+    "tipo": "transporte",
+    "coords": [
+      19.59136842,
+      -96.95610667
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "AUTOTRANSPORTES XALLITIC",
+    "tipo": "transporte",
+    "coords": [
+      19.55005132,
+      -96.89069375
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "AZULES DEL CENTRO",
+    "tipo": "transporte",
+    "coords": [
+      19.55429693,
+      -96.89229472
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "BASCULA CAL SANTA EMILIA",
+    "tipo": "transporte",
+    "coords": [
+      19.57838515,
+      -97.24910017
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "BODEGA DE GRUAZ DIAZ XALAPA",
+    "tipo": "transporte",
+    "coords": [
+      19.5695955,
+      -96.92319385
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "BODEGA DE SERVICIO DE GRUAS GRUMEX",
+    "tipo": "transporte",
+    "coords": [
+      19.54415519,
+      -96.8741295
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "CAMARA NACIONAL DEL AUTOTRANSPORTE DE CARGA CANACAR",
+    "tipo": "transporte",
+    "coords": [
+      19.54138959,
+      -96.93063109
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "CEDIS MISSION FOODS MEXICO",
+    "tipo": "transporte",
+    "coords": [
+      19.46905379,
+      -96.7779651
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Emiliano Zapata",
+    "clave_municipio": "65"
+  },
+  {
+    "nombre": "CEMENTOS EXPRESS",
+    "tipo": "transporte",
+    "coords": [
+      19.5831161,
+      -96.93152639
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "CENTRAL DE AUTOBUSES ATAZ",
+    "tipo": "transporte",
+    "coords": [
+      19.53822927,
+      -96.91400078
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "COLECTIVO RUTA 2",
+    "tipo": "transporte",
+    "coords": [
+      19.55095675,
+      -96.95813811
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "COMERCIALIZADORA Y DISTRIBUIDORA LUCRIMA",
+    "tipo": "transporte",
+    "coords": [
+      19.53759301,
+      -96.91207599
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "CORRALON DE GRUAS MENDEZ",
+    "tipo": "transporte",
+    "coords": [
+      19.59319395,
+      -96.95189902
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "CORRALON FEDERAL GRUAS DIAZ",
+    "tipo": "transporte",
+    "coords": [
+      19.56096355,
+      -96.9146757
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "CORRALON GRUAS SERVICIO AVENIDA",
+    "tipo": "transporte",
+    "coords": [
+      19.56405238,
+      -97.25181203
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "DEPOSITO DE CERDOS",
+    "tipo": "transporte",
+    "coords": [
+      19.56161533,
+      -97.23245262
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "DEPOSITO DE VEHICULOS DE GUARDA Y JUSTICIA ESTATAL",
+    "tipo": "transporte",
+    "coords": [
+      19.56951034,
+      -96.92557539
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "DEPOSITO VEHICULAR GRUAS PEROTE",
+    "tipo": "transporte",
+    "coords": [
+      19.56067587,
+      -97.25406662
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "DESARROLLO LOGISTICO",
+    "tipo": "transporte",
+    "coords": [
+      19.44600277,
+      -96.92882001
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "DISTRIBUIDORA TAMARIZ",
+    "tipo": "transporte",
+    "coords": [
+      19.58733631,
+      -96.93345155
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "ECOENTORNO",
+    "tipo": "transporte",
+    "coords": [
+      19.5047621,
+      -96.86219956
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Emiliano Zapata",
+    "clave_municipio": "65"
+  },
+  {
+    "nombre": "ECOTURISMO LA MANCHA",
+    "tipo": "transporte",
+    "coords": [
+      19.60160722,
+      -96.39778944
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Actopan",
+    "clave_municipio": "4"
+  },
+  {
+    "nombre": "ESTABLECIMIENTO TRANSPORTE TORRES",
+    "tipo": "transporte",
+    "coords": [
+      19.54854016,
+      -96.89764483
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "ESTACION DE FERROCARRIL",
+    "tipo": "transporte",
+    "coords": [
+      19.57211538,
+      -97.25127019
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "ESTACION DE SERVICIO  J01128 AUTOCONSUMO",
+    "tipo": "transporte",
+    "coords": [
+      19.59190905,
+      -96.94006054
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "ESTACIONAMIENTO DE CAMIONETAS PASAJERAS SANTA ANA",
+    "tipo": "transporte",
+    "coords": [
+      19.76605168,
+      -97.24297106
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Altotonga",
+    "clave_municipio": "10"
+  },
+  {
+    "nombre": "ESTACIONAMIENTO DE EMPRESA DE AUTOTRANSPORTE SIN NOMBRE",
+    "tipo": "transporte",
+    "coords": [
+      19.55550146,
+      -96.92138531
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "ESTACIONAMIENTO OMNIBUS DE ALBA",
+    "tipo": "transporte",
+    "coords": [
+      19.50914813,
+      -96.8666712
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "ESTACIONAMIENTO OMNIBUS TURISTICOS OCASO",
+    "tipo": "transporte",
+    "coords": [
+      19.5711504,
+      -96.93015044
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "FLETES ECONOMICOS",
+    "tipo": "transporte",
+    "coords": [
+      19.5292713,
+      -96.93760187
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "FLETES MUDANZAS Y MANIOBRAS PARRA",
+    "tipo": "transporte",
+    "coords": [
+      19.53026202,
+      -96.91648586
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "FLETES Y MUDANZAS SOLANO",
+    "tipo": "transporte",
+    "coords": [
+      19.58434955,
+      -96.93842835
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "FLETES Y MUDANZAS VALLE",
+    "tipo": "transporte",
+    "coords": [
+      19.53826259,
+      -96.91715789
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "GRUAS CORDOBA",
+    "tipo": "transporte",
+    "coords": [
+      19.65278068,
+      -96.87586794
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Naolinco",
+    "clave_municipio": "112"
+  },
+  {
+    "nombre": "GRUAS CORTES",
+    "tipo": "transporte",
+    "coords": [
+      19.77469437,
+      -96.43301515
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Alto Lucero de Gutiérrez Barrios",
+    "clave_municipio": "9"
+  },
+  {
+    "nombre": "GRUAS HERRERA",
+    "tipo": "transporte",
+    "coords": [
+      19.54008652,
+      -96.92420599
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "GRUAS HESS",
+    "tipo": "transporte",
+    "coords": [
+      19.55289601,
+      -96.91219438
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "GRUAS LORETI",
+    "tipo": "transporte",
+    "coords": [
+      19.56145234,
+      -96.92138484
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "GRUAS PEROTE",
+    "tipo": "transporte",
+    "coords": [
+      19.55892755,
+      -97.25053527
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "GRUAS SERVICIO AVENIDA",
+    "tipo": "transporte",
+    "coords": [
+      19.55290819,
+      -96.92911986
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "GRUAS SERVICIO AVENIDA",
+    "tipo": "transporte",
+    "coords": [
+      19.55941173,
+      -97.24985654
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "GRUAS UTRERA",
+    "tipo": "transporte",
+    "coords": [
+      19.59071337,
+      -96.96951105
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "GRUPO EMPRESARIAL MACUILTEPETL",
+    "tipo": "transporte",
+    "coords": [
+      19.55440072,
+      -96.92884469
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "GRUPO TRANSPORTISTA ALTO LUCERO",
+    "tipo": "transporte",
+    "coords": [
+      19.52828386,
+      -96.86655704
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "GRUPO TRANSPORTISTA VASQUEZ",
+    "tipo": "transporte",
+    "coords": [
+      19.5589306,
+      -96.91739913
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "HELEN TOURS",
+    "tipo": "transporte",
+    "coords": [
+      19.5663483,
+      -96.92903611
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "JD TRASLADOS VEHICULARES COATEPEC",
+    "tipo": "transporte",
+    "coords": [
+      19.46860637,
+      -96.94554344
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "JOSE LUIS FERNANDEZ FERNANDEZ",
+    "tipo": "transporte",
+    "coords": [
+      19.52525324,
+      -96.90014289
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "KANSAS CITY",
+    "tipo": "transporte",
+    "coords": [
+      19.63967991,
+      -97.10580638
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Las Vigas de Ramírez",
+    "clave_municipio": "132"
+  },
+  {
+    "nombre": "KANSAS CITY SOUTHERN DE MEXICO",
+    "tipo": "transporte",
+    "coords": [
+      19.55280152,
+      -96.90966846
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "LOGIS XPRESS SERVICIO DE PAQUETERIA",
+    "tipo": "transporte",
+    "coords": [
+      19.59204213,
+      -96.94106163
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "LOGISTICA Y COMERCIO EXTERIOR DUX FORWARDER",
+    "tipo": "transporte",
+    "coords": [
+      19.54139006,
+      -96.93063137
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "MELISSA PEREZ SANCHEZ",
+    "tipo": "transporte",
+    "coords": [
+      19.45773988,
+      -96.95330628
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "MERCURIO EXPRESS TRANSPORTADORA TURISTICA",
+    "tipo": "transporte",
+    "coords": [
+      19.55799084,
+      -96.91522955
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "MUDANZAS MORENO",
+    "tipo": "transporte",
+    "coords": [
+      19.54042624,
+      -96.90522072
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "MUDANZAS SIN NOMBRE",
+    "tipo": "transporte",
+    "coords": [
+      19.55621556,
+      -96.89590278
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "OASIS DE XALAPA TURISMO",
+    "tipo": "transporte",
+    "coords": [
+      19.54440709,
+      -96.92794359
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "OFICINA CHECADORA DE RUTA 3",
+    "tipo": "transporte",
+    "coords": [
+      19.55494519,
+      -96.92147352
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "OFICINA DE FLETES Y MUDANZAS MORENO",
+    "tipo": "transporte",
+    "coords": [
+      19.53006899,
+      -96.91659267
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "OFICINAS DE LA SOCIEDAD COOPERATIVA DE AUTOTRANSPORTES EXCELSIOR XALAPA COA",
+    "tipo": "transporte",
+    "coords": [
+      19.45645308,
+      -96.96074385
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "OFICINAS GENERALES ADMINISTRATIVAS DE AUTOBUSES COORDINADOS",
+    "tipo": "transporte",
+    "coords": [
+      19.55372586,
+      -96.91604721
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "OMNIBUS TURISTICOS OCASO",
+    "tipo": "transporte",
+    "coords": [
+      19.56934036,
+      -96.92912431
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "OPERADORA AUTOPISTA PEROTE XALAPA",
+    "tipo": "transporte",
+    "coords": [
+      19.63206655,
+      -97.12779479
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Las Vigas de Ramírez",
+    "clave_municipio": "132"
+  },
+  {
+    "nombre": "PAQUETERIA CARSSA",
+    "tipo": "transporte",
+    "coords": [
+      19.56068401,
+      -96.91573547
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "PAQUETERIA Y MENSAJERIA CASTORES",
+    "tipo": "transporte",
+    "coords": [
+      19.58408675,
+      -96.93242984
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "PUNTO DE CONTROL DE AUTO TRANSPORTES BANDERILLA",
+    "tipo": "transporte",
+    "coords": [
+      19.62395264,
+      -96.7323436
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Alto Lucero de Gutiérrez Barrios",
+    "clave_municipio": "9"
+  },
+  {
+    "nombre": "RENTA CARROS VECAR",
+    "tipo": "transporte",
+    "coords": [
+      19.52520587,
+      -96.9039428
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SALIDA DE AUTOBUSES TERMINAL",
+    "tipo": "transporte",
+    "coords": [
+      19.56570131,
+      -97.24129951
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "SERVICIO DE FLETES MUDANZAS Y MANIOBRAS PARRA E HIJOS",
+    "tipo": "transporte",
+    "coords": [
+      19.53633156,
+      -96.91910991
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SERVICIO DE GRUAS",
+    "tipo": "transporte",
+    "coords": [
+      19.55372991,
+      -96.91605333
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SERVICIO DE GRUAS M2",
+    "tipo": "transporte",
+    "coords": [
+      19.57243592,
+      -96.92105317
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SERVICIO DE GRUAS SIN NOMBRE",
+    "tipo": "transporte",
+    "coords": [
+      19.57065086,
+      -96.92227683
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SERVICIO DE GRUAS Y DEPOSITO DE AUTOS Y CAMIONES RUIZ",
+    "tipo": "transporte",
+    "coords": [
+      19.77830082,
+      -97.25070114
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Altotonga",
+    "clave_municipio": "10"
+  },
+  {
+    "nombre": "SERVICIO DE PAQUETERIA MEPAK",
+    "tipo": "transporte",
+    "coords": [
+      19.51542046,
+      -96.91086919
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SERVICIOS AUROPUERTARIOS DE VERACRUZ",
+    "tipo": "transporte",
+    "coords": [
+      19.47704875,
+      -96.79234395
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Emiliano Zapata",
+    "clave_municipio": "65"
+  },
+  {
+    "nombre": "SISTEMA INTEGRADOR DE TRANSPORTE UNIVERSAL DE XALAPA SC DE RL DE CV",
+    "tipo": "transporte",
+    "coords": [
+      19.55687923,
+      -96.91817352
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SOCIEDAD COOPERATIVA AUTOTRANSPORTE LOMA DE ORO",
+    "tipo": "transporte",
+    "coords": [
+      19.54122029,
+      -96.92509122
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SOCIEDAD COOPERATIVA AUTOTRANSPORTES DE CAMIONEROS DEL SERVICIO URBANO DE JALAPA",
+    "tipo": "transporte",
+    "coords": [
+      19.5295675,
+      -96.91050165
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SOCIEDAD COOPERATIVA DE AUTOTRANSPORTES ALFA",
+    "tipo": "transporte",
+    "coords": [
+      19.42206448,
+      -96.9713413
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xico",
+    "clave_municipio": "92"
+  },
+  {
+    "nombre": "SOCIEDAD COOPERATIVA DE AUTOTRANSPORTES DE CAMIONEROS DEL SERVICIO URBANO DE XALAPA VER",
+    "tipo": "transporte",
+    "coords": [
+      19.55129639,
+      -96.89688744
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SOCIEDAD COOPERATIVA DE AUTOTRANSPORTES DE CARGA COATEPEC",
+    "tipo": "transporte",
+    "coords": [
+      19.45745413,
+      -96.95350424
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "SOCIEDAD COOPERATIVA DE AUTOTRANSPORTES EXCELSIOR XALAPA COATEPEC XICO",
+    "tipo": "transporte",
+    "coords": [
+      19.4529632,
+      -96.97183243
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "SOCIEDAD COOPERATIVA DE AUTOTRANSPORTES VICKYS",
+    "tipo": "transporte",
+    "coords": [
+      19.56442697,
+      -96.95451128
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SOCIEDAD COOPERATIVA DE AUTOTRASPORTES URBANOS Y SUBURBANOS DE COATEPEC LA",
+    "tipo": "transporte",
+    "coords": [
+      19.45521194,
+      -96.96189335
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "TALLER DE AUTOBUSES AUTOTRANSPORTES DE CAMIONEROS DEL SERVICIO URBANO DE XALAPA VERACRUZ",
+    "tipo": "transporte",
+    "coords": [
+      19.58774504,
+      -96.93326875
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "TALLER DE AUTOTRANSPORTES BANDERILLA",
+    "tipo": "transporte",
+    "coords": [
+      19.58918909,
+      -96.93550448
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "TALLER DE ENGRASADO AUTOTRANSPORTES BANDERILLA",
+    "tipo": "transporte",
+    "coords": [
+      19.59256281,
+      -96.94031395
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "TALLER MECANICO DE CAMIONES DIESEL SIN NOMBRE",
+    "tipo": "transporte",
+    "coords": [
+      19.58821035,
+      -96.93301714
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "TALLERES Y GRUAS MENDEZ",
+    "tipo": "transporte",
+    "coords": [
+      19.54038983,
+      -96.92172085
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TAPSA",
+    "tipo": "transporte",
+    "coords": [
+      19.56279671,
+      -97.25491701
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "TAXI AEREO DE VERACRUZ",
+    "tipo": "transporte",
+    "coords": [
+      19.53726993,
+      -96.90650993
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMANAL COAPEXPAN",
+    "tipo": "transporte",
+    "coords": [
+      19.54265789,
+      -96.94366509
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINA DE AUTOBUSES SOCIEDAD COOPERATIVA DE AUTOTRANSPORTES ALFA SA",
+    "tipo": "transporte",
+    "coords": [
+      19.53996418,
+      -96.92273684
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL  SAN ANDRES",
+    "tipo": "transporte",
+    "coords": [
+      19.56790116,
+      -96.97536815
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Tlalnelhuayocan",
+    "clave_municipio": "182"
+  },
+  {
+    "nombre": "TERMINAL ARTICULO TERCERO",
+    "tipo": "transporte",
+    "coords": [
+      19.54953617,
+      -96.93581165
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL ASTRO PLUS",
+    "tipo": "transporte",
+    "coords": [
+      19.52510454,
+      -96.90174585
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL BANDERILLA",
+    "tipo": "transporte",
+    "coords": [
+      19.5914123,
+      -96.95950211
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "TERMINAL COLONIA VERACRUZ",
+    "tipo": "transporte",
+    "coords": [
+      19.5617449,
+      -96.94806486
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL DE ALMACENAMIENTO Y DESPACHO PEROTE VER.",
+    "tipo": "transporte",
+    "coords": [
+      19.57081055,
+      -97.25086935
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "TERMINAL DE ALMACENAMIENTO Y DESPACHO XALAPA VERACRUZ",
+    "tipo": "transporte",
+    "coords": [
+      19.56906004,
+      -96.92886039
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL DE AUTO TRASNPORTES BANDERILLA",
+    "tipo": "transporte",
+    "coords": [
+      19.65531518,
+      -96.87543057
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Naolinco",
+    "clave_municipio": "112"
+  },
+  {
+    "nombre": "TERMINAL DE AUTOBUSES",
+    "tipo": "transporte",
+    "coords": [
+      19.5684328,
+      -96.88935638
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL DE AUTOBUSES BANDERILLA",
+    "tipo": "transporte",
+    "coords": [
+      19.56250896,
+      -96.89465825
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL DE AUTOBUSES MIRADORES DEL MAR",
+    "tipo": "transporte",
+    "coords": [
+      19.47024751,
+      -96.78207764
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Emiliano Zapata",
+    "clave_municipio": "65"
+  },
+  {
+    "nombre": "TERMINAL DE AUTOBUSES XALLITIC",
+    "tipo": "transporte",
+    "coords": [
+      19.55936454,
+      -96.95079777
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL DE LA SOCIEDAD COOPERATIVA DE AUTOTRANSPORTES BANDERILLA",
+    "tipo": "transporte",
+    "coords": [
+      19.53555258,
+      -96.91991756
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL DE LA VERACRUZ DE SERVICIO URBANO",
+    "tipo": "transporte",
+    "coords": [
+      19.56155974,
+      -96.94839544
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL EL FOVISSSTE",
+    "tipo": "transporte",
+    "coords": [
+      19.54824485,
+      -96.93924746
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL EL HAYA",
+    "tipo": "transporte",
+    "coords": [
+      19.5178266,
+      -96.94375262
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL INTERBUS",
+    "tipo": "transporte",
+    "coords": [
+      19.56052445,
+      -96.93168796
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL LAS HIGUERAS",
+    "tipo": "transporte",
+    "coords": [
+      19.54828284,
+      -96.88658195
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL MAVER",
+    "tipo": "transporte",
+    "coords": [
+      19.56907347,
+      -96.88887678
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL PLAZA DE ARMAS",
+    "tipo": "transporte",
+    "coords": [
+      19.57224118,
+      -96.90140769
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL PORVENIR",
+    "tipo": "transporte",
+    "coords": [
+      19.56861093,
+      -96.9447719
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL RAFAEL LUCIO",
+    "tipo": "transporte",
+    "coords": [
+      19.60173079,
+      -96.98947856
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Rafael Lucio",
+    "clave_municipio": "136"
+  },
+  {
+    "nombre": "TERMINAL RUTA DOS",
+    "tipo": "transporte",
+    "coords": [
+      19.55111827,
+      -96.95905542
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Tlalnelhuayocan",
+    "clave_municipio": "182"
+  },
+  {
+    "nombre": "TERMINAL RUTA EJIDAL",
+    "tipo": "transporte",
+    "coords": [
+      19.55113297,
+      -96.95935688
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Tlalnelhuayocan",
+    "clave_municipio": "182"
+  },
+  {
+    "nombre": "TERMINAL SUMIDERO",
+    "tipo": "transporte",
+    "coords": [
+      19.55129231,
+      -96.89688388
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TERMINAL TECNICA 72",
+    "tipo": "transporte",
+    "coords": [
+      19.56845105,
+      -96.92516811
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TIENDA ADO COATEPEC",
+    "tipo": "transporte",
+    "coords": [
+      19.44873206,
+      -96.95368958
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "TRANSPORTADORA AM",
+    "tipo": "transporte",
+    "coords": [
+      19.5357246,
+      -96.9119027
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTADORA APERTUR ALEKAR",
+    "tipo": "transporte",
+    "coords": [
+      19.54720593,
+      -96.93605999
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTE COLECTIVO FORÁNEO DE PASAJEROS DE RUTA FIJA SIN NOMBRE",
+    "tipo": "transporte",
+    "coords": [
+      19.76398443,
+      -97.24109519
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Altotonga",
+    "clave_municipio": "10"
+  },
+  {
+    "nombre": "TRANSPORTE DE AGUA SERVICIOS CEBALLOS E HIJOS TRANSPORTE EXCLUSIVO DE AGUA",
+    "tipo": "transporte",
+    "coords": [
+      19.54314318,
+      -96.91765046
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTE ESCOLAR Y DE PERSONAL SIN NOMBRE",
+    "tipo": "transporte",
+    "coords": [
+      19.45772301,
+      -96.95331797
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "TRANSPORTE ESCOLAR Y DE PERSONAL SIN NOMBRE",
+    "tipo": "transporte",
+    "coords": [
+      19.45773034,
+      -96.95331289
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "TRANSPORTE URBANO AMARILLOS DEL TECNOLOGICO DE XALAPA",
+    "tipo": "transporte",
+    "coords": [
+      19.49883848,
+      -96.87663622
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES AMARO",
+    "tipo": "transporte",
+    "coords": [
+      19.53536446,
+      -96.91275327
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES AQUILA",
+    "tipo": "transporte",
+    "coords": [
+      19.53725438,
+      -96.9323046
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES AQUILA",
+    "tipo": "transporte",
+    "coords": [
+      19.53743606,
+      -96.93218631
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES BASURTO",
+    "tipo": "transporte",
+    "coords": [
+      19.59114697,
+      -96.94018942
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "TRANSPORTES DUAL",
+    "tipo": "transporte",
+    "coords": [
+      19.6062334,
+      -97.20085199
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "TRANSPORTES FELIX DEL MORAL GRAJALES",
+    "tipo": "transporte",
+    "coords": [
+      19.55704596,
+      -96.91678435
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES HBJ",
+    "tipo": "transporte",
+    "coords": [
+      19.56335818,
+      -97.23682808
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "TRANSPORTES INDUSTRIALES VERACRUZANOS, SA DE CV",
+    "tipo": "transporte",
+    "coords": [
+      19.52377327,
+      -96.90267945
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES LA SOLEDAD DE ANTEQUERA",
+    "tipo": "transporte",
+    "coords": [
+      19.54637915,
+      -96.92842822
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES MELENDEZ",
+    "tipo": "transporte",
+    "coords": [
+      19.53635119,
+      -96.91088346
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES MJM",
+    "tipo": "transporte",
+    "coords": [
+      19.56232737,
+      -96.9269437
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES MOJICA",
+    "tipo": "transporte",
+    "coords": [
+      19.52099678,
+      -96.90556345
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES MORCAB",
+    "tipo": "transporte",
+    "coords": [
+      19.56218013,
+      -96.92601403
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES PQT AGILICES",
+    "tipo": "transporte",
+    "coords": [
+      19.55921891,
+      -96.90066171
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES VATA",
+    "tipo": "transporte",
+    "coords": [
+      19.57308835,
+      -96.92045103
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES VIGNOLA",
+    "tipo": "transporte",
+    "coords": [
+      19.56304937,
+      -96.92586671
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPORTES VISTA",
+    "tipo": "transporte",
+    "coords": [
+      19.55811149,
+      -96.91781298
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRANSPOVER",
+    "tipo": "transporte",
+    "coords": [
+      19.51556247,
+      -96.85631152
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Emiliano Zapata",
+    "clave_municipio": "65"
+  },
+  {
+    "nombre": "TRANVIAS Y TRENES EL PIOJITO",
+    "tipo": "transporte",
+    "coords": [
+      19.52530512,
+      -96.92863552
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TRASPORTE ESCOLAR SIN NOMBRE",
+    "tipo": "transporte",
+    "coords": [
+      19.50434282,
+      -96.88861417
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TURAMA DE XALAPA",
+    "tipo": "transporte",
+    "coords": [
+      19.57390879,
+      -96.92670298
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "TURISTICOS ZEUS",
+    "tipo": "transporte",
+    "coords": [
+      19.42208401,
+      -96.9717916
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xico",
+    "clave_municipio": "92"
+  },
+  {
+    "nombre": "UNION DE PERMISIONARIOS NETZAHUALCOYOTL",
+    "tipo": "transporte",
+    "coords": [
+      19.53996418,
+      -96.92273684
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "UNION DE PERMISIONARIOS NETZAHUALCOYOTL",
+    "tipo": "transporte",
+    "coords": [
+      19.54006937,
+      -96.9232393
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "UNION DE TRANSPORTADORES DE MATERIALES PARA LA CONSTRUCCION DE CAMINOS DE C",
+    "tipo": "transporte",
+    "coords": [
+      19.45969868,
+      -96.95299157
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "UNION DE TRANSPORTISTAS ABASTECEDORES DE CAÑA DE AZUCAR DEL CAMPO AL INGENIO DE MAHUISTLAN",
+    "tipo": "transporte",
+    "coords": [
+      19.41019493,
+      -96.91892538
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "UNION DE TRANSPORTISTAS HUIZACHAL HIGUERAS ESTRELLA AZUL",
+    "tipo": "transporte",
+    "coords": [
+      19.55093336,
+      -96.88805613
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "VECAR",
+    "tipo": "transporte",
+    "coords": [
+      19.52522386,
+      -96.90410446
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "VENTA DE AGUA DE PIPA SIN NOMBRE",
+    "tipo": "transporte",
+    "coords": [
+      19.52124458,
+      -96.90660745
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "VENTA DE BOLETOS AUTOBUSES DE ORIENTE",
+    "tipo": "transporte",
+    "coords": [
+      19.63660056,
+      -97.09929443
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Las Vigas de Ramírez",
+    "clave_municipio": "132"
+  },
+  {
+    "nombre": "VIAJES TURISTICOS LEIZAR",
+    "tipo": "transporte",
+    "coords": [
+      19.45154019,
+      -96.95818672
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "VIAJES TURISTICOS VERACRUZ",
+    "tipo": "transporte",
+    "coords": [
+      19.48211457,
+      -96.79681083
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Emiliano Zapata",
+    "clave_municipio": "65"
+  },
+  {
+    "nombre": "ALMACENADORA SUR",
+    "tipo": "transporte",
+    "coords": [
+      19.60611984,
+      -97.21794462
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "ALTOTONGA VER",
+    "tipo": "transporte",
+    "coords": [
+      19.76639821,
+      -97.24379122
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Altotonga",
+    "clave_municipio": "10"
+  },
+  {
+    "nombre": "ANTONIA CHIMAL RUIZ",
+    "tipo": "transporte",
+    "coords": [
+      19.3322674,
+      -96.99285773
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Cosautlán de Carvajal",
+    "clave_municipio": "46"
+  },
+  {
+    "nombre": "AUTOTRANSPORTE DE CARGA TRES GUERRAS",
+    "tipo": "transporte",
+    "coords": [
+      19.59420518,
+      -96.95338616
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "BODEGA ESTAFETA",
+    "tipo": "transporte",
+    "coords": [
+      19.50068569,
+      -96.86497336
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Emiliano Zapata",
+    "clave_municipio": "65"
+  },
+  {
+    "nombre": "C A P XALAPA ENRIQUEZ VEER",
+    "tipo": "transporte",
+    "coords": [
+      19.52768309,
+      -96.91774913
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "C R XALAPA",
+    "tipo": "transporte",
+    "coords": [
+      19.55575995,
+      -96.91973903
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "CENTRO DE ENVIOS FEDEX",
+    "tipo": "transporte",
+    "coords": [
+      19.56062137,
+      -97.24599954
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "CORPORATIVO EXPRESS",
+    "tipo": "transporte",
+    "coords": [
+      19.5271201,
+      -96.91033291
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "CORREOS DE MEXICO",
+    "tipo": "transporte",
+    "coords": [
+      19.59061716,
+      -96.94421013
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "ENTREGA DE PAQUETES EN MOTO",
+    "tipo": "transporte",
+    "coords": [
+      19.54017203,
+      -96.91849506
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "ESTAFETA",
+    "tipo": "transporte",
+    "coords": [
+      19.52503865,
+      -96.89675402
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "ESTAFETA  MEXICANA",
+    "tipo": "transporte",
+    "coords": [
+      19.53875864,
+      -96.92701946
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "ESTAFETA MEXICANA",
+    "tipo": "transporte",
+    "coords": [
+      19.50440259,
+      -96.8620114
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Emiliano Zapata",
+    "clave_municipio": "65"
+  },
+  {
+    "nombre": "ESTAFETA MEXICANA",
+    "tipo": "transporte",
+    "coords": [
+      19.56218746,
+      -96.93020094
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "FAST ENVIOS",
+    "tipo": "transporte",
+    "coords": [
+      19.50364388,
+      -96.61675513
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Actopan",
+    "clave_municipio": "4"
+  },
+  {
+    "nombre": "FEDEX",
+    "tipo": "transporte",
+    "coords": [
+      19.52656659,
+      -96.90966472
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "FEDEX",
+    "tipo": "transporte",
+    "coords": [
+      19.45789435,
+      -96.95203087
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "FEDEX",
+    "tipo": "transporte",
+    "coords": [
+      19.53498837,
+      -96.93319104
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "FEDEX",
+    "tipo": "transporte",
+    "coords": [
+      19.59110102,
+      -96.94210972
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "FEDEX",
+    "tipo": "transporte",
+    "coords": [
+      19.54677742,
+      -96.9105404
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "FEDEX",
+    "tipo": "transporte",
+    "coords": [
+      19.53504982,
+      -96.93332726
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "FEDEX R CENTRO DE ENVIOS",
+    "tipo": "transporte",
+    "coords": [
+      19.65703214,
+      -96.87343654
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Naolinco",
+    "clave_municipio": "112"
+  },
+  {
+    "nombre": "JAL - ARAUCARIAS",
+    "tipo": "transporte",
+    "coords": [
+      19.52677537,
+      -96.89764957
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "JAL - COATEPEC",
+    "tipo": "transporte",
+    "coords": [
+      19.45551874,
+      -96.95773966
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "JAL - ODONTOLOGOS",
+    "tipo": "transporte",
+    "coords": [
+      19.5614566,
+      -96.93015924
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "JAL - PATIO XALAPA",
+    "tipo": "transporte",
+    "coords": [
+      19.50762307,
+      -96.88115653
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "JAL - PEROTE",
+    "tipo": "transporte",
+    "coords": [
+      19.56380433,
+      -97.24498028
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "JAL - RUIZ CORTINES",
+    "tipo": "transporte",
+    "coords": [
+      19.53888,
+      -96.93165259
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "JAL - XALAPA CENTRO",
+    "tipo": "transporte",
+    "coords": [
+      19.52776925,
+      -96.91773037
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "JYT EXPRESS",
+    "tipo": "transporte",
+    "coords": [
+      19.55824226,
+      -96.92001525
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "LOGISTICA ABORDO",
+    "tipo": "transporte",
+    "coords": [
+      19.56342612,
+      -96.92743658
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "MENSAJERIA Y PAQUETERIA DHL EXPRESS MEXICO",
+    "tipo": "transporte",
+    "coords": [
+      19.52661418,
+      -96.89757854
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "MOTO ENVIO XALAPA",
+    "tipo": "transporte",
+    "coords": [
+      19.54721502,
+      -96.91213658
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "MULTI SHIP PUNTO DE ENVIO",
+    "tipo": "transporte",
+    "coords": [
+      19.51254545,
+      -96.90675925
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "OFICINA ADMINISTRATIVA PRIVADA",
+    "tipo": "transporte",
+    "coords": [
+      19.53054034,
+      -96.93073045
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "PAQUETERIA CAXA",
+    "tipo": "transporte",
+    "coords": [
+      19.52539611,
+      -96.90361041
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "PAQUETERIA FAST MEIL SERVIS",
+    "tipo": "transporte",
+    "coords": [
+      19.52744138,
+      -96.91629826
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "PAQUETERIA J&T EXPRESS",
+    "tipo": "transporte",
+    "coords": [
+      19.76174481,
+      -97.24472169
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Altotonga",
+    "clave_municipio": "10"
+  },
+  {
+    "nombre": "PAQUETERIA JR",
+    "tipo": "transporte",
+    "coords": [
+      19.57035044,
+      -96.92903411
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "PAQUETERIA PAQUETEVER",
+    "tipo": "transporte",
+    "coords": [
+      19.53818771,
+      -96.90956577
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "PAQUETEXPRESS",
+    "tipo": "transporte",
+    "coords": [
+      19.56296333,
+      -96.92588128
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "PEROTE VER",
+    "tipo": "transporte",
+    "coords": [
+      19.56124576,
+      -97.24285236
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "PORTEO XALAPA",
+    "tipo": "transporte",
+    "coords": [
+      19.56142561,
+      -96.92463686
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "QUALITY POST",
+    "tipo": "transporte",
+    "coords": [
+      19.53242585,
+      -96.88957867
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "RED PACK",
+    "tipo": "transporte",
+    "coords": [
+      19.5266658,
+      -96.89760655
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "REDPACK",
+    "tipo": "transporte",
+    "coords": [
+      19.5387025,
+      -96.92683484
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "REDPACK",
+    "tipo": "transporte",
+    "coords": [
+      19.52702373,
+      -96.91479006
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "REDPACK MENSAJERIA Y PAQUETERIA",
+    "tipo": "transporte",
+    "coords": [
+      19.56112083,
+      -97.24759952
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Perote",
+    "clave_municipio": "128"
+  },
+  {
+    "nombre": "REDPACK OPERADORA PECAR",
+    "tipo": "transporte",
+    "coords": [
+      19.55188828,
+      -96.92747281
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SERVICIO CONTINENTAL DE MENSAJERIA",
+    "tipo": "transporte",
+    "coords": [
+      19.55836958,
+      -96.92273414
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SERVICIO DE MOTOS NITRO",
+    "tipo": "transporte",
+    "coords": [
+      19.55450693,
+      -96.90071113
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SERVICIO DE PAQUETERIA ESTRELLA BLANCA",
+    "tipo": "transporte",
+    "coords": [
+      19.55334445,
+      -96.91365763
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SERVICIO POSTAL MEXICANO",
+    "tipo": "transporte",
+    "coords": [
+      19.55496168,
+      -96.91980351
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  },
+  {
+    "nombre": "SUC ACTOIPAN VER",
+    "tipo": "transporte",
+    "coords": [
+      19.50285829,
+      -96.61343891
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Actopan",
+    "clave_municipio": "4"
+  },
+  {
+    "nombre": "SUC ALTO LUCERO VER",
+    "tipo": "transporte",
+    "coords": [
+      19.62287209,
+      -96.73374819
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Alto Lucero de Gutiérrez Barrios",
+    "clave_municipio": "9"
+  },
+  {
+    "nombre": "SUC BANDERILLA VER",
+    "tipo": "transporte",
+    "coords": [
+      19.58967103,
+      -96.94381538
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "SUC COACOATZINTLA VER",
+    "tipo": "transporte",
+    "coords": [
+      19.65276929,
+      -96.94504666
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coacoatzintla",
+    "clave_municipio": "36"
+  },
+  {
+    "nombre": "SUC COATEPEC VER",
+    "tipo": "transporte",
+    "coords": [
+      19.45724167,
+      -96.96316727
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Coatepec",
+    "clave_municipio": "38"
+  },
+  {
+    "nombre": "SUC DOS RIOS VER",
+    "tipo": "transporte",
+    "coords": [
+      19.48157363,
+      -96.79604537
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Emiliano Zapata",
+    "clave_municipio": "65"
+  },
+  {
+    "nombre": "SUC EMILIANO ZAPATA VER",
+    "tipo": "transporte",
+    "coords": [
+      19.36579967,
+      -96.65666356
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Emiliano Zapata",
+    "clave_municipio": "65"
+  },
+  {
+    "nombre": "SUC LAS VIGAS DE RAMIREZ VER",
+    "tipo": "transporte",
+    "coords": [
+      19.63741804,
+      -97.09798963
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Las Vigas de Ramírez",
+    "clave_municipio": "132"
+  },
+  {
+    "nombre": "SUC NAOLINCO",
+    "tipo": "transporte",
+    "coords": [
+      19.65382699,
+      -96.87527565
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Naolinco",
+    "clave_municipio": "112"
+  },
+  {
+    "nombre": "SUC XICO VER",
+    "tipo": "transporte",
+    "coords": [
+      19.42139643,
+      -97.00738259
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xico",
+    "clave_municipio": "92"
+  },
+  {
+    "nombre": "SUC. RINCONADA, VER.",
+    "tipo": "transporte",
+    "coords": [
+      19.35575242,
+      -96.56688486
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Emiliano Zapata",
+    "clave_municipio": "65"
+  },
+  {
+    "nombre": "SUCTEOCELO VER",
+    "tipo": "transporte",
+    "coords": [
+      19.38574139,
+      -96.97325835
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Teocelo",
+    "clave_municipio": "164"
+  },
+  {
+    "nombre": "TRANSPORTES DE PAQUETERIA BETOS",
+    "tipo": "transporte",
+    "coords": [
+      19.58163002,
+      -96.93003563
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Banderilla",
+    "clave_municipio": "26"
+  },
+  {
+    "nombre": "XALAPA",
+    "tipo": "transporte",
+    "coords": [
+      19.54046713,
+      -96.92563402
+    ],
+    "estado": "VERACRUZ DE IGNACIO DE LA LLAVE",
+    "municipio": "Xalapa",
+    "clave_municipio": "87"
+  }
+]
