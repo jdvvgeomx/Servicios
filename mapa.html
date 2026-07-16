@@ -1427,15 +1427,24 @@
         map.removeLayer(layer);
         btn.classList.remove("active");
       } else {
+        const activarCapa = () => {
+          // Si la capa está vacía, hay que llenarla con los marcadores
+          if (layer.getLayers().length === 0 && allServicePoints.length > 0) {
+            // Detectar si hay un municipio activo en el buscador
+            const inputVal = document.getElementById('search-input') ? document.getElementById('search-input').value.trim() : '';
+            const filtros = inputVal ? { municipio: inputVal } : {};
+            addServicePointsToMap(allServicePoints, filtros);
+          }
+          layer.addTo(map);
+          btn.classList.add("active");
+        };
 
         if (!servicePointsLoaded) {
           initializeServicePoints().then(() => {
-            layer.addTo(map);
-            btn.classList.add("active");
+            activarCapa();
           });
         } else {
-          layer.addTo(map);
-          btn.classList.add("active");
+          activarCapa();
         }
       }
     }
@@ -1991,10 +2000,19 @@
     }
 
 
-    fetch('Nacional.geojson').then(r => r.json()).then(data => {
-      const l = L.geoJSON(data);
-      map.fitBounds(l.getBounds(), { padding: [30, 30] });
-    }).catch(e => console.warn("Error loading initial bounds", e));
+    // ✅ Inicializar automáticamente la vista Nacional al cargar la página
+    setTimeout(() => {
+      try {
+        showNational();
+      } catch (e) {
+        console.warn("Error al inicializar vista Nacional:", e);
+        // Fallback: solo ajustar bounds
+        fetch('Nacional.geojson').then(r => r.json()).then(data => {
+          const l = L.geoJSON(data);
+          map.fitBounds(l.getBounds(), { padding: [30, 30] });
+        }).catch(e => console.warn("Error loading initial bounds", e));
+      }
+    }, 300);
 
     setTimeout(() => map.invalidateSize(), 800);
   </script>
